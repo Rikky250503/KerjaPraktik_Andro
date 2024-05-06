@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/navigation_stok"
+            android:title="Stok Barang"
+            android:icon="@drawable/dus_stok" />
+
+        <item
+            android:id="@+id/navigation_transaksi"
+            android:title="Transaksi"
+            android:icon="@drawable/transaksi" />
+
+        <item
+            android:id="@+id/navigation_pemberitahuan"
+            android:title="Pemberitahuan"
+            android:icon="@drawable/pemberitahuan" />
+
+</menu>

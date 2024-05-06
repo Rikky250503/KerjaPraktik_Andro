@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Sinar Matahari Prima</string>
+    <string name="title_pesanan">Pesanan</string>
+    <string name="title_pemesananSupplier">Pemesanan Supplier</string>
+    <string name="title_pemasukkan">Pemasukkan</string>
+
+    <string name="title_pimpinan_home">Home</string>
+    <string name="title_pimpinan_statistika">Pemesanan Supplier</string>
+    <string name="title_pimpinan_stok">Stok</string>
+
+    <string name="title_gudang_stok">Stok</string>
+    <string name="title_gudang_transaksi">Transaksi</string>
+    <string name="title_gudang_pemberitahuan">Pemberitahuan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

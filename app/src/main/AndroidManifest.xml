@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ProjectKP"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.Activity.tesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.NotaPenjualanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.CustomerBaruActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.GudangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.PenjualanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.PimpinanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.RestockActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.BarangKeluarBelumDikirimActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.SupplierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.DetailBarangKeluarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.PemasukkanPenjualanFragment"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.DetailBarangMasukActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.BarangMasukActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.PemberitahuanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.StokBarangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.PilihanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.RestockActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.TambahPenjualan"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.PesananPenjualanFragment"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.LoginActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.Activity.Welcome"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/app_name">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+    </application>
+
+</manifest>
