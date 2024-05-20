@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,7 +15,7 @@
         android:theme="@style/Theme.ProjectKP"
         tools:targetApi="31">
         <activity
-            android:name=".ui.Activity.tesActivity"
+            android:name=".ui.Activity.NotaPenjualan2Activity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.NotaPenjualanActivity"
@@ -52,10 +54,7 @@
             android:name=".ui.Activity.BarangMasukActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.PemberitahuanActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.Activity.StokBarangActivity"
+            android:name=".ui.Activity.StokGudangFragment"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.PilihanActivity"
@@ -71,26 +70,26 @@
             android:exported="false" />
         <activity
             android:name=".ui.Activity.LoginActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.Activity.Welcome"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/app_name">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <!--        <activity-->
+        <!--            android:name=".MainActivity"-->
+        <!--            android:exported="true"-->
+        <!--            android:label="@string/app_name">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
     </application>
 
 </manifest>

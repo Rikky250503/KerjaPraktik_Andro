@@ -36,17 +36,41 @@
             />
 
         <TextView
-            android:id="@+id/tv_nama_barang_gudang"
+            android:id="@+id/tv_space1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Seng Atap 6 kaki"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="#4A4545"
+            android:layout_marginTop="65dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_nama_barang_gudang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Semen Tiga Roda Portland Composite Cement"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#4A4545"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_nama_gudang"
-            app:layout_constraintStart_toStartOf="@+id/box_stok_gudang"
+            app:layout_constraintStart_toStartOf="@id/tv_space1"
+            app:layout_constraintEnd_toStartOf="@id/tv_space" />
+
+        <TextView
+            android:id="@+id/tv_space"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#4A4545"
+            android:layout_marginTop="60dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_stok_gudang"
             />
 
         <TextView
@@ -76,4 +100,5 @@
             app:layout_constraintTop_toTopOf="@id/tv_stok_gudang"
             app:layout_constraintEnd_toEndOf="@id/box_stok_gudang"
             />
+
     </androidx.constraintlayout.widget.ConstraintLayout>

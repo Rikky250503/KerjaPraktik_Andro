@@ -6,17 +6,30 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projectkp.R;
-import com.example.projectkp.databinding.FragmentPesananPenjualanBinding;
-import com.example.projectkp.databinding.FragmentPesananSeng1Binding;
+import com.example.projectkp.adapter.BarangKeluarAdapter;
+import com.example.projectkp.api.APIRequestData;
+import com.example.projectkp.api.RetroServer;
+import com.example.projectkp.response.DataKeluar;
+import com.example.projectkp.response.KeluarResponse;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PesananPenjualanFragment extends Fragment {
     FloatingActionButton mAddNotaFab,mAddSupplierFab,mAddCustomerFab;
@@ -24,6 +37,11 @@ public class PesananPenjualanFragment extends Fragment {
     ExtendedFloatingActionButton mAddFab;
     TextView addNotaFabActionText,addSupplierFabActionText,addCustomerFabActionText;
     Boolean isAllFabsVisible;
+
+    RecyclerView rv_pesanan_penjualan;
+    private BarangKeluarAdapter adBarangKeluar;
+    private RecyclerView.LayoutManager lmBarang;
+    private List<DataKeluar> ListBarangKeluar = new ArrayList<>();
 
 
 //    // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +67,7 @@ public class PesananPenjualanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mAddFab = getView().findViewById(R.id.logo_fab_pesanan);
 
         mAddNotaFab = getView().findViewById(R.id.fab_add_notapenjualan);
@@ -67,6 +86,15 @@ public class PesananPenjualanFragment extends Fragment {
         addCustomerFabActionText.setVisibility(View.GONE);
 
         isAllFabsVisible = false;
+
+        rv_pesanan_penjualan= view.findViewById(R.id.rv_pesanan);
+
+        lmBarang = new LinearLayoutManager(requireContext());
+        rv_pesanan_penjualan.setLayoutManager(lmBarang);
+        adBarangKeluar = new BarangKeluarAdapter(requireContext(), ListBarangKeluar);
+        rv_pesanan_penjualan.setAdapter(adBarangKeluar);
+
+        retrieveBarangKeluar();
 
         mAddFab.shrink();
         mAddFab.setOnClickListener(new View.OnClickListener() {
@@ -136,10 +164,33 @@ public class PesananPenjualanFragment extends Fragment {
         });
     }
 
+    public void retrieveBarangKeluar(){
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+        Call<KeluarResponse> proses = ARD.ardKeluar();
+
+        proses.enqueue(new Callback<KeluarResponse>() {
+            @Override
+            public void onResponse(Call<KeluarResponse> call, Response<KeluarResponse> response) {
+                if (response.isSuccessful() && response.body() != null)
+                {
+                    ListBarangKeluar = response.body().getData();
+
+                    adBarangKeluar.setData(ListBarangKeluar);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KeluarResponse> call, Throwable t) {
+                Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_pesanan_penjualan, container, false);
     }
 }

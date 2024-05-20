@@ -27,6 +27,10 @@ public class GudangActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        try{
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
         setContentView(R.layout.activity_gudang);
 
         judulBarGudang = getSupportActionBar();
@@ -38,17 +42,14 @@ public class GudangActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment FrJual;
-                if(item.getItemId()==R.id.nav_penjualan_pesanan){
+                if(item.getItemId()==R.id.navigation_stok){
                     bukaFragment(new StokGudangFragment());
-                    judulBarGudang.setTitle("Stok");
                 }
-                else if (item.getItemId()==R.id.nav_penjualan_pemesananSupplier){
+                else if (item.getItemId()==R.id.navigation_transaksi){
                     bukaFragment(new TransaksiGudangFragment());
-                    judulBarGudang.setTitle("Transaksi");
                 }
                 else{
                     bukaFragment(new PemberitahuanGudangFragment());
-                    judulBarGudang.setTitle("Pemberitahuan");
                 }
                 return true;
 //                switch (item.getItemId())
@@ -72,6 +73,7 @@ public class GudangActivity extends AppCompatActivity {
         });
 
 
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -79,11 +81,11 @@ public class GudangActivity extends AppCompatActivity {
         });
     }
 
-    private void bukaFragment(Fragment FrJual)
+    private void bukaFragment(Fragment FrGudang)
     {
         FragmentManager Fm = getSupportFragmentManager();
         FragmentTransaction Ft = Fm.beginTransaction();
-        Ft.replace(R.id.fl_penjualan, FrJual);
+        Ft.replace(R.id.fl_gudang, FrGudang);
         Ft.commit();
     }
 }

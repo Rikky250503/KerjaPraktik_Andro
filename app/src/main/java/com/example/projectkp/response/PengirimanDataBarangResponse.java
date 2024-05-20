@@ -2,12 +2,13 @@ package com.example.projectkp.response;
 
 import java.util.List;
 
-public class PengirimanResponse {
-    private List<DataItem> data;
+public class PengirimanDataBarangResponse {
+
+    private List<DataBarang> data;
     private String message;
     private boolean status;
 
-    public List<DataItem> getData(){
+    public List<DataBarang> getDataBarang() {
         return data;
     }
 

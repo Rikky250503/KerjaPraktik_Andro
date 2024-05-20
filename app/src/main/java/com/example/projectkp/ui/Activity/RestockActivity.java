@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +59,8 @@ public class RestockActivity extends AppCompatActivity {
 //                else{
 //                    tambahRestock();
 //                }
+                Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
+                startActivity(intent);
             }
         });
 

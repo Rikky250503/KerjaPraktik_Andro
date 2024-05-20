@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +54,10 @@ public class SupplierActivity extends AppCompatActivity {
 //                else{
 //                    tambahSupplier();
 //                }
+
+                Toast.makeText(SupplierActivity.this, "Supplier baru telah disimpan", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SupplierActivity.this, PenjualanActivity.class);
+                startActivity(intent);
             }
         });
 

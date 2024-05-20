@@ -11,17 +11,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import com.example.projectkp.R;
+import com.google.gson.Gson;
 
 public class PenjualanActivity extends AppCompatActivity {
+
+    private TextView tv_Test_token;
+
     private BottomNavigationView bnvPenjualan;
     private ActionBar judulBarPenjualan;
 
@@ -29,28 +38,37 @@ public class PenjualanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        try{
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
         setContentView(R.layout.activity_penjualan);
 
         judulBarPenjualan = getSupportActionBar();
-        judulBarPenjualan.setTitle("Penjualan");
         bukaFragment(new PesananPenjualanFragment());
 
+        tv_Test_token = findViewById(R.id.tv_test_token);
         bnvPenjualan = findViewById(R.id.bnv_penjualan);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String TokenJson = sharedPreferences.getString("Token", null);
+
+
+        tv_Test_token.setText(TokenJson);
+
         bnvPenjualan.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment FrJual;
                 if(item.getItemId()==R.id.nav_penjualan_pesanan){
                     bukaFragment(new PesananPenjualanFragment());
-                    judulBarPenjualan.setTitle("Orders");
                 }
                 else if (item.getItemId()==R.id.nav_penjualan_pemesananSupplier){
                     bukaFragment(new RestockFragment());
-                    judulBarPenjualan.setTitle("Supplier");
                 }
                 else{
                     bukaFragment(new PemasukkanPenjualanFragment());
-                    judulBarPenjualan.setTitle("Pemasukkan");
                 }
                 return true;
 //                switch (item.getItemId())
