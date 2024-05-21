@@ -10,15 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkp.R;
-import com.example.projectkp.response.DataKeluar;
+import com.example.projectkp.response.DataTampilKeluar;
 
 import java.util.List;
 
 public class BarangKeluarAdapter  extends RecyclerView.Adapter<BarangKeluarAdapter.VHbarang> {
     private Context ctx;
-    private List<DataKeluar> ListBarang;
+    private List<DataTampilKeluar> ListBarang;
 
-    public BarangKeluarAdapter(Context ctx,List<DataKeluar> listBarang){
+    public BarangKeluarAdapter(Context ctx,List<DataTampilKeluar> listBarang){
         this.ctx = ctx;
         this.ListBarang = listBarang;
     }
@@ -32,18 +32,19 @@ public class BarangKeluarAdapter  extends RecyclerView.Adapter<BarangKeluarAdapt
 
     @Override
     public void onBindViewHolder(@NonNull BarangKeluarAdapter.VHbarang holder, int position) {
-        DataKeluar MN = ListBarang.get(position);
+        DataTampilKeluar MN = ListBarang.get(position);
         holder.tvIdPemesan.setText(MN.getIdBarangKeluar());
         holder.tvNoInvoice.setText(MN.getNomorInvoiceKeluar());
-        holder.tvNamaPT.setText(String.valueOf(MN.getIdCustomer()));
+        holder.tvNamaPT.setText(String.valueOf(MN.getNamaPemesan()));
         holder.tvTanggal.setText(String.valueOf(MN.getTanggalKeluar()));
-        if(MN.getIdStatus() == 1) {
-            holder.tvStatus.setText(String.valueOf("Menunggu Dikirim"));
-        }else if(MN.getIdStatus() == 2) {
-            holder.tvStatus.setText(String.valueOf("Pesanan Dikirim"));
-        }if(MN.getIdStatus() == 3) {
-            holder.tvStatus.setText(String.valueOf("Pesanan Diterima"));
-        }
+        holder.tvStatus.setText(MN.getNamaStatus());
+//        if(MN.getIdStatus() == 1) {
+//            holder.tvStatus.setText(String.valueOf("Menunggu Dikirim"));
+//        }else if(MN.getIdStatus() == 2) {
+//            holder.tvStatus.setText(String.valueOf("Pesanan Dikirim"));
+//        }if(MN.getIdStatus() == 3) {
+//            holder.tvStatus.setText(String.valueOf("Pesanan Diterima"));
+//        }
     }
 
     @Override
@@ -51,7 +52,7 @@ public class BarangKeluarAdapter  extends RecyclerView.Adapter<BarangKeluarAdapt
         return ListBarang.size();
     }
 
-    public void setData(List<DataKeluar> newData){
+    public void setData(List<DataTampilKeluar> newData){
         ListBarang.clear();
         if (newData != null){
             ListBarang.addAll(newData);

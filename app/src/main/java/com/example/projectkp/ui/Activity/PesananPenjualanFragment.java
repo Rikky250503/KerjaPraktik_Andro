@@ -19,8 +19,8 @@ import com.example.projectkp.R;
 import com.example.projectkp.adapter.BarangKeluarAdapter;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
-import com.example.projectkp.response.DataKeluar;
-import com.example.projectkp.response.KeluarResponse;
+import com.example.projectkp.response.DataTampilKeluar;
+import com.example.projectkp.response.TampilKeluarResponse;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -41,7 +41,7 @@ public class PesananPenjualanFragment extends Fragment {
     RecyclerView rv_pesanan_penjualan;
     private BarangKeluarAdapter adBarangKeluar;
     private RecyclerView.LayoutManager lmBarang;
-    private List<DataKeluar> ListBarangKeluar = new ArrayList<>();
+    private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
 
 
 //    // TODO: Rename parameter arguments, choose names that match
@@ -166,11 +166,11 @@ public class PesananPenjualanFragment extends Fragment {
 
     public void retrieveBarangKeluar(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<KeluarResponse> proses = ARD.ardKeluar();
+        Call<TampilKeluarResponse> proses = ARD.ardKeluar();
 
-        proses.enqueue(new Callback<KeluarResponse>() {
+        proses.enqueue(new Callback<TampilKeluarResponse>() {
             @Override
-            public void onResponse(Call<KeluarResponse> call, Response<KeluarResponse> response) {
+            public void onResponse(Call<TampilKeluarResponse> call, Response<TampilKeluarResponse> response) {
                 if (response.isSuccessful() && response.body() != null)
                 {
                     ListBarangKeluar = response.body().getData();
@@ -180,7 +180,7 @@ public class PesananPenjualanFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<KeluarResponse> call, Throwable t) {
+            public void onFailure(Call<TampilKeluarResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
             }
         });
