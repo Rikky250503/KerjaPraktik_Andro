@@ -2,6 +2,7 @@ package com.example.projectkp.ui.Activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -36,6 +37,8 @@ public class GudangActivity extends AppCompatActivity {
         judulBarGudang = getSupportActionBar();
         judulBarGudang.setTitle("Gudang");
         bukaFragment(new StokGudangFragment());
+
+
 
         bnvGudang = findViewById(R.id.bnv_gudang);
         bnvGudang.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

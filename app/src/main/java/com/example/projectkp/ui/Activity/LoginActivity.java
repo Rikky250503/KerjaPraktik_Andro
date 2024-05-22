@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -45,6 +46,14 @@ public class LoginActivity extends AppCompatActivity {
         et_Username = findViewById(R.id.et_username);
         et_Password =findViewById(R.id.et_pass);
         btn_login = findViewById(R.id.btn_login);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                moveTaskToBack(true);
+                finish();
+            }
+        });
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -29,7 +29,6 @@ import com.google.gson.Gson;
 
 public class PenjualanActivity extends AppCompatActivity {
 
-    private TextView tv_Test_token;
 
     private BottomNavigationView bnvPenjualan;
     private ActionBar judulBarPenjualan;
@@ -47,7 +46,7 @@ public class PenjualanActivity extends AppCompatActivity {
         judulBarPenjualan = getSupportActionBar();
         bukaFragment(new PesananPenjualanFragment());
 
-        tv_Test_token = findViewById(R.id.tv_test_token);
+
         bnvPenjualan = findViewById(R.id.bnv_penjualan);
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
@@ -55,7 +54,6 @@ public class PenjualanActivity extends AppCompatActivity {
         String TokenJson = sharedPreferences.getString("Token", null);
 
 
-        tv_Test_token.setText(TokenJson);
 
         bnvPenjualan.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

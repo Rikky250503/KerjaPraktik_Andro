@@ -1,5 +1,8 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.projectkp.R;
@@ -21,6 +26,7 @@ import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataBarang;
 
 import com.example.projectkp.response.PengirimanDataBarangResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +48,8 @@ public class StokGudangFragment extends Fragment {
 //    private String mParam2;
 
     RecyclerView rv_stok_gudang;
+
+    private ImageView ivLogoutGudang;
     private BarangAdapter adBarang;
     private RecyclerView.LayoutManager lmBarang;
     private List<DataBarang> ListBarang = new ArrayList<>();
@@ -71,6 +79,7 @@ public class StokGudangFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rv_stok_gudang = view.findViewById(R.id.rv_stok_gudang);
+        ivLogoutGudang = view.findViewById(R.id.iv_logout_stok_barang);
 
         lmBarang = new LinearLayoutManager(requireContext());
         rv_stok_gudang.setLayoutManager(lmBarang);
@@ -78,6 +87,22 @@ public class StokGudangFragment extends Fragment {
         rv_stok_gudang.setAdapter(adBarang);
 
         retrieveBarang();
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String userJson = sharedPreferences.getString("Jabatan", null);
+        ivLogoutGudang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("Token");
+                editor.remove("Jabatan");
+                editor.apply();
+                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     public void retrieveBarang(){

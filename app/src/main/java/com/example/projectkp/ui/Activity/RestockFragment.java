@@ -1,28 +1,28 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.projectkp.R;
+import com.google.android.material.button.MaterialButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RestockFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class RestockFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
+    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy;
+    Context ctx;
+    EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
+    MaterialButton btnNextRestock;
     private String mParam1;
     private String mParam2;
 
@@ -30,36 +30,58 @@ public class RestockFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RestockFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RestockFragment newInstance(String param1, String param2) {
-        RestockFragment fragment = new RestockFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        etNoInvoiceMasuk = getView().findViewById(R.id.et_invoice_restock);
+        etTanggalMasuk = getView().findViewById(R.id.et_tgl_restock);
+        etNamaSupplier = getView().findViewById(R.id.et_namaSupplier_restock);
+        etCreatedBy = getView().findViewById(R.id.et_createdBy_restock);
+
+        btnNextRestock = getView().findViewById(R.id.btn_next_restock);
+
+        btnNextRestock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
+                tanggalMasuk = etTanggalMasuk.getText().toString();
+                namaSupplier = etNamaSupplier.getText().toString();
+                createdBy = etCreatedBy.getText().toString();
+
+                if(noInvoiceMasuk.trim().isEmpty()){
+                    etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
+                }
+                else if(tanggalMasuk.trim().isEmpty()){
+                    etTanggalMasuk.setError("Tanggal Masuk tidak boleh Kosong");
+                }
+                else if(namaSupplier.trim().isEmpty()){
+                    etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
+                }
+                else if(createdBy.trim().isEmpty()){
+                    etCreatedBy.setError("Created by tidak boleh Kosong");
+                }
+                else{
+//                    tambahRestock();
+                    Intent intent = new Intent(getActivity(), RestockActivity2.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_restock, container, false);
     }

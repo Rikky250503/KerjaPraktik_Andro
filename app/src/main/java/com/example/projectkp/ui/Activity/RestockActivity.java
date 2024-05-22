@@ -15,60 +15,62 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectkp.R;
+import com.google.android.material.button.MaterialButton;
 
 public class RestockActivity extends AppCompatActivity {
-
-    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy;
-    Context ctx;
-    EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
-    Button btnNextRestock;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_restock);
-
-        etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
-        etTanggalMasuk = findViewById(R.id.et_tgl_restock);
-        etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
-        etCreatedBy = findViewById(R.id.et_createdBy_restock);
-
-        btnNextRestock = findViewById(R.id.btn_next_restock);
-
-        btnNextRestock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
-                tanggalMasuk = etTanggalMasuk.getText().toString();
-                namaSupplier = etNamaSupplier.getText().toString();
-                createdBy = etCreatedBy.getText().toString();
-
-                if(noInvoiceMasuk.trim().isEmpty()){
-                    etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
-                }
-                else if(tanggalMasuk.trim().isEmpty()){
-                    etTanggalMasuk.setError("Tanggal Masuk tidak boleh Kosong");
-                }
-                else if(namaSupplier.trim().isEmpty()){
-                    etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
-                }
-                else if(createdBy.trim().isEmpty()){
-                    etCreatedBy.setError("Created by tidak boleh Kosong");
-                }
-//                else{
-//                    tambahRestock();
+//
+//    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy;
+//    Context ctx;
+//    EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
+//    MaterialButton btnNextRestock;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        EdgeToEdge.enable(this);
+//        setContentView(R.layout.activity_restock);
+//
+//        etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
+//        etTanggalMasuk = findViewById(R.id.et_tgl_restock);
+//        etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
+//        etCreatedBy = findViewById(R.id.et_createdBy_restock);
+//
+//        btnNextRestock = findViewById(R.id.btn_next_restock);
+//
+//        btnNextRestock.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
+//                tanggalMasuk = etTanggalMasuk.getText().toString();
+//                namaSupplier = etNamaSupplier.getText().toString();
+//                createdBy = etCreatedBy.getText().toString();
+//
+//                if(noInvoiceMasuk.trim().isEmpty()){
+//                    etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
 //                }
-                Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
-                startActivity(intent);
-            }
-        });
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+//                else if(tanggalMasuk.trim().isEmpty()){
+//                    etTanggalMasuk.setError("Tanggal Masuk tidak boleh Kosong");
+//                }
+//                else if(namaSupplier.trim().isEmpty()){
+//                    etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
+//                }
+//                else if(createdBy.trim().isEmpty()){
+//                    etCreatedBy.setError("Created by tidak boleh Kosong");
+//                }
+//              else{
+////                    tambahRestock();
+//                Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
+//                startActivity(intent);
+//               }
+//
+//            }
+//        });
+//
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
     }
 //    private void tambahRestock(){
 //        RequestData ARD = RetroServer.konekRetrofit().create(RequestData.class);
@@ -91,4 +93,4 @@ public class RestockActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-}
+//}

@@ -1,6 +1,8 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.example.projectkp.response.DataTampilKeluar;
 import com.example.projectkp.response.TampilKeluarResponse;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,8 @@ import retrofit2.Response;
 public class PesananPenjualanFragment extends Fragment {
     FloatingActionButton mAddNotaFab,mAddSupplierFab,mAddCustomerFab;
 
+    private ImageView ivLogoutPesananPenjualanFragment;
+
     ExtendedFloatingActionButton mAddFab;
     TextView addNotaFabActionText,addSupplierFabActionText,addCustomerFabActionText;
     Boolean isAllFabsVisible;
@@ -44,29 +50,11 @@ public class PesananPenjualanFragment extends Fragment {
     private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
 
 
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
-//    public PesananPenjualanFragment newInstance(String param1, String param2) {
-//        // Required empty public constructor
-//        PesananPenjualanFragment fragment = new PesananPenjualanFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ivLogoutPesananPenjualanFragment = view.findViewById(R.id.iv_logout_pesanan_penjualan_fragment);
 
         mAddFab = getView().findViewById(R.id.logo_fab_pesanan);
 
@@ -160,6 +148,23 @@ public class PesananPenjualanFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(),CustomerBaruActivity.class));
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String userJson = sharedPreferences.getString("Jabatan", null);
+
+        ivLogoutPesananPenjualanFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("Token");
+                editor.remove("Jabatan");
+                editor.apply();
+                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }

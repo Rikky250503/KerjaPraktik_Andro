@@ -60,7 +60,7 @@
             android:name=".ui.Activity.PilihanActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.RestockActivity"
+            android:name=".ui.Activity.RestockFragment"
             android:exported="false" />
         <activity
             android:name=".ui.TambahPenjualan"
