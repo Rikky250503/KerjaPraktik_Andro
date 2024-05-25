@@ -2,6 +2,7 @@ package com.example.projectkp.ui.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,62 +17,72 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectkp.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 public class RestockActivity extends AppCompatActivity {
-//
-//    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy;
-//    Context ctx;
-//    EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
-//    MaterialButton btnNextRestock;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
-//        setContentView(R.layout.activity_restock);
-//
-//        etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
-//        etTanggalMasuk = findViewById(R.id.et_tgl_restock);
-//        etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
-//        etCreatedBy = findViewById(R.id.et_createdBy_restock);
-//
-//        btnNextRestock = findViewById(R.id.btn_next_restock);
-//
-//        btnNextRestock.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
-//                tanggalMasuk = etTanggalMasuk.getText().toString();
-//                namaSupplier = etNamaSupplier.getText().toString();
-//                createdBy = etCreatedBy.getText().toString();
-//
-//                if(noInvoiceMasuk.trim().isEmpty()){
-//                    etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
-//                }
-//                else if(tanggalMasuk.trim().isEmpty()){
-//                    etTanggalMasuk.setError("Tanggal Masuk tidak boleh Kosong");
-//                }
-//                else if(namaSupplier.trim().isEmpty()){
-//                    etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
-//                }
-//                else if(createdBy.trim().isEmpty()){
-//                    etCreatedBy.setError("Created by tidak boleh Kosong");
-//                }
-//              else{
-////                    tambahRestock();
-//                Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
-//                startActivity(intent);
-//               }
-//
-//            }
-//        });
-//
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
+    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy;
+    Context ctx;
+    EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
+    MaterialButton btnNextRestock;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        try{
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_restock);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String TokenJson = sharedPreferences.getString("Token", null);
+
+        etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
+        etTanggalMasuk = findViewById(R.id.et_tgl_restock);
+        etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
+        etCreatedBy = findViewById(R.id.et_createdBy_restock);
+
+        btnNextRestock = findViewById(R.id.btn_next_restock);
+
+        btnNextRestock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
+                tanggalMasuk = etTanggalMasuk.getText().toString();
+                namaSupplier = etNamaSupplier.getText().toString();
+                createdBy = etCreatedBy.getText().toString();
+
+                if(noInvoiceMasuk.trim().isEmpty()){
+                    etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
+                }
+                else if(tanggalMasuk.trim().isEmpty()){
+                    etTanggalMasuk.setError("Tanggal Masuk tidak boleh Kosong");
+                }
+                else if(namaSupplier.trim().isEmpty()){
+                    etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
+                }
+                else if(createdBy.trim().isEmpty()){
+                    etCreatedBy.setError("Created by tidak boleh Kosong");
+                }
+              else{
+//                    tambahRestock();
+                Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
+                startActivity(intent);
+               }
+
+            }
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
+
 //    private void tambahRestock(){
 //        RequestData ARD = RetroServer.konekRetrofit().create(RequestData.class);
 //        Call<ModelResponse> proses = ARD.ardCreate(noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy);
@@ -93,4 +104,4 @@ public class RestockActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-//}
+}

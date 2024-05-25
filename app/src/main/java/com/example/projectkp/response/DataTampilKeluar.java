@@ -6,7 +6,8 @@ public class DataTampilKeluar {
 
 	@SerializedName("nomor_invoice_keluar")
 	private String nomorInvoiceKeluar;
-
+	@SerializedName("id_customer")
+	String id_customer;
 	@SerializedName("nama_status")
 	private String namaStatus;
 
@@ -17,7 +18,7 @@ public class DataTampilKeluar {
 	private String namaPemesan;
 
 	@SerializedName("id_barang_keluar")
-	private String idBarangKeluar;
+	private String id_barang_keluar;
 
 	public String getNomorInvoiceKeluar(){
 		return nomorInvoiceKeluar;
@@ -31,11 +32,14 @@ public class DataTampilKeluar {
 		return tanggalKeluar;
 	}
 
+	public String getId_Customer() {
+		return id_customer;
+	}
 	public String getNamaPemesan(){
 		return namaPemesan;
 	}
 
 	public String getIdBarangKeluar(){
-		return idBarangKeluar;
+		return id_barang_keluar;
 	}
 }

@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,7 +24,7 @@ import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataBarang;
 
-import com.example.projectkp.response.PengirimanDataBarangResponse;
+import com.example.projectkp.response.TampilBarangResponse;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -107,11 +106,11 @@ public class StokGudangFragment extends Fragment {
 
     public void retrieveBarang(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<PengirimanDataBarangResponse> proses = ARD.ardRetrieve();
+        Call<TampilBarangResponse> proses = ARD.ardRetrieveBarang();
 
-        proses.enqueue(new Callback<PengirimanDataBarangResponse>() {
+        proses.enqueue(new Callback<TampilBarangResponse>() {
             @Override
-            public void onResponse(Call<PengirimanDataBarangResponse> call, Response<PengirimanDataBarangResponse> response) {
+            public void onResponse(Call<TampilBarangResponse> call, Response<TampilBarangResponse> response) {
                 if (response.isSuccessful() && response.body() != null)
                 {
                     ListBarang = response.body().getDataBarang();
@@ -126,7 +125,7 @@ public class StokGudangFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<PengirimanDataBarangResponse> call, Throwable t) {
+            public void onFailure(Call<TampilBarangResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
             }
         });

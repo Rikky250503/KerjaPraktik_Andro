@@ -2,7 +2,7 @@ package com.example.projectkp.response;
 
 import java.util.List;
 
-public class PengirimanDataBarangResponse {
+public class TampilBarangResponse {
 
     private List<DataBarang> data;
     private String message;

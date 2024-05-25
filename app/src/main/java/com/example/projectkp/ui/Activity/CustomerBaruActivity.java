@@ -14,14 +14,27 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectkp.R;
+import com.example.projectkp.api.APIRequestData;
+import com.example.projectkp.api.RetroServer;
+import com.example.projectkp.response.DataCustomer;
+import com.example.projectkp.response.TambahCustomerResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CustomerBaruActivity extends AppCompatActivity {
 
     EditText etNamaCustomer, etAlamatCustomer, etNoHpCustomer;
+    String nama_pemesan,alamat_pemesan,no_hp_pemesan;
     Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try{
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_customer_baru);
@@ -34,21 +47,19 @@ public class CustomerBaruActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String customerName = etNamaCustomer.getText().toString().trim();
-                String customerAddress = etAlamatCustomer.getText().toString().trim();
-                String customerPhone = etNoHpCustomer.getText().toString().trim();
+                 nama_pemesan = etNamaCustomer.getText().toString().trim();
+                 alamat_pemesan = etAlamatCustomer.getText().toString().trim();
+                 no_hp_pemesan = etNoHpCustomer.getText().toString().trim();
 
-                if (customerName.isEmpty()) {
+                if (nama_pemesan.isEmpty()) {
                     Toast.makeText(CustomerBaruActivity.this, "Nama Customer belum diisi", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                if (customerAddress.isEmpty()) {
+                if (alamat_pemesan.isEmpty()) {
                     Toast.makeText(CustomerBaruActivity.this, "Alamat belum diisi", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                if (customerPhone.isEmpty()) {
+                if (no_hp_pemesan.isEmpty()) {
                     Toast.makeText(CustomerBaruActivity.this, "No Telp belum diisi", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -63,6 +74,27 @@ public class CustomerBaruActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+    }
+    private void tambahcustomer(){
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+        ARD.ardTambahCustomer(nama_pemesan,alamat_pemesan,no_hp_pemesan).enqueue(new Callback<TambahCustomerResponse>() {
+            @Override
+            public void onResponse(Call<TambahCustomerResponse> call, Response<TambahCustomerResponse> response) {
+                if(response.isSuccessful() && response.body() != null)
+                {
+                    DataCustomer dataCustomer = response.body().getData();
+                    Toast.makeText(CustomerBaruActivity.this,"Berhasil menambah Customer: " + response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(CustomerBaruActivity.this, "Gagal menambah customer, respon tidak berhasil atau body kosong", Toast.LENGTH_SHORT).show();
+                }
+                finish();
+            }
+            @Override
+            public void onFailure(Call<TambahCustomerResponse> call, Throwable t) {
+                Toast.makeText(CustomerBaruActivity.this, "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

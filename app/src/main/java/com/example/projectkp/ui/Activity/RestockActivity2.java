@@ -64,7 +64,7 @@ public class RestockActivity2 extends AppCompatActivity {
 //                    Kuantitas = Integer.parseInt(KuantitasString);
 //                    hargaSatuan = Double.parseDouble(hargaSatuanString);
 //                    tambahRestock();
-                    Intent intent = new Intent(RestockActivity2.this,PesananPenjualanFragment.class);
+                    Intent intent = new Intent(RestockActivity2.this,PenjualanActivity.class);
                     startActivity(intent);
                 }
             }

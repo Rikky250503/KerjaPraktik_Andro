@@ -23,8 +23,6 @@ public class RestockFragment extends Fragment {
     Context ctx;
     EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
     MaterialButton btnNextRestock;
-    private String mParam1;
-    private String mParam2;
 
     public RestockFragment() {
         // Required empty public constructor
