@@ -1,11 +1,11 @@
 package com.example.projectkp.response;
 
 public class TambahBKResponse{
-	private DataBK dataBK;
+	private DataBK data;
 	private String message;
 
 	public DataBK getData(){
-		return dataBK;
+		return data;
 	}
 
 	public String getMessage(){

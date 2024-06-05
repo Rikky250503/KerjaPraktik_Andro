@@ -90,10 +90,6 @@ public class NotaPenjualanActivity extends AppCompatActivity {
                 }
               else{
                     tambahNota();
-                    retrieveBarangKeluar();
-
-
-                    Log.d("ID", "idinvoicekeluar = " + idinvoice_keluar);
 //                    Intent intent = new Intent(NotaPenjualanActivity.this, NotaPenjualan2Activity.class);
 //                    startActivity(intent);
                }
@@ -110,15 +106,19 @@ public class NotaPenjualanActivity extends AppCompatActivity {
          private void tambahNota(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TambahBKResponse> proses = ARD.ardTambahBK(tanggalNota,noInvoiceNota,idCustomer_nota);
-             Log.d("Tanggal", tanggalNota);
-             Log.d("noInvoice", noInvoiceNota);
-             Log.d("ID", idCustomer_nota);
 
         proses.enqueue(new Callback<TambahBKResponse>() {
             @Override
             public void onResponse(Call<TambahBKResponse> call, Response<TambahBKResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    Intent intent = new Intent(NotaPenjualanActivity.this, NotaPenjualan2Activity.class);
+                    intent.putExtra("id_barang_keluar", response.body().getData().getId_barang_keluar());
+                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
+                    Log.d("Tanggal", tanggalNota);
+                    Log.d("noInvoice", noInvoiceNota);
+                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(NotaPenjualanActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                 } else {
                     Toast.makeText(NotaPenjualanActivity.this, "Gagal menambah nota penjualan ", Toast.LENGTH_SHORT).show();
                 }
@@ -132,31 +132,5 @@ public class NotaPenjualanActivity extends AppCompatActivity {
         });
     }
 
-    private void retrieveBarangKeluar(){
-        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilKeluarResponse> proses = ARD.ardKeluar();
-
-        proses.enqueue(new Callback<TampilKeluarResponse>() {
-            @Override
-            public void onResponse(Call<TampilKeluarResponse> call, Response<TampilKeluarResponse> response) {
-                if (response.isSuccessful() && response.body() != null)
-                {
-                    ListBarangKeluar = response.body().getData();
-                    for (DataTampilKeluar item : ListBarangKeluar) {
-
-                        // Log other fields if needed
-                    }
-                    Log.d("TES", "id = " + idinvoice_keluar);
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TampilKeluarResponse> call, Throwable t) {
-                Toast.makeText(NotaPenjualanActivity.this, "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 }
