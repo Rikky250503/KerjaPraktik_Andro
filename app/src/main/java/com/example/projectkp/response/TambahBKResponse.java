@@ -2,6 +2,7 @@ package com.example.projectkp.response;
 
 public class TambahBKResponse{
 	private DataBK data;
+
 	private String message;
 
 	public DataBK getData(){

@@ -10,13 +10,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.projectkp.R;
-import com.example.projectkp.adapter.CustomerAdapter;
+import com.example.projectkp.adapter.SupplierAdapter;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
-import com.example.projectkp.response.DataCustomer;
-import com.example.projectkp.response.TampilCustomerResponse;
+import com.example.projectkp.response.DataSupplier;
+import com.example.projectkp.response.TampilSupplierResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +24,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TampilCustomerActivity extends AppCompatActivity {
+public class TampilSupplierActivity extends AppCompatActivity {
 
-    RecyclerView rv_customer;
-    private CustomerAdapter adCustomer;
-    private RecyclerView.LayoutManager lmCustomer;
-    private List<DataCustomer> ListCustomer = new ArrayList<>();
+    RecyclerView rv_supplier;
+    private SupplierAdapter adSupplier;
+    private RecyclerView.LayoutManager lmSupplier;
+    private List<DataSupplier> ListSupplier = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +40,16 @@ public class TampilCustomerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        setContentView(R.layout.activity_tampil_customer);
+        setContentView(R.layout.activity_tampil_supplier);
 
-        rv_customer= findViewById(R.id.rv_customer);
+        rv_supplier= findViewById(R.id.rv_supplier);
 
-        lmCustomer = new LinearLayoutManager(this);
-        rv_customer.setLayoutManager(lmCustomer);
-        adCustomer = new CustomerAdapter(this, ListCustomer);
-        rv_customer.setAdapter(adCustomer);
+        lmSupplier = new LinearLayoutManager(this);
+        rv_supplier.setLayoutManager(lmSupplier);
+        adSupplier = new SupplierAdapter(this, ListSupplier);
+        rv_supplier.setAdapter(adSupplier);
 
-        retrieveCustomer();
-
+        retrieveSupplier();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -59,23 +57,22 @@ public class TampilCustomerActivity extends AppCompatActivity {
             return insets;
         });
     }
-
-    private void retrieveCustomer() {
+    private void retrieveSupplier() {
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilCustomerResponse> proses = ARD.ardRetrieveCustomer();
+        Call<TampilSupplierResponse> proses = ARD.ardRetrieveSupplier();
 
-        proses.enqueue(new Callback<TampilCustomerResponse>() {
+        proses.enqueue(new Callback<TampilSupplierResponse>() {
             @Override
-            public void onResponse(Call<TampilCustomerResponse> call, Response<TampilCustomerResponse> response) {
+            public void onResponse(Call<TampilSupplierResponse> call, Response<TampilSupplierResponse> response) {
                 if (response.isSuccessful() && response.body() != null)
                 {
-                    ListCustomer = response.body().getData();
-                    adCustomer.setData(ListCustomer);
+                    ListSupplier = response.body().getData();
+                    adSupplier.setData(ListSupplier);
                 }
             }
             @Override
-            public void onFailure(Call<TampilCustomerResponse> call, Throwable t) {
-                Toast.makeText(TampilCustomerActivity.this, "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<TampilSupplierResponse> call, Throwable t) {
+                Toast.makeText(TampilSupplierActivity.this, "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
             }
         });
     }

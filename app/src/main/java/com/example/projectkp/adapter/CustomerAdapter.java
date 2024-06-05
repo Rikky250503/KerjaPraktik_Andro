@@ -76,7 +76,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.VHCust
             tvNama_Pemesan  = itemView.findViewById(R.id.tv_nama_customer);
             tvAlamat_Pemesan = itemView.findViewById(R.id.tv_alamat_customer);
             tv_no_hp_pemesan = itemView.findViewById(R.id.tv_no_hp_customer);
-
         }
     }
 }

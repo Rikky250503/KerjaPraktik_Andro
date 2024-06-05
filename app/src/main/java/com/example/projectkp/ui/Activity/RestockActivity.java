@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,13 +17,22 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectkp.R;
+import com.example.projectkp.api.APIRequestData;
+import com.example.projectkp.api.RetroServer;
+import com.example.projectkp.response.TambahBMResponse;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RestockActivity extends AppCompatActivity {
 
-    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy;
+    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy,id_supplier_restock;
+    Double total;
     Context ctx;
+    ImageView ivCariSupplierRestock;
     EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
     MaterialButton btnNextRestock;
 
@@ -44,6 +54,20 @@ public class RestockActivity extends AppCompatActivity {
         etTanggalMasuk = findViewById(R.id.et_tgl_restock);
         etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
         etCreatedBy = findViewById(R.id.et_createdBy_restock);
+        ivCariSupplierRestock = findViewById(R.id.iv_cari_supplier_restock);
+
+        Intent intent = getIntent();
+        id_supplier_restock = intent.getStringExtra("id_supplier");
+        namaSupplier = intent.getStringExtra("nama_supplier");
+        etNamaSupplier.setText(namaSupplier);
+
+        ivCariSupplierRestock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RestockActivity.this, TampilSupplierActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnNextRestock = findViewById(R.id.btn_next_restock);
 
@@ -53,7 +77,7 @@ public class RestockActivity extends AppCompatActivity {
                 noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
                 tanggalMasuk = etTanggalMasuk.getText().toString();
                 namaSupplier = etNamaSupplier.getText().toString();
-                createdBy = etCreatedBy.getText().toString();
+                //createdBy = etCreatedBy.getText().toString();
 
                 if(noInvoiceMasuk.trim().isEmpty()){
                     etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
@@ -64,11 +88,11 @@ public class RestockActivity extends AppCompatActivity {
                 else if(namaSupplier.trim().isEmpty()){
                     etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
                 }
-                else if(createdBy.trim().isEmpty()){
-                    etCreatedBy.setError("Created by tidak boleh Kosong");
-                }
+//                else if(createdBy.trim().isEmpty()){
+//                    etCreatedBy.setError("Created by tidak boleh Kosong");
+//                }
               else{
-//                    tambahRestock();
+                    tambahRestock();
                 Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
                 startActivity(intent);
                }
@@ -83,25 +107,24 @@ public class RestockActivity extends AppCompatActivity {
         });
     }
 
-//    private void tambahRestock(){
-//        RequestData ARD = RetroServer.konekRetrofit().create(RequestData.class);
-//        Call<ModelResponse> proses = ARD.ardCreate(noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy);
-//
-//        proses.enqueue(new Callback<ModelResponse>() {
-//            @Override
-//            public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
-//                String kode = response.body().getKode();
-//                String pesan = response.body().getPesan();
-//                Toast.makeText(RestockActivity.this,"Kode: " + kode + " Pesan: " + pesan, Toast.LENGTH_SHORT).show();
-//
-//                Intent intent = new Intent(RestockActivity.this,RestockActivity2.class);
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ModelResponse> call, Throwable t) {
-//                Toast.makeText(RestockActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void tambahRestock(){
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+        Call<TambahBMResponse> proses = ARD.ardTambahBM(tanggalMasuk,noInvoiceMasuk,total,id_supplier_restock);
+
+        proses.enqueue(new Callback<TambahBMResponse>() {
+            @Override
+            public void onResponse(Call<TambahBMResponse> call, Response<TambahBMResponse> response) {
+
+                Toast.makeText(RestockActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(RestockActivity.this,RestockActivity2.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<TambahBMResponse> call, Throwable t) {
+                Toast.makeText(RestockActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

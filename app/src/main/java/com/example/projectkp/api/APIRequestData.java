@@ -1,11 +1,13 @@
 package com.example.projectkp.api;
 
 import com.example.projectkp.response.LoginResponse;
+import com.example.projectkp.response.TambahBMResponse;
 import com.example.projectkp.response.TampilBarangResponse;
 import com.example.projectkp.response.TambahCustomerResponse;
 import com.example.projectkp.response.TambahBKResponse;
 import com.example.projectkp.response.TampilCustomerResponse;
 import com.example.projectkp.response.TampilKeluarResponse;
+import com.example.projectkp.response.TampilSupplierResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -28,6 +30,8 @@ public interface APIRequestData {
     );
     @GET("api/api/customer")
     Call<TampilCustomerResponse> ardRetrieveCustomer();
+    @GET("api/api/supplier")
+    Call<TampilSupplierResponse> ardRetrieveSupplier();
 
     //API Barang Keluar
     @GET("api/api/barangkeluar/list")
@@ -38,6 +42,19 @@ public interface APIRequestData {
             @Field("tanggal_keluar") String tanggal_keluar,
             @Field("nomor_invoice_keluar") String nomor_invoice_keluar,
             @Field("id_customer") String id_customer
+    );
+    //API Barang Masuk
+    //@GET("api/api/barangmasuk/list")
+//    Call<TampilMasukResponse>ardMasuk();
+
+    @FormUrlEncoded
+    @POST("api/api/barangmasuk/daftar")
+    Call<TambahBMResponse> ardTambahBM(
+            @Field("tanggal_masuk") String tanggal_masuk,
+            @Field("nomor_invoice_masuk") String nomor_invoice_masuk,
+            @Field("total") Double total,
+            @Field("id_supplier") String id_supplier
+
     );
 
     //API useradmin

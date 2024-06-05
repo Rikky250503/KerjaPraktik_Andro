@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class NotaPenjualanActivity extends AppCompatActivity {
 
-    String tanggalNota,noInvoiceNota,namaCustomer_nota,idCustomer_nota, idinvoice_keluar;
+    String tanggalNota,noInvoiceNota,namaCustomer_nota,idCustomer_nota;
 
     EditText etTanggalNota,etNoInvoiceNota,etNamaCustomer_nota;
     TextView tvIdCustomer_nota;
@@ -113,10 +113,10 @@ public class NotaPenjualanActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Intent intent = new Intent(NotaPenjualanActivity.this, NotaPenjualan2Activity.class);
                     intent.putExtra("id_barang_keluar", response.body().getData().getId_barang_keluar());
-                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
-                    Log.d("Tanggal", tanggalNota);
-                    Log.d("noInvoice", noInvoiceNota);
-                    Log.d("ID", idCustomer_nota);
+//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
+//                    Log.d("Tanggal", tanggalNota);
+//                    Log.d("noInvoice", noInvoiceNota);
+//                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(NotaPenjualanActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 } else {

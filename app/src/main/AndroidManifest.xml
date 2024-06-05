@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ProjectKP"
         tools:targetApi="31">
         <activity
+            android:name=".ui.Activity.TampilSupplierActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Activity.TampilCustomerActivity"
             android:exported="false" />
         <activity

@@ -72,19 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     login();
                 }
-
-//                if (role.equals("pimpinan")) {
-//                    Intent intent = new Intent(LoginActivity.this, PimpinanActivity.class);
-//                    startActivity(intent);
-//                } else if (role.equals("penjualan")) {
-//                    Intent intent = new Intent(LoginActivity.this, PenjualanActivity.class);
-//                    startActivity(intent);
-//                } else if (role.equals("gudang")) {
-//                    Intent intent = new Intent(LoginActivity.this, GudangActivity.class);
-//                    startActivity(intent);
-//                } else {
-//                   Toast.makeText(LoginActivity.this, "User atau password belum terisi", Toast.LENGTH_SHORT).show();
-//                }
             }
 
         });
