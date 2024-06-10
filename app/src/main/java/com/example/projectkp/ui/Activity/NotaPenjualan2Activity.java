@@ -17,10 +17,10 @@ import com.example.projectkp.R;
 
 public class NotaPenjualan2Activity extends AppCompatActivity {
 
-    String namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2,notes;
+    String namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2;
 
-    EditText etNamaBarang_nota2,etBanyakBarang_nota2,etHargaSatuan_nota2,etNotes;
-    Button btnSelessai;
+    EditText etNamaBarang_nota2,etBanyakBarang_nota2,etHargaSatuan_nota2;
+    Button btnSelesai;
     Integer banyakBarangInt_nota2;
     Double hargaSatuanDoub_nota2;
 
@@ -38,15 +38,14 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
         etBanyakBarang_nota2 = findViewById(R.id.et_banyakBarang);
         etHargaSatuan_nota2 = findViewById(R.id.et_hargaSatuan);
 
-        btnSelessai = findViewById(R.id.btn_selesai);
+        btnSelesai = findViewById(R.id.btn_selesai);
 
-        btnSelessai.setOnClickListener(new View.OnClickListener() {
+        btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 namaBarang_nota2 = etNamaBarang_nota2.getText().toString();
                 banyakBarang_nota2 = etBanyakBarang_nota2.getText().toString();
                 hargaSatuan_nota2 = etHargaSatuan_nota2.getText().toString();
-                notes = etNotes.getText().toString();
 
                 if(namaBarang_nota2.trim().isEmpty()){
                     etNamaBarang_nota2.setError("Nama Barang tidak boleh Kosong");
@@ -62,7 +61,7 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
 //                    hargaSatuanDoub_nota2 = Double.parseDouble(hargaSatuan_nota2);
 //                    detailNota();
 //                }
-                Toast.makeText(NotaPenjualan2Activity.this, "Customer baru telah disimpan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotaPenjualan2Activity.this, "Tambah data pembelian telah di simpan", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(NotaPenjualan2Activity.this, PenjualanActivity.class);
                 startActivity(intent);
             }

@@ -2,6 +2,7 @@ package com.example.projectkp.ui.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.example.projectkp.R;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataCustomer;
+import com.example.projectkp.response.TambahBKResponse;
 import com.example.projectkp.response.TambahCustomerResponse;
 
 import retrofit2.Call;
@@ -64,9 +66,9 @@ public class CustomerBaruActivity extends AppCompatActivity {
                     return;
                 }
 
-                Toast.makeText(CustomerBaruActivity.this, "Customer baru telah disimpan", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CustomerBaruActivity.this, PenjualanActivity.class);
-                startActivity(intent);
+                else {
+                    tambahcustomer();
+                }
             }
         });
 
@@ -78,22 +80,28 @@ public class CustomerBaruActivity extends AppCompatActivity {
     }
     private void tambahcustomer(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        ARD.ardTambahCustomer(nama_pemesan,alamat_pemesan,no_hp_pemesan).enqueue(new Callback<TambahCustomerResponse>() {
+        Call<TambahCustomerResponse> proses = ARD.ardTambahCustomer(nama_pemesan,alamat_pemesan,no_hp_pemesan);
+
+        proses.enqueue(new Callback<TambahCustomerResponse>() {
             @Override
             public void onResponse(Call<TambahCustomerResponse> call, Response<TambahCustomerResponse> response) {
-                if(response.isSuccessful() && response.body() != null)
-                {
-                    DataCustomer dataCustomer = response.body().getData();
-                    Toast.makeText(CustomerBaruActivity.this,"Berhasil menambah Customer: " + response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    Intent intent = new Intent(CustomerBaruActivity.this, PenjualanActivity.class);
+//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
+//                    Log.d("Tanggal", tanggalNota);
+//                    Log.d("noInvoice", noInvoiceNota);
+//                    Log.d("ID", idCustomer_nota);
+                    Toast.makeText(CustomerBaruActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CustomerBaruActivity.this, "Gagal menambah customer baru ", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Toast.makeText(CustomerBaruActivity.this, "Gagal menambah customer, respon tidak berhasil atau body kosong", Toast.LENGTH_SHORT).show();
-                }
-                finish();
             }
+
             @Override
             public void onFailure(Call<TambahCustomerResponse> call, Throwable t) {
-                Toast.makeText(CustomerBaruActivity.this, "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                Log.d("ResponRikky",t.getMessage());
+                Toast.makeText(CustomerBaruActivity.this, "Gagal Menghubungi Server" +t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -29,11 +29,10 @@ import retrofit2.Response;
 
 public class RestockActivity extends AppCompatActivity {
 
-    String noInvoiceMasuk,tanggalMasuk,namaSupplier,createdBy,id_supplier_restock;
-    Double total;
+    String noInvoiceMasuk,namaSupplier,createdBy,id_supplier_restock;
     Context ctx;
     ImageView ivCariSupplierRestock;
-    EditText etNoInvoiceMasuk,etTanggalMasuk,etNamaSupplier,etCreatedBy;
+    EditText etNoInvoiceMasuk,etNamaSupplier,etCreatedBy;
     MaterialButton btnNextRestock;
 
     @Override
@@ -44,6 +43,7 @@ public class RestockActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_restock);
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
@@ -51,7 +51,6 @@ public class RestockActivity extends AppCompatActivity {
         String TokenJson = sharedPreferences.getString("Token", null);
 
         etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
-        etTanggalMasuk = findViewById(R.id.et_tgl_restock);
         etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
         etCreatedBy = findViewById(R.id.et_createdBy_restock);
         ivCariSupplierRestock = findViewById(R.id.iv_cari_supplier_restock);
@@ -75,16 +74,13 @@ public class RestockActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
-                tanggalMasuk = etTanggalMasuk.getText().toString();
                 namaSupplier = etNamaSupplier.getText().toString();
                 //createdBy = etCreatedBy.getText().toString();
 
                 if(noInvoiceMasuk.trim().isEmpty()){
                     etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
                 }
-                else if(tanggalMasuk.trim().isEmpty()){
-                    etTanggalMasuk.setError("Tanggal Masuk tidak boleh Kosong");
-                }
+
                 else if(namaSupplier.trim().isEmpty()){
                     etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
                 }
@@ -93,8 +89,8 @@ public class RestockActivity extends AppCompatActivity {
 //                }
               else{
                     tambahRestock();
-                Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
-                startActivity(intent);
+//                Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
+//                startActivity(intent);
                }
 
             }
@@ -109,16 +105,23 @@ public class RestockActivity extends AppCompatActivity {
 
     private void tambahRestock(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TambahBMResponse> proses = ARD.ardTambahBM(tanggalMasuk,noInvoiceMasuk,total,id_supplier_restock);
+        Call<TambahBMResponse> proses = ARD.ardTambahBM(noInvoiceMasuk,id_supplier_restock);
 
         proses.enqueue(new Callback<TambahBMResponse>() {
             @Override
             public void onResponse(Call<TambahBMResponse> call, Response<TambahBMResponse> response) {
-
-                Toast.makeText(RestockActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(RestockActivity.this,RestockActivity2.class);
-                startActivity(intent);
+                if (response.isSuccessful() && response.body() != null) {
+                    Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
+                    intent.putExtra("id_barang_masuk", response.body().getData().getId_barang_masuk());
+//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
+//                    Log.d("Tanggal", tanggalNota);
+//                    Log.d("noInvoice", noInvoiceNota);
+//                    Log.d("ID", idCustomer_nota);
+                    Toast.makeText(RestockActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(RestockActivity.this, "Gagal menambah nota restock ", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

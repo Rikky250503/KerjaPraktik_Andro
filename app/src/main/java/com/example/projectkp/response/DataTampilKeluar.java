@@ -7,7 +7,7 @@ public class DataTampilKeluar {
 	@SerializedName("nomor_invoice_keluar")
 	private String nomorInvoiceKeluar;
 	@SerializedName("id_customer")
-	String id_customer;
+	 private String id_customer;
 	@SerializedName("nama_status")
 	private String namaStatus;
 

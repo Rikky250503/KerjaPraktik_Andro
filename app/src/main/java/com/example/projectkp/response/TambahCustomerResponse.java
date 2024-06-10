@@ -1,12 +1,11 @@
 package com.example.projectkp.response;
 
 public class TambahCustomerResponse {
-	private DataCustomer dataCustomer;
+	private DataCustomer data;
 	private String message;
 
 	public DataCustomer getData(){
-		return dataCustomer;
-	}
+		return data;}
 
 	public String getMessage(){
 		return message;

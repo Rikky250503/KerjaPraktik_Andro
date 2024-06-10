@@ -15,6 +15,7 @@ import com.example.projectkp.R;
 
 import com.example.projectkp.response.DataSupplier;
 import com.example.projectkp.ui.Activity.NotaPenjualanActivity;
+import com.example.projectkp.ui.Activity.RestockActivity;
 
 import java.util.List;
 
@@ -46,10 +47,11 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.VHSupp
             @Override
             public void onClick(View view) {
                 Context context = holder.itemView.getContext();
-                Intent intent = new Intent(context, NotaPenjualanActivity.class);
+                Intent intent = new Intent(context, RestockActivity.class);
                 intent.putExtra("id_supplier",MN.getId_supplier());
                 Log.d("id_supplier", MN.getId_supplier());
                 intent.putExtra("nama_supplier",MN.getNama_supplier());
+
                 context.startActivity(intent);
             }
         });

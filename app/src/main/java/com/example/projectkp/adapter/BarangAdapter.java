@@ -56,6 +56,7 @@ public class BarangAdapter  extends RecyclerView.Adapter<BarangAdapter.VHbarang>
         TextView tvidBarang,tvNamaBarang ,tvJumlah;
         public VHbarang(@NonNull View itemView) {
             super(itemView);
+            //nanti di ganti
             tvidBarang = itemView.findViewById(R.id.tv_id_stok_gudang);
             tvNamaBarang = itemView.findViewById(R.id.tv_nama_barang_gudang);
             tvJumlah = itemView.findViewById(R.id.jumlah_stok_gudang);

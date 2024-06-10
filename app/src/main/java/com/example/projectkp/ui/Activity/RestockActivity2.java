@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,13 +19,15 @@ import com.example.projectkp.R;
 
 public class RestockActivity2 extends AppCompatActivity {
 
-    String namaBarang,hargaSatuanString,KuantitasString;
+    String namaBarang,hargaSatuanString,KuantitasString,idBarang;
     Double hargaSatuan,TotalRupiahRestock;
     Integer kuantitas;
     Context ctx;
     EditText etNamaBarang,ethargaSatuan,etKuantitas;
 
     TextView tv_angkaRupiah_Restock;
+
+    ImageView ivcariBarang;
 
     Button btnSelesaiRestock;
     @Override
@@ -41,6 +44,20 @@ public class RestockActivity2 extends AppCompatActivity {
         etNamaBarang = findViewById(R.id.et_namaBarang_restock);
         ethargaSatuan = findViewById(R.id.et_hargaSatuan_restock);
         etKuantitas = findViewById(R.id.et_Kuantitas_restock);
+        ivcariBarang = findViewById(R.id.iv_cari_namaBarang_restock);
+
+        Intent intent = getIntent();
+        idBarang = intent.getStringExtra("id_barang");
+        namaBarang = intent.getStringExtra("nama_barang");
+        etNamaBarang.setText(namaBarang);
+
+        ivcariBarang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RestockActivity2.this,TampilBarangActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnSelesaiRestock = findViewById(R.id.btn_selesai_restock);
 

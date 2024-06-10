@@ -2,11 +2,13 @@ package com.example.projectkp.api;
 
 import com.example.projectkp.response.LoginResponse;
 import com.example.projectkp.response.TambahBMResponse;
+import com.example.projectkp.response.TambahSupplierResponse;
 import com.example.projectkp.response.TampilBarangResponse;
 import com.example.projectkp.response.TambahCustomerResponse;
 import com.example.projectkp.response.TambahBKResponse;
 import com.example.projectkp.response.TampilCustomerResponse;
 import com.example.projectkp.response.TampilKeluarResponse;
+import com.example.projectkp.response.TampilMasukResponse;
 import com.example.projectkp.response.TampilSupplierResponse;
 
 import retrofit2.Call;
@@ -22,11 +24,19 @@ public interface APIRequestData {
     Call<TampilBarangResponse> ardRetrieveBarang();
 
     //API Customer
+    @FormUrlEncoded
     @POST("api/api/customer/daftar")
     Call<TambahCustomerResponse> ardTambahCustomer(
             @Field("nama_pemesan") String nama_pemesan,
             @Field("alamat_pemesan") String alamat_pemesan,
             @Field("no_hp_pemesan") String no_hp_pemesan
+    );
+    @FormUrlEncoded
+    @POST("api/api/supplier/daftar")
+    Call<TambahSupplierResponse> ardTambahSupplier(
+            @Field("nama_supplier") String nama_supplier,
+            @Field("no_hp") String no_hp,
+            @Field("alamat") String alamat
     );
     @GET("api/api/customer")
     Call<TampilCustomerResponse> ardRetrieveCustomer();
@@ -36,6 +46,10 @@ public interface APIRequestData {
     //API Barang Keluar
     @GET("api/api/barangkeluar/list")
     Call<TampilKeluarResponse> ardKeluar();
+
+    @GET("api/api/barangmasuk/list")
+    Call<TampilMasukResponse> ardMasuk();
+
     @FormUrlEncoded
     @POST("api/api/barangkeluar/daftar")
     Call<TambahBKResponse> ardTambahBK(
@@ -50,9 +64,7 @@ public interface APIRequestData {
     @FormUrlEncoded
     @POST("api/api/barangmasuk/daftar")
     Call<TambahBMResponse> ardTambahBM(
-            @Field("tanggal_masuk") String tanggal_masuk,
             @Field("nomor_invoice_masuk") String nomor_invoice_masuk,
-            @Field("total") Double total,
             @Field("id_supplier") String id_supplier
 
     );

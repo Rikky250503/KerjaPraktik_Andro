@@ -52,7 +52,6 @@ public class NotaPenjualanActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_nota_penjualan);
 
-        etTanggalNota = findViewById(R.id.et_tglPesan_nota);
         etNoInvoiceNota = findViewById(R.id.et_invoice_nota);
         etNamaCustomer_nota = findViewById(R.id.et_customer_nota);
         ivCariCustomerNota = findViewById(R.id.iv_cari_customer_nota);

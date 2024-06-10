@@ -15,10 +15,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectkp.R;
+import com.example.projectkp.api.APIRequestData;
+import com.example.projectkp.api.RetroServer;
+import com.example.projectkp.response.TambahCustomerResponse;
+import com.example.projectkp.response.TambahSupplierResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SupplierActivity extends AppCompatActivity {
 
-    String namaSupplier, noHP_supplier, alamat_supplier;
+    String nama_supplier, no_hp, alamat;
     Context ctx;
     EditText etNamaSupplier,etNoHP_supplier, etAlamat_supplier;
     Button btnTambahSupplier;
@@ -42,22 +50,22 @@ public class SupplierActivity extends AppCompatActivity {
         btnTambahSupplier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                namaSupplier = etNamaSupplier.getText().toString();
-                noHP_supplier = etNoHP_supplier.getText().toString();
-                alamat_supplier = etAlamat_supplier.getText().toString();
+                nama_supplier = etNamaSupplier.getText().toString();
+                no_hp = etNoHP_supplier.getText().toString();
+                alamat = etAlamat_supplier.getText().toString();
 
-                if(namaSupplier.trim().isEmpty()){
+                if(nama_supplier.trim().isEmpty()){
                     etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
                 }
-                else if(noHP_supplier.trim().isEmpty()){
+                else if(no_hp.trim().isEmpty()){
                     etNoHP_supplier.setError("No Handphone tidak boleh Kosong");
                 }
-                else if(alamat_supplier.trim().isEmpty()){
+                else if(alamat.trim().isEmpty()){
                     etAlamat_supplier.setError("Alamat tidak boleh Kosong");
                 }
-//                else{
-//                    tambahSupplier();
-//                }
+                else{
+                    tambahSupplier();
+                }
 
                 Toast.makeText(SupplierActivity.this, "Supplier baru telah disimpan", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SupplierActivity.this, PenjualanActivity.class);
@@ -81,23 +89,31 @@ public class SupplierActivity extends AppCompatActivity {
 
         finish();
     }
-//    private void tambahSupplier(){
-//        RequestData ARD = RetroServer.konekRetrofit().create(RequestData.class);
-//    Call<ModelResponse> proses = ARD.ardCreate(namaSupplier,noHP_supplier,alamat_supplier);
-//
-//        proses.enqueue(new Callback<ModelResponse>() {
-//            @Override
-//            public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
-//                String kode = response.body().getKode();
-//                String pesan = response.body().getPesan();
-//                Toast.makeText(SupplierActivity.this,"Kode: " + kode + " Pesan: " + pesan, Toast.LENGTH_SHORT).show();
-//                onBackPressed();
-//            }
-//            @Override
-//            public void onFailure(Call<ModelResponse> call, Throwable t) {
-//                Toast.makeText(SupplierActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void tambahSupplier(){
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+        Call<TambahSupplierResponse> proses = ARD.ardTambahSupplier(nama_supplier,no_hp,alamat);
+
+        proses.enqueue(new Callback<TambahSupplierResponse>() {
+            @Override
+            public void onResponse(Call<TambahSupplierResponse> call, Response<TambahSupplierResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Intent intent = new Intent(SupplierActivity.this, PenjualanActivity.class);
+//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
+//                    Log.d("Tanggal", tanggalNota);
+//                    Log.d("noInvoice", noInvoiceNota);
+//                    Log.d("ID", idCustomer_nota);
+                    Toast.makeText(SupplierActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SupplierActivity.this, "Gagal menambah customer baru ", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TambahSupplierResponse> call, Throwable t) {
+                Toast.makeText(SupplierActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }

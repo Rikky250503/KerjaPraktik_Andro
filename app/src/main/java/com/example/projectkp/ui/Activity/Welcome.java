@@ -30,7 +30,7 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         //getActionBar().hide();
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         btn_getStarted = findViewById(R.id.btn_getStarted);
 

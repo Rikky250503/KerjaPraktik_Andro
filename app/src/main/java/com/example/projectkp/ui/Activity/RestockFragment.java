@@ -40,7 +40,6 @@ public class RestockFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         etNoInvoiceMasuk = getView().findViewById(R.id.et_invoice_restock);
-        etTanggalMasuk = getView().findViewById(R.id.et_tgl_restock);
         etNamaSupplier = getView().findViewById(R.id.et_namaSupplier_restock);
         etCreatedBy = getView().findViewById(R.id.et_createdBy_restock);
 
