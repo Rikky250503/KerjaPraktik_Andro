@@ -55,6 +55,7 @@ public class RestockActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(RestockActivity2.this,TampilBarangActivity.class);
+                intent.putExtra("source","A");
                 startActivity(intent);
             }
         });

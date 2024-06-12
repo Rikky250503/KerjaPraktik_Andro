@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,10 +18,11 @@ import com.example.projectkp.R;
 
 public class NotaPenjualan2Activity extends AppCompatActivity {
 
-    String namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2;
+    String idBarang,namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2;
 
     EditText etNamaBarang_nota2,etBanyakBarang_nota2,etHargaSatuan_nota2;
     Button btnSelesai;
+    ImageView ivCariBarang;
     Integer banyakBarangInt_nota2;
     Double hargaSatuanDoub_nota2;
 
@@ -37,6 +39,21 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
         etNamaBarang_nota2 = findViewById(R.id.et_namaBarang_nota2);
         etBanyakBarang_nota2 = findViewById(R.id.et_banyakBarang);
         etHargaSatuan_nota2 = findViewById(R.id.et_hargaSatuan);
+
+        ivCariBarang = findViewById(R.id.iv_cari_namaBarang_nota2);
+
+        Intent intent = getIntent();
+        idBarang = intent.getStringExtra("id_barang");
+        namaBarang_nota2 = intent.getStringExtra("nama_barang");
+        etNamaBarang_nota2.setText(namaBarang_nota2);
+        ivCariBarang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NotaPenjualan2Activity.this,TampilBarangActivity.class);
+                intent.putExtra("source","B");
+                startActivity(intent);
+            }
+        });
 
         btnSelesai = findViewById(R.id.btn_selesai);
 

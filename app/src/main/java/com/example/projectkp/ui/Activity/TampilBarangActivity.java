@@ -34,6 +34,7 @@ public class TampilBarangActivity extends AppCompatActivity {
     private BarangRestockAdapter adBarangRestcok;
     private RecyclerView.LayoutManager lmTampilBarang;
     private List<DataBarang> ListTampilBarang = new ArrayList<>();
+    private String source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +47,13 @@ public class TampilBarangActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_tampil_barang);
 
+        source = getIntent().getStringExtra("source");
+
         rv_tampil_barangr= findViewById(R.id.rv_tampil_barang);
 
         lmTampilBarang = new LinearLayoutManager(this);
         rv_tampil_barangr.setLayoutManager(lmTampilBarang);
-        adBarangRestcok = new BarangRestockAdapter(this, ListTampilBarang);
+        adBarangRestcok = new BarangRestockAdapter(this, ListTampilBarang,source);
         rv_tampil_barangr.setAdapter(adBarangRestcok);
 
         retrieveTampilBarang();

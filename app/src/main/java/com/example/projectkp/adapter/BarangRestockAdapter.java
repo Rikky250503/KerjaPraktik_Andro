@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkp.R;
 import com.example.projectkp.response.DataBarang;
+import com.example.projectkp.ui.Activity.NotaPenjualan2Activity;
 import com.example.projectkp.ui.Activity.RestockActivity;
 import com.example.projectkp.ui.Activity.RestockActivity2;
 
@@ -22,10 +23,12 @@ public class BarangRestockAdapter extends RecyclerView.Adapter<BarangRestockAdap
 
     private Context ctx;
     private List<DataBarang> ListBarang;
+    private  String source;
 
-    public BarangRestockAdapter(Context ctx,List<DataBarang> listBarang){
+    public BarangRestockAdapter(Context ctx,List<DataBarang> listBarang, String source){
         this.ctx = ctx;
         this.ListBarang = listBarang;
+        this.source = source;
     }
 
     @NonNull
@@ -44,12 +47,29 @@ public class BarangRestockAdapter extends RecyclerView.Adapter<BarangRestockAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = holder.itemView.getContext();
-                Intent intent = new Intent(context, RestockActivity2.class);
-                intent.putExtra("id_barang",MN.getId_barang());
-                Log.d("id_barang", MN.getId_barang());
-                intent.putExtra("nama_barang",MN.getNama_barang());
-                context.startActivity(intent);
+                Intent intent = null;
+
+                if ("A".equals(source))
+                {
+                    Context context = holder.itemView.getContext();
+                    intent = new Intent(context, RestockActivity2.class);
+                    intent.putExtra("id_barang",MN.getId_barang());
+                    Log.d("id_barang", MN.getId_barang());
+                    intent.putExtra("nama_barang",MN.getNama_barang());
+                    context.startActivity(intent);
+                } else if ("B".equals(source)) {
+                    Context context = holder.itemView.getContext();
+                    intent = new Intent(ctx, NotaPenjualan2Activity.class);
+                    intent.putExtra("id_barang",MN.getId_barang());
+                    Log.d("id_barang", MN.getId_barang());
+                    intent.putExtra("nama_barang",MN.getNama_barang());
+                    context.startActivity(intent);
+                }
+                //Intent intent = new Intent(context, RestockActivity2.class);
+                //intent.putExtra("id_barang",MN.getId_barang());
+                //Log.d("id_barang", MN.getId_barang());
+                //intent.putExtra("nama_barang",MN.getNama_barang());
+                //context.startActivity(intent);
             }
         });
 
