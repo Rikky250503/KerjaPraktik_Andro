@@ -1,13 +1,16 @@
 package com.example.projectkp.ui.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,16 +19,27 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectkp.R;
+import com.example.projectkp.api.APIRequestData;
+import com.example.projectkp.api.RetroServer;
+import com.example.projectkp.response.DataDBM;
+import com.example.projectkp.response.TambahBMResponse;
+import com.example.projectkp.response.TambahDBMResponse;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RestockActivity2 extends AppCompatActivity {
 
-    String namaBarang,hargaSatuanString,KuantitasString,idBarang;
-    Double hargaSatuan,TotalRupiahRestock;
+    String namaBarang,hargaSatuanString,KuantitasString,idBarang,idBarangMasuk, idBarangMasukR;
+    Double hargaSatuan;
     Integer kuantitas;
+
     Context ctx;
     EditText etNamaBarang,ethargaSatuan,etKuantitas;
-
-    TextView tv_angkaRupiah_Restock;
 
     ImageView ivcariBarang;
 
@@ -47,15 +61,21 @@ public class RestockActivity2 extends AppCompatActivity {
         ivcariBarang = findViewById(R.id.iv_cari_namaBarang_restock);
 
         Intent intent = getIntent();
+        idBarangMasuk = intent.getStringExtra("id_barang_masuk");
+        idBarangMasukR = intent.getStringExtra("id_barang_masukr");
         idBarang = intent.getStringExtra("id_barang");
         namaBarang = intent.getStringExtra("nama_barang");
         etNamaBarang.setText(namaBarang);
+
+        Toast.makeText(RestockActivity2.this, "idbarangmasuk = " + idBarangMasuk, Toast.LENGTH_SHORT).show();
+        Toast.makeText(RestockActivity2.this, "idbarangmasukR = " + idBarangMasukR, Toast.LENGTH_SHORT).show();
 
         ivcariBarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(RestockActivity2.this,TampilBarangActivity.class);
                 intent.putExtra("source","A");
+                intent.putExtra("id_barang_masuk",idBarangMasuk);
                 startActivity(intent);
             }
         });
@@ -79,11 +99,33 @@ public class RestockActivity2 extends AppCompatActivity {
                     etKuantitas.setError("Kuantitas tidak boleh Kosong");
                 }
                 else{
-//                    Kuantitas = Integer.parseInt(KuantitasString);
-//                    hargaSatuan = Double.parseDouble(hargaSatuanString);
-//                    tambahRestock();
-                    Intent intent = new Intent(RestockActivity2.this,PenjualanActivity.class);
-                    startActivity(intent);
+                    kuantitas = Integer.parseInt(KuantitasString);
+                    hargaSatuan = Double.parseDouble(hargaSatuanString);
+                    //Toast.makeText(RestockActivity2.this, "kuantitas = " + kuantitas + "hargasatuan = " + hargaSatuan, Toast.LENGTH_SHORT).show();
+                    new MaterialAlertDialogBuilder(RestockActivity2.this)
+                            .setTitle("Title")
+                            .setMessage("Message")
+//                              .setNeutralButton("Netral"), new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        // Respond to neutral button press
+//                                    }
+//                              })
+                            .setNegativeButton("Negative", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    tambahRestock1();
+                                }
+                            })
+                            .setPositiveButton("Positive", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    tambahRestock1();
+                                    Intent intent = new Intent(RestockActivity2.this,PenjualanActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .show();
                 }
             }
         });
@@ -94,22 +136,40 @@ public class RestockActivity2 extends AppCompatActivity {
             return insets;
         });
     }
-//    private void tambahRestock1(){
-//        RequestData ARD = RetroServer.konekRetrofit().create(RequestData.class);
-//        Call<ModelResponse> proses = ARD.ardCreate(namaBarang,hargaSatuan,kuantitas);
-//
-//        proses.enqueue(new Callback<ModelResponse>() {
-//            @Override
-//            public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
-//                String kode = response.body().getKode();
-//                String pesan = response.body().getPesan();
-//                Toast.makeText(RestockActivity2.this,"Kode: " + kode + " Pesan: " + pesan, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ModelResponse> call, Throwable t) {
-//                Toast.makeText(RestockActivity2.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void tambahRestock1(){
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+
+        Call<TambahDBMResponse> proses = ARD.ardTambahBMDetail(idBarangMasukR ,idBarang,kuantitas,hargaSatuan);
+        proses.enqueue(new Callback<TambahDBMResponse>() {
+            @Override
+            public void onResponse(Call<TambahDBMResponse> call, Response<TambahDBMResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+//                    Intent intent = new Intent(RestockActivity2.this,PenjualanActivity.class);
+//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
+//                    Log.d("Tanggal", tanggalNota);
+//                    Log.d("noInvoice", noInvoiceNota);
+//                    Log.d("ID", idCustomer_nota);
+                    Toast.makeText(RestockActivity2.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                    startActivity(intent);
+                } else {
+                    // Log the response code and any error message
+                    Log.e("RestockActivity2", "Response code: " + response.code());
+                    Log.e("RestockActivity2", "Error message: " + response.message());
+
+                    // Log the error body if available
+                    try {
+                        Log.e("RestockActivity2", "Error body: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(RestockActivity2.this, "Gagal menambah nota restock ", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TambahDBMResponse> call, Throwable t) {
+                Toast.makeText(RestockActivity2.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

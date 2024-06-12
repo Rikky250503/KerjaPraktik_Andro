@@ -24,11 +24,13 @@ public class BarangRestockAdapter extends RecyclerView.Adapter<BarangRestockAdap
     private Context ctx;
     private List<DataBarang> ListBarang;
     private  String source;
+    private String idBarangMasuk;
 
-    public BarangRestockAdapter(Context ctx,List<DataBarang> listBarang, String source){
+    public BarangRestockAdapter(Context ctx,List<DataBarang> listBarang, String source, String idBarangMasuk){
         this.ctx = ctx;
         this.ListBarang = listBarang;
         this.source = source;
+        this.idBarangMasuk = idBarangMasuk;
     }
 
     @NonNull
@@ -52,8 +54,10 @@ public class BarangRestockAdapter extends RecyclerView.Adapter<BarangRestockAdap
                 if ("A".equals(source))
                 {
                     Context context = holder.itemView.getContext();
+
                     intent = new Intent(context, RestockActivity2.class);
                     intent.putExtra("id_barang",MN.getId_barang());
+                    intent.putExtra("id_barang_masukr", idBarangMasuk);
                     Log.d("id_barang", MN.getId_barang());
                     intent.putExtra("nama_barang",MN.getNama_barang());
                     context.startActivity(intent);

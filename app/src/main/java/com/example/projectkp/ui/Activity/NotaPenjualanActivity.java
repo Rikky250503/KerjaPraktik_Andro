@@ -74,14 +74,10 @@ public class NotaPenjualanActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tanggalNota = etTanggalNota.getText().toString();
                 noInvoiceNota = etNoInvoiceNota.getText().toString();
                 namaCustomer_nota = etNamaCustomer_nota.getText().toString();
 
-                if(tanggalNota.trim().isEmpty()){
-                    etTanggalNota.setError("Tanggal nota tidak boleh Kosong");
-                }
-                else if(noInvoiceNota.trim().isEmpty()){
+                if(noInvoiceNota.trim().isEmpty()){
                     etNoInvoiceNota.setError("No invoice tidak boleh Kosong");
                 }
                 else if(namaCustomer_nota.trim().isEmpty()) {

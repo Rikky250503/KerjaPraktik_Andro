@@ -2,6 +2,7 @@ package com.example.projectkp.api;
 
 import com.example.projectkp.response.LoginResponse;
 import com.example.projectkp.response.TambahBMResponse;
+import com.example.projectkp.response.TambahDBMResponse;
 import com.example.projectkp.response.TambahSupplierResponse;
 import com.example.projectkp.response.TampilBarangResponse;
 import com.example.projectkp.response.TambahCustomerResponse;
@@ -66,7 +67,14 @@ public interface APIRequestData {
     Call<TambahBMResponse> ardTambahBM(
             @Field("nomor_invoice_masuk") String nomor_invoice_masuk,
             @Field("id_supplier") String id_supplier
-
+    );
+    @FormUrlEncoded
+    @POST("api/api/detailbarangmasuk/daftar")
+    Call<TambahDBMResponse> ardTambahBMDetail(
+            @Field("id_barang_masuk") String id_barang_masuk,
+            @Field("id_barang") String id_barang,
+            @Field("kuantitas") Integer kuantitas,
+            @Field("harga_satuan") Double harga_satuan
     );
 
     //API useradmin
