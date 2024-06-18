@@ -35,7 +35,7 @@ public class GudangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gudang);
 
         judulBarGudang = getSupportActionBar();
-        judulBarGudang.setTitle("Gudang");
+        //judulBarGudang.setTitle("Gudang");
         bukaFragment(new StokGudangFragment());
 
 

@@ -1,8 +1,5 @@
 package com.example.projectkp.ui.Activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,19 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projectkp.R;
-import com.example.projectkp.adapter.BarangKeluarAdapter;
+import com.example.projectkp.adapter.BarangKeluarPenjualanAdapter;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataTampilKeluar;
 import com.example.projectkp.response.TampilKeluarResponse;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +32,7 @@ public class PesananPenjualanFragment extends Fragment {
 //    ImageView ivLogoutPesananPenjualanFragment;
 
     RecyclerView rv_pesanan_penjualan;
-    private BarangKeluarAdapter adBarangKeluar;
+    private BarangKeluarPenjualanAdapter adBarangKeluar;
     private RecyclerView.LayoutManager lmBarang;
     private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
 
@@ -53,7 +45,7 @@ public class PesananPenjualanFragment extends Fragment {
 
         lmBarang = new LinearLayoutManager(requireContext());
         rv_pesanan_penjualan.setLayoutManager(lmBarang);
-        adBarangKeluar = new BarangKeluarAdapter(requireContext(), ListBarangKeluar);
+        adBarangKeluar = new BarangKeluarPenjualanAdapter(requireContext(), ListBarangKeluar);
         rv_pesanan_penjualan.setAdapter(adBarangKeluar);
 
         retrieveBarangKeluar();

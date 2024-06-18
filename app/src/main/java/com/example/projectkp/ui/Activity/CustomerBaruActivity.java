@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +30,8 @@ public class CustomerBaruActivity extends AppCompatActivity {
 
     EditText etNamaCustomer, etAlamatCustomer, etNoHpCustomer;
     String nama_pemesan,alamat_pemesan,no_hp_pemesan;
+
+    ImageView ivBackCustomer;
     Button btnNext;
 
     @Override
@@ -44,6 +47,16 @@ public class CustomerBaruActivity extends AppCompatActivity {
         etNamaCustomer= findViewById(R.id.et_nama_customer_baru);
         etAlamatCustomer = findViewById(R.id.et_alamat_customer_baru);
         etNoHpCustomer = findViewById(R.id.et_nohp_customer_baru);
+
+        ivBackCustomer = findViewById(R.id.iv_back_customerbaru);
+        ivBackCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CustomerBaruActivity.this,PenjualanActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btnNext = findViewById(R.id.btn_next_customer_baru);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +91,12 @@ public class CustomerBaruActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private void tambahcustomer(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TambahCustomerResponse> proses = ARD.ardTambahCustomer(nama_pemesan,alamat_pemesan,no_hp_pemesan);
@@ -93,6 +112,7 @@ public class CustomerBaruActivity extends AppCompatActivity {
 //                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(CustomerBaruActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(CustomerBaruActivity.this, "Gagal menambah customer baru ", Toast.LENGTH_SHORT).show();
                 }

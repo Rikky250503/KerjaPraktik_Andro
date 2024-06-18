@@ -60,6 +60,10 @@ public class TampilCustomerActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     private void retrieveCustomer() {
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilCustomerResponse> proses = ARD.ardRetrieveCustomer();

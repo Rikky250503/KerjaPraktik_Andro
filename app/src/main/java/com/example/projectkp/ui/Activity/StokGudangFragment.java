@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.projectkp.R;
-import com.example.projectkp.adapter.BarangAdapter;
+import com.example.projectkp.adapter.BarangGudangAdapter;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataBarang;
@@ -37,35 +37,12 @@ import retrofit2.Response;
 
 public class StokGudangFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
     RecyclerView rv_stok_gudang;
 
     private ImageView ivLogoutGudang;
-    private BarangAdapter adBarang;
+    private BarangGudangAdapter adBarang;
     private RecyclerView.LayoutManager lmBarang;
     private List<DataBarang> ListBarang = new ArrayList<>();
-
-//    public StokGudangFragment() {
-//        // Required empty public constructor
-//    }
-
-
-//    public static StokGudangFragment newInstance(String param1, String param2) {
-//        StokGudangFragment fragment = new StokGudangFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +59,7 @@ public class StokGudangFragment extends Fragment {
 
         lmBarang = new LinearLayoutManager(requireContext());
         rv_stok_gudang.setLayoutManager(lmBarang);
-        adBarang = new BarangAdapter(requireContext(), ListBarang);
+        adBarang = new BarangGudangAdapter(requireContext(), ListBarang);
         rv_stok_gudang.setAdapter(adBarang);
 
         retrieveBarang();

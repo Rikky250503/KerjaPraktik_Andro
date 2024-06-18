@@ -76,7 +76,9 @@ public class RestockActivity2 extends AppCompatActivity {
                 Intent intent = new Intent(RestockActivity2.this,TampilBarangActivity.class);
                 intent.putExtra("source","A");
                 intent.putExtra("id_barang_masuk",idBarangMasuk);
+                intent.putExtra("id_barang_masukr",idBarangMasukR);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -103,26 +105,29 @@ public class RestockActivity2 extends AppCompatActivity {
                     hargaSatuan = Double.parseDouble(hargaSatuanString);
                     //Toast.makeText(RestockActivity2.this, "kuantitas = " + kuantitas + "hargasatuan = " + hargaSatuan, Toast.LENGTH_SHORT).show();
                     new MaterialAlertDialogBuilder(RestockActivity2.this)
-                            .setTitle("Title")
-                            .setMessage("Message")
+                            .setTitle("Apakah Anda yakin ingin keluar dari Tampilan ini?")
 //                              .setNeutralButton("Netral"), new DialogInterface.OnClickListener() {
 //                                    @Override
 //                                    public void onClick(DialogInterface dialog, int which) {
 //                                        // Respond to neutral button press
 //                                    }
 //                              })
-                            .setNegativeButton("Negative", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Tambah", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    etNamaBarang.setText(null);
+                                    etKuantitas.setText(null);
+                                    ethargaSatuan.setText(null);
                                     tambahRestock1();
                                 }
                             })
-                            .setPositiveButton("Positive", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Selesai", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     tambahRestock1();
                                     Intent intent = new Intent(RestockActivity2.this,PenjualanActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             })
                             .show();
@@ -136,6 +141,11 @@ public class RestockActivity2 extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    public void onBackPressed() {
+    }
+
     private void tambahRestock1(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
 
@@ -150,7 +160,6 @@ public class RestockActivity2 extends AppCompatActivity {
 //                    Log.d("noInvoice", noInvoiceNota);
 //                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(RestockActivity2.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    startActivity(intent);
                 } else {
                     // Log the response code and any error message
                     Log.e("RestockActivity2", "Response code: " + response.code());

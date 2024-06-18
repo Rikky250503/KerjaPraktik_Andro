@@ -16,7 +16,8 @@ public class DataTampilKeluar {
 
 	@SerializedName("nama_pemesan")
 	private String namaPemesan;
-
+	@SerializedName("nama_barang")
+	private String namaBarang;
 	@SerializedName("id_barang_keluar")
 	private String id_barang_keluar;
 
@@ -41,5 +42,9 @@ public class DataTampilKeluar {
 
 	public String getIdBarangKeluar(){
 		return id_barang_keluar;
+	}
+
+	public String getNamaBarang() {
+		return namaBarang;
 	}
 }

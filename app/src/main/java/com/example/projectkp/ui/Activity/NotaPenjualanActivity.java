@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.projectkp.R;
 import com.example.projectkp.api.APIRequestData;
@@ -36,7 +38,7 @@ public class NotaPenjualanActivity extends AppCompatActivity {
 
     EditText etTanggalNota,etNoInvoiceNota,etNamaCustomer_nota;
     TextView tvIdCustomer_nota;
-    ImageView ivCariCustomerNota;
+    ImageView ivCariCustomerNota,ivBackNota;
     private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
     private List<DataTampilKeluar> listBarangKeluar = new ArrayList<DataTampilKeluar>();
 
@@ -55,6 +57,7 @@ public class NotaPenjualanActivity extends AppCompatActivity {
         etNoInvoiceNota = findViewById(R.id.et_invoice_nota);
         etNamaCustomer_nota = findViewById(R.id.et_customer_nota);
         ivCariCustomerNota = findViewById(R.id.iv_cari_customer_nota);
+        ivBackNota = findViewById(R.id.iv_back_notapenjualan);
 
         Intent intent = getIntent();
         idCustomer_nota = intent.getStringExtra("id_customer");
@@ -66,6 +69,15 @@ public class NotaPenjualanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NotaPenjualanActivity.this,TampilCustomerActivity.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+        ivBackNota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NotaPenjualanActivity.this,PenjualanActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -85,8 +97,6 @@ public class NotaPenjualanActivity extends AppCompatActivity {
                 }
               else{
                     tambahNota();
-//                    Intent intent = new Intent(NotaPenjualanActivity.this, NotaPenjualan2Activity.class);
-//                    startActivity(intent);
                }
 
             }
@@ -98,7 +108,12 @@ public class NotaPenjualanActivity extends AppCompatActivity {
             return insets;
         });
     }
-         private void tambahNota(){
+
+    @Override
+    public void onBackPressed() {
+    }
+
+    private void tambahNota(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TambahBKResponse> proses = ARD.ardTambahBK(tanggalNota,noInvoiceNota,idCustomer_nota);
 
@@ -114,6 +129,7 @@ public class NotaPenjualanActivity extends AppCompatActivity {
 //                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(NotaPenjualanActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(NotaPenjualanActivity.this, "Gagal menambah nota penjualan ", Toast.LENGTH_SHORT).show();
                 }

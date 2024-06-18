@@ -14,37 +14,30 @@ import com.example.projectkp.response.DataTampilKeluar;
 
 import java.util.List;
 
-public class BarangKeluarAdapter  extends RecyclerView.Adapter<BarangKeluarAdapter.VHbarang> {
+public class BarangKeluarPenjualanAdapter extends RecyclerView.Adapter<BarangKeluarPenjualanAdapter.VHbarang> {
     private Context ctx;
     private List<DataTampilKeluar> ListBarang;
 
-    public BarangKeluarAdapter(Context ctx,List<DataTampilKeluar> listBarang){
+    public BarangKeluarPenjualanAdapter(Context ctx, List<DataTampilKeluar> listBarang){
         this.ctx = ctx;
         this.ListBarang = listBarang;
     }
 
     @NonNull
     @Override
-    public BarangKeluarAdapter.VHbarang onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BarangKeluarPenjualanAdapter.VHbarang onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View varView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_pesanan, parent, false);
-        return new BarangKeluarAdapter.VHbarang(varView);
+        return new BarangKeluarPenjualanAdapter.VHbarang(varView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BarangKeluarAdapter.VHbarang holder, int position) {
+    public void onBindViewHolder(@NonNull BarangKeluarPenjualanAdapter.VHbarang holder, int position) {
         DataTampilKeluar MN = ListBarang.get(position);
         holder.tvIdPemesan.setText(MN.getIdBarangKeluar());
         holder.tvNoInvoice.setText(MN.getNomorInvoiceKeluar());
         holder.tvNamaPT.setText(String.valueOf(MN.getNamaPemesan()));
         holder.tvTanggal.setText(String.valueOf(MN.getTanggalKeluar()));
         holder.tvStatus.setText(MN.getNamaStatus());
-//        if(MN.getIdStatus() == 1) {
-//            holder.tvStatus.setText(String.valueOf("Menunggu Dikirim"));
-//        }else if(MN.getIdStatus() == 2) {
-//            holder.tvStatus.setText(String.valueOf("Pesanan Dikirim"));
-//        }if(MN.getIdStatus() == 3) {
-//            holder.tvStatus.setText(String.valueOf("Pesanan Diterima"));
-//        }
     }
 
     @Override

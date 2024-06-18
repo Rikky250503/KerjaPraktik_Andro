@@ -12,14 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkp.R;
-import com.example.projectkp.adapter.BarangRestockAdapter;
-import com.example.projectkp.adapter.CustomerAdapter;
+import com.example.projectkp.adapter.BarangPenjualanAdapter;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataBarang;
-import com.example.projectkp.response.DataCustomer;
 import com.example.projectkp.response.TampilBarangResponse;
-import com.example.projectkp.response.TampilCustomerResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +28,11 @@ import retrofit2.Response;
 public class TampilBarangActivity extends AppCompatActivity {
 
     RecyclerView rv_tampil_barangr;
-    private BarangRestockAdapter adBarangRestcok;
+    private BarangPenjualanAdapter adBarangRestcok;
     private RecyclerView.LayoutManager lmTampilBarang;
     private List<DataBarang> ListTampilBarang = new ArrayList<>();
     private String source;
-    private  String idBarangMasuk;
+    private  String idBarangMasuk,idBarangMasukR ,idBarangKeluar,idBarangKeluarR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +47,16 @@ public class TampilBarangActivity extends AppCompatActivity {
 
         source = getIntent().getStringExtra("source");
         idBarangMasuk = getIntent().getStringExtra("id_barang_masuk");
-        Toast.makeText(TampilBarangActivity.this, idBarangMasuk, Toast.LENGTH_SHORT).show();
+        idBarangMasukR = getIntent().getStringExtra("id_barang_masukr");
+        idBarangKeluar = getIntent().getStringExtra("id_barang_keluar");
+        idBarangKeluarR = getIntent().getStringExtra("id_barang_keluarR");
+        //Toast.makeText(TampilBarangActivity.this, idBarangMasuk, Toast.LENGTH_SHORT).show();
 
         rv_tampil_barangr= findViewById(R.id.rv_tampil_barang);
 
         lmTampilBarang = new LinearLayoutManager(this);
         rv_tampil_barangr.setLayoutManager(lmTampilBarang);
-        adBarangRestcok = new BarangRestockAdapter(this, ListTampilBarang,source,idBarangMasuk);
+        adBarangRestcok = new BarangPenjualanAdapter(this, ListTampilBarang,source,idBarangMasuk,idBarangMasukR,idBarangKeluar,idBarangKeluarR);
         rv_tampil_barangr.setAdapter(adBarangRestcok);
 
         retrieveTampilBarang();
@@ -67,6 +67,7 @@ public class TampilBarangActivity extends AppCompatActivity {
             return insets;
         });
     }
+
     private void retrieveTampilBarang() {
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilBarangResponse> proses = ARD.ardRetrieveBarang();

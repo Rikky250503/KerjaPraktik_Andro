@@ -15,11 +15,11 @@ import com.example.projectkp.response.DataBarang;
 
 import java.util.List;
 
-public class BarangAdapter  extends RecyclerView.Adapter<BarangAdapter.VHbarang> {
+public class BarangGudangAdapter extends RecyclerView.Adapter<BarangGudangAdapter.VHbarang> {
     private Context ctx;
     private List<DataBarang> ListBarang;
 
-    public BarangAdapter(Context ctx,List<DataBarang> listBarang){
+    public BarangGudangAdapter(Context ctx, List<DataBarang> listBarang){
         this.ctx = ctx;
         this.ListBarang = listBarang;
     }
@@ -32,7 +32,7 @@ public class BarangAdapter  extends RecyclerView.Adapter<BarangAdapter.VHbarang>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BarangAdapter.VHbarang holder, int position) {
+    public void onBindViewHolder(@NonNull BarangGudangAdapter.VHbarang holder, int position) {
         DataBarang MN = ListBarang.get(position);
         holder.tvidBarang.setText(MN.getId_barang());
         holder.tvNamaBarang.setText(MN.getNama_barang());

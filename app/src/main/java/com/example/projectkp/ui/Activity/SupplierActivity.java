@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +30,7 @@ public class SupplierActivity extends AppCompatActivity {
     String nama_supplier, no_hp, alamat;
     Context ctx;
     EditText etNamaSupplier,etNoHP_supplier, etAlamat_supplier;
+    ImageView ivBackSupplier;
     Button btnTambahSupplier;
 
     @Override
@@ -45,6 +47,15 @@ public class SupplierActivity extends AppCompatActivity {
         etNoHP_supplier = findViewById(R.id.et_nohp_supplier_baru);
         etAlamat_supplier = findViewById(R.id.et_alamat_supplier_baru);
 
+        ivBackSupplier = findViewById(R.id.iv_back_supplier);
+        ivBackSupplier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SupplierActivity.this,PenjualanActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btnTambahSupplier = findViewById(R.id.btn_tambah_supplier_baru);
 
         btnTambahSupplier.setOnClickListener(new View.OnClickListener() {
@@ -82,12 +93,6 @@ public class SupplierActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent intent = new Intent(this,PesananPenjualanFragment.class);
-        startActivity(intent);
-
-        finish();
     }
     private void tambahSupplier(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
@@ -104,6 +109,7 @@ public class SupplierActivity extends AppCompatActivity {
 //                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(SupplierActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(SupplierActivity.this, "Gagal menambah customer baru ", Toast.LENGTH_SHORT).show();
                 }

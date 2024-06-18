@@ -57,6 +57,11 @@ public class TampilSupplierActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    public void onBackPressed() {
+    }
+
     private void retrieveSupplier() {
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilSupplierResponse> proses = ARD.ardRetrieveSupplier();

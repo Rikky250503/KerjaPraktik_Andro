@@ -2,6 +2,7 @@ package com.example.projectkp.api;
 
 import com.example.projectkp.response.LoginResponse;
 import com.example.projectkp.response.TambahBMResponse;
+import com.example.projectkp.response.TambahDBKResponse;
 import com.example.projectkp.response.TambahDBMResponse;
 import com.example.projectkp.response.TambahSupplierResponse;
 import com.example.projectkp.response.TampilBarangResponse;
@@ -17,6 +18,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface APIRequestData {
 
@@ -48,8 +50,8 @@ public interface APIRequestData {
     @GET("api/api/barangkeluar/list")
     Call<TampilKeluarResponse> ardKeluar();
 
-    @GET("api/api/barangmasuk/list")
-    Call<TampilMasukResponse> ardMasuk();
+    @GET("api/api/barangkleuar/list/{tanggal}")
+    Call<TampilKeluarResponse> ardKeluarGudang(@Path("tanggal") String tanggal );
 
     @FormUrlEncoded
     @POST("api/api/barangkeluar/daftar")
@@ -58,9 +60,17 @@ public interface APIRequestData {
             @Field("nomor_invoice_keluar") String nomor_invoice_keluar,
             @Field("id_customer") String id_customer
     );
-    //API Barang Masuk
-    //@GET("api/api/barangmasuk/list")
-//    Call<TampilMasukResponse>ardMasuk();
+    @FormUrlEncoded
+    @POST("api/api/detailbarangkeluar/daftar")
+    Call<TambahDBKResponse> ardTambahBKDetail(
+            @Field("id_barang_keluar") String id_barang_keluar,
+            @Field("id_barang") String id_barang,
+            @Field("kuantitas") Integer kuantitas,
+            @Field("harga_satuan_keluar") Double harga_satuan_keluar
+    );
+    // API Barang Masuk
+    @GET("api/api/barangmasuk/list")
+    Call<TampilMasukResponse> ardMasuk();
 
     @FormUrlEncoded
     @POST("api/api/barangmasuk/daftar")

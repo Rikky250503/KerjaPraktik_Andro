@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pemesanan_supplier"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Activity.PemesananSupplierFragment">
@@ -75,7 +76,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="30dp"
             tools:listitem="@layout/list_item_pemesanan_supplier"
             tools:itemCount="3">
         </androidx.recyclerview.widget.RecyclerView>

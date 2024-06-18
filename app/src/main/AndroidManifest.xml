@@ -18,23 +18,16 @@
             android:name=".ui.Activity.TampilBarangActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.BarangMasukFragment"
-            android:exported="false"
-            android:theme="@style/Theme.ProjectKP" />
-        <activity
             android:name=".ui.Activity.TampilSupplierActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.TampilCustomerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.NotaPenjualan2Activity"
-            android:exported="false" />
-        <activity
             android:name=".ui.Activity.NotaPenjualanActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.CustomerBaruActivity"
+            android:name=".ui.Activity.NotaPenjualan2Activity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.GudangActivity"
@@ -55,7 +48,13 @@
             android:name=".ui.Activity.BarangKeluarBelumDikirimActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.Activity.CustomerBaruActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Activity.SupplierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activity.DetailBarangMasukActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.DetailBarangKeluarActivity"
@@ -65,9 +64,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.Activity.PemesananSupplierFragment"
-            android:exported="false" />
-        <activity
-            android:name=".ui.Activity.DetailBarangMasukActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.BarangMasukActivity"

@@ -149,6 +149,7 @@ public class PenjualanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PenjualanActivity.this, NotaPenjualanActivity.class));
+                finish();
             }
         });
 
@@ -156,6 +157,7 @@ public class PenjualanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PenjualanActivity.this,SupplierActivity.class));
+                finish();
             }
         });
 
@@ -163,6 +165,7 @@ public class PenjualanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PenjualanActivity.this,CustomerBaruActivity.class));
+                finish();
             }
         });
 

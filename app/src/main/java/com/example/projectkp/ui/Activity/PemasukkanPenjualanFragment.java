@@ -158,7 +158,7 @@ public class PemasukkanPenjualanFragment extends Fragment {
         binding = FragmentPemasukkanPenjualanBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
 
-        binding.barChart.getAnimation().setDuration(animationDuration);
+        //binding.barChart.getAnimation().setDuration(animationDuration);
         // Create a BarDataSet using your list of BarEntry objects (barSet)
         BarDataSet dataSet = new BarDataSet(barSet, "Label");
         // Create a BarData object and set the data set
@@ -168,9 +168,9 @@ public class PemasukkanPenjualanFragment extends Fragment {
         dataSet.setValueTextSize(16f);
 
         // Set the BarData to the BarChart
-        binding.barChart.setData(barData);
+        //binding.barChart.setData(barData);
 //        binding.barChart.setData(barSet);
-        binding.barChart.animate();
+        //binding.barChart.animate();
 
         return rootView;
     }
