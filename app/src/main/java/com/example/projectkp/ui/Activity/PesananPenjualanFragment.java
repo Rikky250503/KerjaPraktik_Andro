@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.projectkp.R;
@@ -32,6 +33,8 @@ public class PesananPenjualanFragment extends Fragment {
 //    ImageView ivLogoutPesananPenjualanFragment;
 
     RecyclerView rv_pesanan_penjualan;
+
+    private ProgressBar pbPesanan;
     private BarangKeluarPenjualanAdapter adBarangKeluar;
     private RecyclerView.LayoutManager lmBarang;
     private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
@@ -43,6 +46,8 @@ public class PesananPenjualanFragment extends Fragment {
 
         rv_pesanan_penjualan= view.findViewById(R.id.rv_pesanan);
 
+        pbPesanan = view.findViewById(R.id.pb_pesanan);
+
         lmBarang = new LinearLayoutManager(requireContext());
         rv_pesanan_penjualan.setLayoutManager(lmBarang);
         adBarangKeluar = new BarangKeluarPenjualanAdapter(requireContext(), ListBarangKeluar);
@@ -52,6 +57,8 @@ public class PesananPenjualanFragment extends Fragment {
     }
 
     public void retrieveBarangKeluar(){
+        pbPesanan.setVisibility(View.VISIBLE);
+
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilKeluarResponse> proses = ARD.ardKeluar();
 
@@ -64,11 +71,13 @@ public class PesananPenjualanFragment extends Fragment {
 
                     adBarangKeluar.setData(ListBarangKeluar);
                 }
+                pbPesanan.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<TampilKeluarResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                pbPesanan.setVisibility(View.GONE);
             }
         });
     }

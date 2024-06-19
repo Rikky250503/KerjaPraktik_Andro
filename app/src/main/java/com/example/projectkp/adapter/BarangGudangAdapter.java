@@ -62,4 +62,7 @@ public class BarangGudangAdapter extends RecyclerView.Adapter<BarangGudangAdapte
             tvJumlah = itemView.findViewById(R.id.jumlah_stok_gudang);
         }
     }
+
+    public class ViewHolder {
+    }
 }

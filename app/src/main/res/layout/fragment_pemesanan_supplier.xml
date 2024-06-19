@@ -80,6 +80,17 @@
             tools:listitem="@layout/list_item_pemesanan_supplier"
             tools:itemCount="3">
         </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/pb_restock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/rv_pemesanan_supplier"
+            app:layout_constraintBottom_toBottomOf="@id/rv_pemesanan_supplier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

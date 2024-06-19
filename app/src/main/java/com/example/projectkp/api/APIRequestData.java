@@ -19,6 +19,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIRequestData {
 
@@ -50,8 +51,13 @@ public interface APIRequestData {
     @GET("api/api/barangkeluar/list")
     Call<TampilKeluarResponse> ardKeluar();
 
-    @GET("api/api/barangkleuar/list/{tanggal}")
+    @GET("api/api/barangkeluar/list/{tanggal}")
     Call<TampilKeluarResponse> ardKeluarGudang(@Path("tanggal") String tanggal );
+
+//    @GET("endpoint_yang_digunakan_dalam_API")
+//    Call<TampilKeluarResponse> ardKeluarGudang(
+//            @Query("tanggal") String tanggal
+//    );
 
     @FormUrlEncoded
     @POST("api/api/barangkeluar/daftar")

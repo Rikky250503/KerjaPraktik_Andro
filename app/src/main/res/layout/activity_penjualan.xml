@@ -27,6 +27,7 @@
                     android:id="@+id/bnv_penjualan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_nav_bar"
                     app:menu="@menu/bottom_nav_penjualan" />
         </LinearLayout>
 
@@ -48,7 +49,7 @@
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#AEC8D7"
             android:text="Actions"
             app:icon="@drawable/add_24"
             app:layout_constraintBottom_toBottomOf="@id/fl_penjualan"
@@ -59,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#AEC8D7"
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/logo_fab_pesanan"
             app:layout_constraintEnd_toEndOf="@+id/logo_fab_pesanan"
@@ -83,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#AEC8D7"
             app:fabSize="normal"
             android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toTopOf="@id/fab_add_notapenjualan"
@@ -107,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#AEC8D7"
             app:fabSize="normal"
             android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toTopOf="@id/fab_add_supplier_baru"

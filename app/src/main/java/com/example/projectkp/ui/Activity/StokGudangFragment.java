@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.projectkp.R;
@@ -39,6 +40,7 @@ public class StokGudangFragment extends Fragment {
 
     RecyclerView rv_stok_gudang;
 
+    private ProgressBar pb_stokGudang;
     private ImageView ivLogoutGudang;
     private BarangGudangAdapter adBarang;
     private RecyclerView.LayoutManager lmBarang;
@@ -56,6 +58,7 @@ public class StokGudangFragment extends Fragment {
 
         rv_stok_gudang = view.findViewById(R.id.rv_stok_gudang);
         ivLogoutGudang = view.findViewById(R.id.iv_logout_stok_barang);
+        pb_stokGudang = view.findViewById(R.id.pb_stok_gudang);
 
         lmBarang = new LinearLayoutManager(requireContext());
         rv_stok_gudang.setLayoutManager(lmBarang);
@@ -82,6 +85,8 @@ public class StokGudangFragment extends Fragment {
     }
 
     public void retrieveBarang(){
+        pb_stokGudang.setVisibility(View.VISIBLE);
+
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilBarangResponse> proses = ARD.ardRetrieveBarang();
 
@@ -99,11 +104,13 @@ public class StokGudangFragment extends Fragment {
                     }
                     adBarang.setData(ListBarang);
                 }
+                pb_stokGudang.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<TampilBarangResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                pb_stokGudang.setVisibility(View.GONE);
             }
         });
     }

@@ -100,8 +100,7 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
                     kuantitas = Integer.parseInt(banyakBarang_nota2);
                     hargaSatuan = Double.parseDouble(hargaSatuan_nota2);
                     new MaterialAlertDialogBuilder(NotaPenjualan2Activity.this)
-                            .setTitle("Peringatan")
-                            .setMessage("Apakah ")
+                            .setTitle("Apakah Anda yakin ingin menyelesaikan tampilan ini?")
 //                              .setNeutralButton("Netral"), new DialogInterface.OnClickListener() {
 //                                    @Override
 //                                    public void onClick(DialogInterface dialog, int which) {

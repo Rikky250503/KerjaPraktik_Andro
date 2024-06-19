@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.projectkp.R;
@@ -32,8 +33,8 @@ import retrofit2.Response;
 public class PemesananSupplierFragment extends Fragment {
 
     ImageView ivTambahPemesananSupplier;
-
     RecyclerView rv_PemesananSupplier;
+    private ProgressBar pbRestock;
     private PemesananSupplierAdapter adPemesananSupplier;
     private RecyclerView.LayoutManager lmPemesananSupplier;
     private List<DataTampilMasuk> ListBarangMasuk = new ArrayList<>();
@@ -47,6 +48,8 @@ public class PemesananSupplierFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rv_PemesananSupplier= view.findViewById(R.id.rv_pemesanan_supplier);
+
+        pbRestock = view.findViewById(R.id.pb_restock);
 
         lmPemesananSupplier = new LinearLayoutManager(requireContext());
         rv_PemesananSupplier.setLayoutManager(lmPemesananSupplier);
@@ -68,6 +71,8 @@ public class PemesananSupplierFragment extends Fragment {
     }
 
     public void retrieveBarangMasuk(){
+        pbRestock.setVisibility(View.VISIBLE);
+
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilMasukResponse> proses = ARD.ardMasuk();
 
@@ -80,11 +85,13 @@ public class PemesananSupplierFragment extends Fragment {
 
                     adPemesananSupplier.setData(ListBarangMasuk);
                 }
+                pbRestock.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<TampilMasukResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                pbRestock.setVisibility(View.GONE);
             }
         });
     }
