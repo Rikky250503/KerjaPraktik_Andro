@@ -1,7 +1,9 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.example.projectkp.response.TambahBKResponse;
 import com.example.projectkp.response.TambahDBKResponse;
 import com.example.projectkp.response.TambahDBMResponse;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -32,7 +35,7 @@ import retrofit2.Response;
 
 public class NotaPenjualan2Activity extends AppCompatActivity {
 
-    String idBarang,namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2,idBarangKeluar,idBarangKeluarR;
+    String idBarang,namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2,idBarangKeluar,idBarangKeluarR, token;
 
     EditText etNamaBarang_nota2,etBanyakBarang_nota2,etHargaSatuan_nota2;
     Button btnSelesai;
@@ -49,6 +52,11 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_nota_penjualan2);
+
+        SharedPreferences sharedPreferences =getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         etNamaBarang_nota2 = findViewById(R.id.et_namaBarang_nota2);
         etBanyakBarang_nota2 = findViewById(R.id.et_banyakBarang);
@@ -145,7 +153,7 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
     private void TambahNota1(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
 
-        Call<TambahDBKResponse> proses = ARD.ardTambahBKDetail(idBarangKeluarR ,idBarang,kuantitas,hargaSatuan);
+        Call<TambahDBKResponse> proses = ARD.ardTambahBKDetail(idBarangKeluarR ,idBarang,kuantitas,hargaSatuan, "Bearer " + token);
             proses.enqueue(new Callback<TambahDBKResponse>() {
                  @Override
                  public void onResponse(Call<TambahDBKResponse> call, Response<TambahDBKResponse> response) {

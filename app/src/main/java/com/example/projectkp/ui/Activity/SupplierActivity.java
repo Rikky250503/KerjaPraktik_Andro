@@ -2,7 +2,9 @@ package com.example.projectkp.ui.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.TambahCustomerResponse;
 import com.example.projectkp.response.TambahSupplierResponse;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +30,7 @@ import retrofit2.Response;
 
 public class SupplierActivity extends AppCompatActivity {
 
-    String nama_supplier, no_hp, alamat;
+    String nama_supplier, no_hp, alamat,token;
     Context ctx;
     EditText etNamaSupplier,etNoHP_supplier, etAlamat_supplier;
     ImageView ivBackSupplier;
@@ -42,6 +45,11 @@ public class SupplierActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_supplier);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         etNamaSupplier =findViewById(R.id.et_nama_supplier_baru);
         etNoHP_supplier = findViewById(R.id.et_nohp_supplier_baru);
@@ -96,7 +104,7 @@ public class SupplierActivity extends AppCompatActivity {
     }
     private void tambahSupplier(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TambahSupplierResponse> proses = ARD.ardTambahSupplier(nama_supplier,no_hp,alamat);
+        Call<TambahSupplierResponse> proses = ARD.ardTambahSupplier(nama_supplier,no_hp,alamat, "Bearer "+ token);
 
         proses.enqueue(new Callback<TambahSupplierResponse>() {
             @Override

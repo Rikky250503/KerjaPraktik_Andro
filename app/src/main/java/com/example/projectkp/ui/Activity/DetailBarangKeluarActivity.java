@@ -1,6 +1,8 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.example.projectkp.response.DataTampilKeluar;
 import com.example.projectkp.response.TambahBMResponse;
 import com.example.projectkp.response.TampilBarangResponse;
 import com.example.projectkp.response.TampilKeluarResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,7 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
 
     private TextView tvInvoice, tvTanggal,tvCustomer,tvNamaBarang, tvKuantitas, tvHarga;
 
-    String id, invoice,tanggal,customer;
+    String id, invoice,tanggal,customer, token;
     RecyclerView rvdetailBKPenjualan;
     private DetailBarangKeluarAdapter adDetailBarangKeluar;
     private RecyclerView.LayoutManager lmDetailbarangKeluar;
@@ -52,6 +55,11 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detail_barang_keluar);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         rvdetailBKPenjualan = findViewById(R.id.rv_detail_bk_penjualan);
 
@@ -89,7 +97,7 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
 
     private void RetrieveDetailBK(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilKeluarResponse> proses = ARD.ardTampilDBK(id);
+        Call<TampilKeluarResponse> proses = ARD.ardTampilDBK(id,"Bearer "+ token);
 
         proses.enqueue(new Callback<TampilKeluarResponse>() {
             @Override

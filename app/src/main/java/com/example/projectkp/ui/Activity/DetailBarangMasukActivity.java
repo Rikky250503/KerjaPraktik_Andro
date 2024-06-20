@@ -1,6 +1,8 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataTampilMasuk;
 import com.example.projectkp.response.TampilMasukResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +35,7 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
 
     private TextView tvInvoice, tvTanggal,tvSupplier,tvNamaBarang, tvKuantitas, tvHarga;
 
-    String id, invoice,tanggal,supplier;
+    String id, invoice,tanggal,supplier, token;
     RecyclerView rvdetailBMPenjualan;
     private DetailBarangMasukAdapter adDetailBarangMasuk;
     private RecyclerView.LayoutManager lmDetailbarangMasuk;
@@ -47,8 +50,12 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        
         setContentView(R.layout.activity_detail_barang_masuk);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         rvdetailBMPenjualan = findViewById(R.id.rv_detail_bm_penjualan);
 
@@ -86,7 +93,7 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
 
     private void RetrieveDetailBM(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilMasukResponse> proses = ARD.ardTampilDBM(id);
+        Call<TampilMasukResponse> proses = ARD.ardTampilDBM(id, "Bearer "+ token);
 
         proses.enqueue(new Callback<TampilMasukResponse>() {
             @Override

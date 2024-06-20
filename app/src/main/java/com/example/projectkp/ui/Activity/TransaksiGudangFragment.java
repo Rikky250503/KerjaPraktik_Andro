@@ -42,7 +42,7 @@ import retrofit2.Response;
 
 public class TransaksiGudangFragment extends Fragment {
     RecyclerView rv_transaksi_gudang;
-    String tanggal_hari_ini = null;
+    String tanggal_hari_ini = null, token;
 
     private ProgressBar pbTransaksi;
     private ImageView ivLogoutTransaksiGudang;
@@ -90,6 +90,7 @@ public class TransaksiGudangFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String userJson = sharedPreferences.getString("Jabatan", null);
+        token = sharedPreferences.getString("Token", null).substring(1,52);
 
         ivLogoutTransaksiGudang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +110,7 @@ public class TransaksiGudangFragment extends Fragment {
         pbTransaksi.setVisibility(View.VISIBLE);
 
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilKeluarResponse> proses = ARD.ardKeluarGudang(tanggal_hari_ini);
+        Call<TampilKeluarResponse> proses = ARD.ardKeluarGudang(tanggal_hari_ini, "Bearer " + token);
 
         // Log URL lengkap yang digunakan oleh Retrofit
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class RestockActivity extends AppCompatActivity {
 
-    String noInvoiceMasuk,namaSupplier,createdBy,id_supplier_restock;
+    String noInvoiceMasuk,namaSupplier,createdBy,id_supplier_restock, token;
     Context ctx;
     ImageView ivCariSupplierRestock,ivBackRestock;
     EditText etNoInvoiceMasuk,etNamaSupplier,etCreatedBy;
@@ -52,7 +53,8 @@ public class RestockActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String TokenJson = sharedPreferences.getString("Token", null);
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
         etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
@@ -73,17 +75,13 @@ public class RestockActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         ivBackRestock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Buat instance dari Fragment yang ingin dituju
-                Fragment fragment = new PemesananSupplierFragment();
-
-                // Lakukan FragmentTransaction untuk mengganti fragment_container dengan fragment
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.pemesanan_supplier, fragment);
-                transaction.addToBackStack(null); // Menambahkan transaksi ke back stack (opsional)
-                transaction.commit();
+                Intent intent = new Intent(RestockActivity.this, PenjualanActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -126,7 +124,7 @@ public class RestockActivity extends AppCompatActivity {
 
     private void tambahRestock(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TambahBMResponse> proses = ARD.ardTambahBM(noInvoiceMasuk,id_supplier_restock);
+        Call<TambahBMResponse> proses = ARD.ardTambahBM(noInvoiceMasuk,id_supplier_restock,"Bearer " + token);
 
         proses.enqueue(new Callback<TambahBMResponse>() {
             @Override

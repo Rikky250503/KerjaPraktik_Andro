@@ -40,6 +40,7 @@ public class StokGudangFragment extends Fragment {
 
     RecyclerView rv_stok_gudang;
 
+    String token;
     private ProgressBar pb_stokGudang;
     private ImageView ivLogoutGudang;
     private BarangGudangAdapter adBarang;
@@ -70,6 +71,8 @@ public class StokGudangFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String userJson = sharedPreferences.getString("Jabatan", null);
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
         ivLogoutGudang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +91,7 @@ public class StokGudangFragment extends Fragment {
         pb_stokGudang.setVisibility(View.VISIBLE);
 
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilBarangResponse> proses = ARD.ardRetrieveBarang();
+        Call<TampilBarangResponse> proses = ARD.ardRetrieveBarang("Bearer " + token);
 
         proses.enqueue(new Callback<TampilBarangResponse>() {
             @Override

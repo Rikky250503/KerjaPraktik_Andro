@@ -1,6 +1,8 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataTampilMasuk;
 import com.example.projectkp.response.TampilMasukResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,7 @@ public class PemesananSupplierFragment extends Fragment {
 
     ImageView ivTambahPemesananSupplier;
     RecyclerView rv_PemesananSupplier;
+    String token;
     private ProgressBar pbRestock;
     private PemesananSupplierAdapter adPemesananSupplier;
     private RecyclerView.LayoutManager lmPemesananSupplier;
@@ -46,6 +51,11 @@ public class PemesananSupplierFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         rv_PemesananSupplier= view.findViewById(R.id.rv_pemesanan_supplier);
 
@@ -74,7 +84,7 @@ public class PemesananSupplierFragment extends Fragment {
         pbRestock.setVisibility(View.VISIBLE);
 
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilMasukResponse> proses = ARD.ardMasuk();
+        Call<TampilMasukResponse> proses = ARD.ardMasuk("Bearer " + token);
 
         proses.enqueue(new Callback<TampilMasukResponse>() {
             @Override

@@ -1,6 +1,9 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +19,7 @@ import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataSupplier;
 import com.example.projectkp.response.TampilSupplierResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,7 @@ import retrofit2.Response;
 public class TampilSupplierActivity extends AppCompatActivity {
 
     RecyclerView rv_supplier;
+    String token;
     private SupplierAdapter adSupplier;
     private RecyclerView.LayoutManager lmSupplier;
     private List<DataSupplier> ListSupplier = new ArrayList<>();
@@ -41,6 +46,11 @@ public class TampilSupplierActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         setContentView(R.layout.activity_tampil_supplier);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         rv_supplier= findViewById(R.id.rv_supplier);
 
@@ -64,7 +74,7 @@ public class TampilSupplierActivity extends AppCompatActivity {
 
     private void retrieveSupplier() {
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TampilSupplierResponse> proses = ARD.ardRetrieveSupplier();
+        Call<TampilSupplierResponse> proses = ARD.ardRetrieveSupplier("Bearer " + token);
 
         proses.enqueue(new Callback<TampilSupplierResponse>() {
             @Override

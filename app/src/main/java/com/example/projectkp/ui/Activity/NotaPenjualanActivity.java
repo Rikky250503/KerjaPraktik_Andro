@@ -1,6 +1,8 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataTampilKeluar;
 import com.example.projectkp.response.TambahBKResponse;
 import com.example.projectkp.response.TampilKeluarResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,7 @@ import retrofit2.Response;
 
 public class NotaPenjualanActivity extends AppCompatActivity {
 
-    String tanggalNota,noInvoiceNota,namaCustomer_nota,idCustomer_nota;
+    String tanggalNota,noInvoiceNota,namaCustomer_nota,idCustomer_nota,token;
 
     EditText etTanggalNota,etNoInvoiceNota,etNamaCustomer_nota;
     TextView tvIdCustomer_nota;
@@ -53,6 +56,11 @@ public class NotaPenjualanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_nota_penjualan);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         etNoInvoiceNota = findViewById(R.id.et_invoice_nota);
         etNamaCustomer_nota = findViewById(R.id.et_customer_nota);
@@ -115,7 +123,7 @@ public class NotaPenjualanActivity extends AppCompatActivity {
 
     private void tambahNota(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TambahBKResponse> proses = ARD.ardTambahBK(tanggalNota,noInvoiceNota,idCustomer_nota);
+        Call<TambahBKResponse> proses = ARD.ardTambahBK(tanggalNota,noInvoiceNota,idCustomer_nota, "Bearer " + token);
 
         proses.enqueue(new Callback<TambahBKResponse>() {
             @Override

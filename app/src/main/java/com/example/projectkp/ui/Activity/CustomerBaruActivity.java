@@ -1,6 +1,8 @@
 package com.example.projectkp.ui.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataCustomer;
 import com.example.projectkp.response.TambahBKResponse;
 import com.example.projectkp.response.TambahCustomerResponse;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +32,7 @@ import retrofit2.Response;
 public class CustomerBaruActivity extends AppCompatActivity {
 
     EditText etNamaCustomer, etAlamatCustomer, etNoHpCustomer;
-    String nama_pemesan,alamat_pemesan,no_hp_pemesan;
+    String nama_pemesan,alamat_pemesan,no_hp_pemesan, token;
 
     ImageView ivBackCustomer;
     Button btnNext;
@@ -43,6 +46,11 @@ public class CustomerBaruActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_customer_baru);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         etNamaCustomer= findViewById(R.id.et_nama_customer_baru);
         etAlamatCustomer = findViewById(R.id.et_alamat_customer_baru);
@@ -99,7 +107,7 @@ public class CustomerBaruActivity extends AppCompatActivity {
 
     private void tambahcustomer(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
-        Call<TambahCustomerResponse> proses = ARD.ardTambahCustomer(nama_pemesan,alamat_pemesan,no_hp_pemesan);
+        Call<TambahCustomerResponse> proses = ARD.ardTambahCustomer(nama_pemesan,alamat_pemesan,no_hp_pemesan, "Bearer " + token);
 
         proses.enqueue(new Callback<TambahCustomerResponse>() {
             @Override

@@ -3,6 +3,7 @@ package com.example.projectkp.ui.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.example.projectkp.response.DataDBM;
 import com.example.projectkp.response.TambahBMResponse;
 import com.example.projectkp.response.TambahDBMResponse;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -34,7 +36,7 @@ import retrofit2.Response;
 
 public class RestockActivity2 extends AppCompatActivity {
 
-    String namaBarang,hargaSatuanString,KuantitasString,idBarang,idBarangMasuk, idBarangMasukR;
+    String namaBarang,hargaSatuanString,KuantitasString,idBarang,idBarangMasuk, idBarangMasukR, token;
     Double hargaSatuan;
     Integer kuantitas;
 
@@ -54,6 +56,11 @@ public class RestockActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_restock2);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        token = sharedPreferences.getString("Token", null).substring(1,52);
+        Log.d("TEs", "onViewCreated: " + token);
 
         etNamaBarang = findViewById(R.id.et_namaBarang_restock);
         ethargaSatuan = findViewById(R.id.et_hargaSatuan_restock);
@@ -149,7 +156,7 @@ public class RestockActivity2 extends AppCompatActivity {
     private void tambahRestock1(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
 
-        Call<TambahDBMResponse> proses = ARD.ardTambahBMDetail(idBarangMasukR ,idBarang,kuantitas,hargaSatuan);
+        Call<TambahDBMResponse> proses = ARD.ardTambahBMDetail(idBarangMasukR ,idBarang,kuantitas,hargaSatuan, "Bearer " + token);
         proses.enqueue(new Callback<TambahDBMResponse>() {
             @Override
             public void onResponse(Call<TambahDBMResponse> call, Response<TambahDBMResponse> response) {
