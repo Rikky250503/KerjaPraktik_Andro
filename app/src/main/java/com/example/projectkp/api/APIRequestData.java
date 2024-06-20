@@ -17,6 +17,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -54,11 +55,6 @@ public interface APIRequestData {
     @GET("api/api/barangkeluar/list/{tanggal}")
     Call<TampilKeluarResponse> ardKeluarGudang(@Path("tanggal") String tanggal );
 
-//    @GET("endpoint_yang_digunakan_dalam_API")
-//    Call<TampilKeluarResponse> ardKeluarGudang(
-//            @Query("tanggal") String tanggal
-//    );
-
     @FormUrlEncoded
     @POST("api/api/barangkeluar/daftar")
     Call<TambahBKResponse> ardTambahBK(
@@ -66,6 +62,7 @@ public interface APIRequestData {
             @Field("nomor_invoice_keluar") String nomor_invoice_keluar,
             @Field("id_customer") String id_customer
     );
+    //API DETAIL BARANG KELUAR
     @FormUrlEncoded
     @POST("api/api/detailbarangkeluar/daftar")
     Call<TambahDBKResponse> ardTambahBKDetail(
@@ -74,10 +71,13 @@ public interface APIRequestData {
             @Field("kuantitas") Integer kuantitas,
             @Field("harga_satuan_keluar") Double harga_satuan_keluar
     );
+    @POST("api/api/detailbarangkeluar/detail/{id}")
+    Call<TampilKeluarResponse> ardTampilDBK(@Path("id") String id);
+
+
     // API Barang Masuk
     @GET("api/api/barangmasuk/list")
     Call<TampilMasukResponse> ardMasuk();
-
     @FormUrlEncoded
     @POST("api/api/barangmasuk/daftar")
     Call<TambahBMResponse> ardTambahBM(
@@ -92,6 +92,8 @@ public interface APIRequestData {
             @Field("kuantitas") Integer kuantitas,
             @Field("harga_satuan") Double harga_satuan
     );
+    @POST("api/api/detailbarangmasuk/detail/{id}")
+    Call<TampilMasukResponse> ardTampilDBM(@Path("id") String id);
 
     //API useradmin
     @FormUrlEncoded

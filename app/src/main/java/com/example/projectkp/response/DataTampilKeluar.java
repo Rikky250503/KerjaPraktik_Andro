@@ -16,35 +16,55 @@ public class DataTampilKeluar {
 
 	@SerializedName("nama_pemesan")
 	private String namaPemesan;
+	@SerializedName("alamat_pemesan")
+	private String alamatPemesan;
+	@SerializedName("kuantitas")
+	private Integer Kuantitas;
+	@SerializedName("harga_barang_keluar")
+	private Double hargaBarangKeluar;
+
 	@SerializedName("nama_barang")
 	private String namaBarang;
 	@SerializedName("id_barang_keluar")
 	private String id_barang_keluar;
 
-	public String getNomorInvoiceKeluar(){
+	public String getNomorInvoiceKeluar() {
 		return nomorInvoiceKeluar;
 	}
 
-	public String getNamaStatus(){
+	public String getId_customer() {
+		return id_customer;
+	}
+
+	public String getNamaStatus() {
 		return namaStatus;
 	}
 
-	public String getTanggalKeluar(){
+	public String getTanggalKeluar() {
 		return tanggalKeluar;
 	}
 
-	public String getId_Customer() {
-		return id_customer;
-	}
-	public String getNamaPemesan(){
+	public String getNamaPemesan() {
 		return namaPemesan;
 	}
 
-	public String getIdBarangKeluar(){
-		return id_barang_keluar;
+	public String getAlamatPemesan() {
+		return alamatPemesan;
+	}
+
+	public Integer getKuantitas() {
+		return Kuantitas;
+	}
+
+	public Double getHargaBarangKeluar() {
+		return hargaBarangKeluar;
 	}
 
 	public String getNamaBarang() {
 		return namaBarang;
+	}
+
+	public String getId_barang_keluar() {
+		return id_barang_keluar;
 	}
 }

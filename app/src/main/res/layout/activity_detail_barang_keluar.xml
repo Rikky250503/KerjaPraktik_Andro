@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="#D2E3EA"
     android:layout_height="match_parent"
     tools:context=".ui.Activity.DetailBarangKeluarActivity">
 
     <ImageView
-        android:id="@+id/iv_logo_stok_barang_masuk"
+        android:id="@+id/iv_logo_stok_barang_keluar"
         android:layout_width="180dp"
         android:layout_height="100dp"
         android:src="@drawable/img_4"
@@ -31,7 +30,7 @@
         >
 
         <TableLayout
-            android:id="@+id/tl_detail_barang_masuk_atas"
+            android:id="@+id/tl_detail_barang_keluar_atas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -61,7 +60,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/tv_isi_invoice_detail_gudang"
+                    android:id="@+id/tv_isi_invoice_detail_penjualan"
                     android:text="1"
                     android:padding="5dp"
                     android:textSize="16sp"
@@ -93,7 +92,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/tv_isi_tanggal_detail_gudang"
+                    android:id="@+id/tv_isi_tanggal_detail_penjualan"
                     android:text="10-03-2024"
                     android:padding="5dp"
                     android:textSize="16sp"
@@ -125,7 +124,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/tv_isi_customer_detail_gudang"
+                    android:id="@+id/tv_isi_customer_detail_penjualan"
                     android:text="PT.Abadi Jaya"
                     android:padding="5dp"
                     android:textSize="16sp"
@@ -145,7 +144,7 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@id/tl_detail_barang_masuk_atas"
+            app:layout_constraintTop_toBottomOf="@id/tl_detail_barang_keluar_atas"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -164,113 +163,7 @@
             tools:itemCount="3">
         </androidx.recyclerview.widget.RecyclerView>
 
-<!--        <TableLayout-->
-<!--            android:id="@+id/tl_detail_barang_bawah_gudang"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/tv_judul_detail"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent">-->
-
-<!--            <TableRow>-->
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_nama_barang_detail_gudang"-->
-<!--                    android:text="Nama Barang"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_tidu2"-->
-<!--                    android:text="\t\t\t\t:"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_isi_nama_barang_detail_gudang"-->
-<!--                    android:text="MDF Putih"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-<!--            </TableRow>-->
-
-<!--            <TableRow>-->
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_kuantitas_detail_barang_keluar"-->
-<!--                    android:text="Kuantitas"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_tidu5"-->
-<!--                    android:text="\t\t\t\t:"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_isi_kuantitas_detail_gudang"-->
-<!--                    android:text="6"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-<!--            </TableRow>-->
-
-<!--            <TableRow>-->
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_nominalperbarang_gudang"-->
-<!--                    android:text="Harga"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_tidu3"-->
-<!--                    android:text="\t\t\t\t:"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_isi_harga_detail_gudang"-->
-<!--                    android:text="100.000"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content" />-->
-<!--            </TableRow>-->
-
-<!--        </TableLayout>-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

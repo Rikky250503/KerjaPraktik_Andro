@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ProjectKP"
         tools:targetApi="31">
         <activity
+            android:name=".ui.Activity.DetailBarangMasukActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Activity.TampilBarangActivity"
             android:exported="false" />
         <activity
@@ -54,9 +57,6 @@
             android:name=".ui.Activity.SupplierActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.DetailBarangMasukActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.Activity.DetailBarangKeluarActivity"
             android:exported="false" />
         <activity
@@ -64,9 +64,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.Activity.PemesananSupplierFragment"
-            android:exported="false" />
-        <activity
-            android:name=".ui.Activity.BarangMasukActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.StokGudangFragment"

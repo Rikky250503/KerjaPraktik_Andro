@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.projectkp.R;
-import com.example.projectkp.adapter.BarangKeluarPenjualanAdapter;
+import com.example.projectkp.adapter.PemesananPenjualanAdapter;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
 import com.example.projectkp.response.DataTampilKeluar;
@@ -35,7 +35,7 @@ public class PesananPenjualanFragment extends Fragment {
     RecyclerView rv_pesanan_penjualan;
 
     private ProgressBar pbPesanan;
-    private BarangKeluarPenjualanAdapter adBarangKeluar;
+    private PemesananPenjualanAdapter adBarangKeluar;
     private RecyclerView.LayoutManager lmBarang;
     private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class PesananPenjualanFragment extends Fragment {
 
         lmBarang = new LinearLayoutManager(requireContext());
         rv_pesanan_penjualan.setLayoutManager(lmBarang);
-        adBarangKeluar = new BarangKeluarPenjualanAdapter(requireContext(), ListBarangKeluar);
+        adBarangKeluar = new PemesananPenjualanAdapter(requireContext(), ListBarangKeluar);
         rv_pesanan_penjualan.setAdapter(adBarangKeluar);
 
         retrieveBarangKeluar();

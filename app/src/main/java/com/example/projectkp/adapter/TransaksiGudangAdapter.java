@@ -35,7 +35,7 @@ public class TransaksiGudangAdapter extends RecyclerView.Adapter<TransaksiGudang
     @Override
     public void onBindViewHolder(@NonNull TransaksiGudangAdapter.VHbarangKeluarhrini holder, int position) {
         DataTampilKeluar M = ListBarangKeluarHrini.get(position);
-        holder.tvIdBarangKeluar.setText(M.getIdBarangKeluar());
+        holder.tvIdBarangKeluar.setText(M.getId_barang_keluar());
         holder.tvNamaCustomer.setText(M.getNamaPemesan());
         holder.tvNamaBarang.setText(M.getNamaBarang());
     }

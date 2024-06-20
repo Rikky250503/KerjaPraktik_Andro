@@ -2,52 +2,109 @@ package com.example.projectkp.ui.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkp.R;
+import com.example.projectkp.adapter.CustomerAdapter;
+import com.example.projectkp.adapter.DetailBarangKeluarAdapter;
+import com.example.projectkp.api.APIRequestData;
+import com.example.projectkp.api.RetroServer;
+import com.example.projectkp.response.DataCustomer;
+import com.example.projectkp.response.DataTampilKeluar;
+import com.example.projectkp.response.TambahBMResponse;
+import com.example.projectkp.response.TampilBarangResponse;
+import com.example.projectkp.response.TampilKeluarResponse;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailBarangKeluarActivity extends AppCompatActivity {
 
     private TextView tvInvoice, tvTanggal,tvCustomer,tvNamaBarang, tvKuantitas, tvHarga;
 
+    String id, invoice,tanggal,customer;
+    RecyclerView rvdetailBKPenjualan;
+    private DetailBarangKeluarAdapter adDetailBarangKeluar;
+    private RecyclerView.LayoutManager lmDetailbarangKeluar;
+    private List<DataTampilKeluar> ListDetailBarangKeluar = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try{
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detail_barang_keluar);
 
-        tvInvoice=findViewById(R.id.tv_isi_invoice_detail_gudang);
-        tvTanggal=findViewById(R.id.tv_isi_tanggal_detail_gudang);
-        tvCustomer=findViewById(R.id.tv_isi_customer_detail_gudang);
-        tvNamaBarang=findViewById(R.id.tv_isi_nama_barang_detail_gudang);
-        tvKuantitas=findViewById(R.id.tv_isi_kuantitas_detail_gudang);
-        tvHarga=findViewById(R.id.tv_isi_harga_detail_gudang);
+        rvdetailBKPenjualan = findViewById(R.id.rv_detail_bk_penjualan);
+
+        tvInvoice = findViewById(R.id.tv_isi_invoice_detail_penjualan);
+        tvTanggal = findViewById(R.id.tv_isi_tanggal_detail_penjualan);
+        tvCustomer = findViewById(R.id.tv_isi_customer_detail_penjualan);
+
 
         Intent intent = getIntent();
-        String invoice = intent.getStringExtra("varInvoice");
-        String tanggal = intent.getStringExtra("varTanggal");
-        String customer = intent.getStringExtra("varCustomer");
-        String namaBarang = intent.getStringExtra("varNamaBarang");
-        String kuantitas = intent.getStringExtra("varKuantitas");
-        String harga = intent.getStringExtra("varHarga");
+        id = intent.getStringExtra("id_barang_keluar");
+
+        invoice = intent.getStringExtra("no_invoice_keluar");
+        tanggal = intent.getStringExtra("tanggal_keluar");
+        customer = intent.getStringExtra("nama_pemesan");
+        Log.d("API DATA","ID_barangKeluar:"+ id);
 
         tvInvoice.setText(invoice);
         tvTanggal.setText(tanggal);
         tvCustomer.setText(customer);
-        tvNamaBarang.setText(namaBarang);
-        tvKuantitas.setText(kuantitas);
-        tvHarga.setText(harga);
+
+        lmDetailbarangKeluar = new LinearLayoutManager(this);
+        rvdetailBKPenjualan.setLayoutManager(lmDetailbarangKeluar);
+        adDetailBarangKeluar = new DetailBarangKeluarAdapter(this, ListDetailBarangKeluar);
+        rvdetailBKPenjualan.setAdapter(adDetailBarangKeluar);
+
+        RetrieveDetailBK();
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+    }
+
+    private void RetrieveDetailBK(){
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+        Call<TampilKeluarResponse> proses = ARD.ardTampilDBK(id);
+
+        proses.enqueue(new Callback<TampilKeluarResponse>() {
+            @Override
+            public void onResponse(Call<TampilKeluarResponse> call, Response<TampilKeluarResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    ListDetailBarangKeluar = response.body().getData();
+                    adDetailBarangKeluar.setData(ListDetailBarangKeluar);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TampilKeluarResponse> call, Throwable t) {
+                Toast.makeText(DetailBarangKeluarActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

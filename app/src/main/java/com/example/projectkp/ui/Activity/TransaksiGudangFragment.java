@@ -112,8 +112,6 @@ public class TransaksiGudangFragment extends Fragment {
         Call<TampilKeluarResponse> proses = ARD.ardKeluarGudang(tanggal_hari_ini);
 
         // Log URL lengkap yang digunakan oleh Retrofit
-        String fullUrl = RetroServer.alamat_server + "endpoint_yang_digunakan_dalam_API/" + tanggal_hari_ini;
-        Log.d("Full_API_URL", fullUrl);
 
         proses.enqueue(new Callback<TampilKeluarResponse>() {
             @Override

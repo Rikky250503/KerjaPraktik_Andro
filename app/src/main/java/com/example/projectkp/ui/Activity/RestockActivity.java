@@ -44,6 +44,7 @@ public class RestockActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
         catch (NullPointerException e){}
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 

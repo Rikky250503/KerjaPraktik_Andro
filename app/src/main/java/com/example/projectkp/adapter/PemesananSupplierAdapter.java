@@ -2,17 +2,17 @@ package com.example.projectkp.adapter;
 
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkp.R;
-import com.example.projectkp.response.DataTampilKeluar;
 import com.example.projectkp.response.DataTampilMasuk;
+import com.example.projectkp.ui.Activity.DetailBarangMasukActivity;
 
 import java.util.List;
 
@@ -39,13 +39,23 @@ public class PemesananSupplierAdapter extends RecyclerView.Adapter<PemesananSupp
         holder.tvNoInvoicePemesananSupplier.setText(M.getNomor_invoice_masuk());
         holder.tvNamaSupplier.setText(String.valueOf(M.getNama_supplier()));
         holder.tvTanggalPemesananSupplier.setText(String.valueOf(M.getTanggal_masuk()));
-//        if(MN.getIdStatus() == 1) {
-//            holder.tvStatus.setText(String.valueOf("Menunggu Dikirim"));
-//        }else if(MN.getIdStatus() == 2) {
-//            holder.tvStatus.setText(String.valueOf("Pesanan Dikirim"));
-//        }if(MN.getIdStatus() == 3) {
-//            holder.tvStatus.setText(String.valueOf("Pesanan Diterima"));
-//        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+
+                Context context = holder.itemView.getContext();
+                intent = new Intent(context, DetailBarangMasukActivity.class);
+
+                intent.putExtra("id_barang_masuk",M.getId_barang_masuk());
+                intent.putExtra("nama_supplier",M.getNama_supplier());
+                intent.putExtra("tanggal_masuk",M.getTanggal_masuk());
+                intent.putExtra("no_invoice_masuk",M.getNomor_invoice_masuk());
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
