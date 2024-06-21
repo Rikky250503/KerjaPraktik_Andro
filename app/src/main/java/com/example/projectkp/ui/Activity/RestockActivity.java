@@ -54,11 +54,9 @@ public class RestockActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
 
         etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
         etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);
-        etCreatedBy = findViewById(R.id.et_createdBy_restock);
         ivCariSupplierRestock = findViewById(R.id.iv_cari_supplier_restock);
         ivBackRestock = findViewById(R.id.iv_back_restock);
 
@@ -92,7 +90,6 @@ public class RestockActivity extends AppCompatActivity {
             public void onClick(View view) {
                 noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
                 namaSupplier = etNamaSupplier.getText().toString();
-                //createdBy = etCreatedBy.getText().toString();
 
                 if(noInvoiceMasuk.trim().isEmpty()){
                     etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
@@ -101,9 +98,6 @@ public class RestockActivity extends AppCompatActivity {
                 else if(namaSupplier.trim().isEmpty()){
                     etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
                 }
-//                else if(createdBy.trim().isEmpty()){
-//                    etCreatedBy.setError("Created by tidak boleh Kosong");
-//                }
               else{
                     tambahRestock();
                }
@@ -118,8 +112,6 @@ public class RestockActivity extends AppCompatActivity {
         });
     }
     public void onBackPressed() {
-        // Tidak melakukan apa-apa sehingga tombol back tidak berfungsi
-        // Tidak memanggil super.onBackPressed() untuk menonaktifkan tombol back
     }
 
     private void tambahRestock(){
@@ -132,10 +124,7 @@ public class RestockActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Intent intent = new Intent(RestockActivity.this, RestockActivity2.class);
                     intent.putExtra("id_barang_masuk", response.body().getData().getId_barang_masuk());
-//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
-//                    Log.d("Tanggal", tanggalNota);
-//                    Log.d("noInvoice", noInvoiceNota);
-//                    Log.d("ID", idCustomer_nota);
+
                     Toast.makeText(RestockActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();

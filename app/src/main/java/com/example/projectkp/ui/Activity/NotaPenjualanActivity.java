@@ -39,8 +39,8 @@ public class NotaPenjualanActivity extends AppCompatActivity {
 
     String tanggalNota,noInvoiceNota,namaCustomer_nota,idCustomer_nota,token;
 
-    EditText etTanggalNota,etNoInvoiceNota,etNamaCustomer_nota;
-    TextView tvIdCustomer_nota;
+    EditText etNoInvoiceNota,etNamaCustomer_nota;
+
     ImageView ivCariCustomerNota,ivBackNota;
     private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
     private List<DataTampilKeluar> listBarangKeluar = new ArrayList<DataTampilKeluar>();
@@ -60,7 +60,6 @@ public class NotaPenjualanActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
 
         etNoInvoiceNota = findViewById(R.id.et_invoice_nota);
         etNamaCustomer_nota = findViewById(R.id.et_customer_nota);
@@ -131,10 +130,7 @@ public class NotaPenjualanActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Intent intent = new Intent(NotaPenjualanActivity.this, NotaPenjualan2Activity.class);
                     intent.putExtra("id_barang_keluar", response.body().getData().getId_barang_keluar());
-//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
-//                    Log.d("Tanggal", tanggalNota);
-//                    Log.d("noInvoice", noInvoiceNota);
-//                    Log.d("ID", idCustomer_nota);
+
                     Toast.makeText(NotaPenjualanActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
@@ -145,7 +141,6 @@ public class NotaPenjualanActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<TambahBKResponse> call, Throwable t) {
-                Log.d("ResponRikky",t.getMessage());
                 Toast.makeText(NotaPenjualanActivity.this, "Gagal Menghubungi Server" +t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

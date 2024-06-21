@@ -40,7 +40,7 @@ public class StokGudangFragment extends Fragment {
 
     RecyclerView rv_stok_gudang;
 
-    String token;
+     private String token;
     private ProgressBar pb_stokGudang;
     private ImageView ivLogoutGudang;
     private BarangGudangAdapter adBarang;
@@ -66,13 +66,12 @@ public class StokGudangFragment extends Fragment {
         adBarang = new BarangGudangAdapter(requireContext(), ListBarang);
         rv_stok_gudang.setAdapter(adBarang);
 
-        retrieveBarang();
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String userJson = sharedPreferences.getString("Jabatan", null);
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
+
+        retrieveBarang();
+
         ivLogoutGudang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +88,7 @@ public class StokGudangFragment extends Fragment {
 
     public void retrieveBarang(){
         pb_stokGudang.setVisibility(View.VISIBLE);
-
+        Log.d("TES", "Stock Gudang fragment: "+token);
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilBarangResponse> proses = ARD.ardRetrieveBarang("Bearer " + token);
 
@@ -100,16 +99,10 @@ public class StokGudangFragment extends Fragment {
                 {
                     ListBarang = response.body().getDataBarang();
 
-                    for (DataBarang item: ListBarang)
-                    {
-                        Log.d("API DATA","Nama Barang:"+ item.getNama_barang());
-                        Log.d("API DATA","Jumlah:"+item.getKuantitas());
-                    }
                     adBarang.setData(ListBarang);
                 }
                 pb_stokGudang.setVisibility(View.GONE);
             }
-
             @Override
             public void onFailure(Call<TampilBarangResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();

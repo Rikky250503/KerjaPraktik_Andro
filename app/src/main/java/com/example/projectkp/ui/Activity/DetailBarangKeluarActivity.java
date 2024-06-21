@@ -37,7 +37,7 @@ import retrofit2.Response;
 
 public class DetailBarangKeluarActivity extends AppCompatActivity {
 
-    private TextView tvInvoice, tvTanggal,tvCustomer,tvNamaBarang, tvKuantitas, tvHarga;
+    private TextView tvInvoice, tvTanggal,tvCustomer;
 
     String id, invoice,tanggal,customer, token;
     RecyclerView rvdetailBKPenjualan;
@@ -59,7 +59,6 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
 
         rvdetailBKPenjualan = findViewById(R.id.rv_detail_bk_penjualan);
 
@@ -67,14 +66,12 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
         tvTanggal = findViewById(R.id.tv_isi_tanggal_detail_penjualan);
         tvCustomer = findViewById(R.id.tv_isi_customer_detail_penjualan);
 
-
         Intent intent = getIntent();
         id = intent.getStringExtra("id_barang_keluar");
 
         invoice = intent.getStringExtra("no_invoice_keluar");
         tanggal = intent.getStringExtra("tanggal_keluar");
         customer = intent.getStringExtra("nama_pemesan");
-        Log.d("API DATA","ID_barangKeluar:"+ id);
 
         tvInvoice.setText(invoice);
         tvTanggal.setText(tanggal);

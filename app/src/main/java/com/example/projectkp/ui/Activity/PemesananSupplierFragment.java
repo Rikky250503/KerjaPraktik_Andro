@@ -55,7 +55,6 @@ public class PemesananSupplierFragment extends Fragment {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
 
         rv_PemesananSupplier= view.findViewById(R.id.rv_pemesanan_supplier);
 

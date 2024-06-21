@@ -21,16 +21,17 @@ import com.google.gson.Gson;
 public class Welcome extends AppCompatActivity {
 
     Button btn_getStarted;
-    TextView tv_welcome;
     String JabatanJson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try{
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_welcome);
-
-        //getActionBar().hide();
-        //getSupportActionBar().hide();
 
         btn_getStarted = findViewById(R.id.btn_getStarted);
 
@@ -54,20 +55,12 @@ public class Welcome extends AppCompatActivity {
                 }
                 else if(JabatanJson.substring(1,2).equals("G"))
                 {
-
                     Intent intent = new Intent(Welcome.this, GudangActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(JabatanJson.equals("P"))
-                {
-                    Intent intent = new Intent(Welcome.this, PimpinanActivity.class);
                     startActivity(intent);
                     finish();
                 }
             }
         });
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

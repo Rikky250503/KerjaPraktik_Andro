@@ -62,9 +62,6 @@ public class PenjualanActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String TokenJson = sharedPreferences.getString("Token", null);
 
-//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        String userJson = sharedPreferences.getString("Jabatan", null);
         ivLogoutPesananPenjualanFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,9 +99,6 @@ public class PenjualanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!isAllFabsVisible) {
 
-                    // when isAllFabsVisible becomes
-                    // true make all the action name
-                    // texts and FABs VISIBLE.
                     mAddNotaFab.show();
                     mAddSupplierFab.show();
                     mAddCustomerFab.show();
@@ -112,20 +106,11 @@ public class PenjualanActivity extends AppCompatActivity {
                     addSupplierFabActionText.setVisibility(View.VISIBLE);
                     addCustomerFabActionText.setVisibility(View.VISIBLE);
 
-                    // Now extend the parent FAB, as
-                    // user clicks on the shrinked
-                    // parent FAB
                     mAddFab.extend();
 
-                    // make the boolean variable true as
-                    // we have set the sub FABs
-                    // visibility to GONE
                     isAllFabsVisible = true;
                 } else {
 
-                    // when isAllFabsVisible becomes
-                    // true make all the action name
-                    // texts and FABs GONE.
                     mAddNotaFab.hide();
                     mAddSupplierFab.hide();
                     mAddCustomerFab.hide();
@@ -133,13 +118,8 @@ public class PenjualanActivity extends AppCompatActivity {
                     addSupplierFabActionText.setVisibility(View.GONE);
                     addCustomerFabActionText.setVisibility(View.GONE);
 
-                    // Set the FAB to shrink after user
-                    // closes all the sub FABs
                     mAddFab.shrink();
 
-                    // make the boolean variable false
-                    // as we have set the sub FABs
-                    // visibility to GONE
                     isAllFabsVisible = false;
                 }
             }
@@ -181,27 +161,7 @@ public class PenjualanActivity extends AppCompatActivity {
                 else if (item.getItemId()==R.id.nav_penjualan_pemesananSupplier){
                     bukaFragment(new PemesananSupplierFragment());
                 }
-                else{
-                    bukaFragment(new PemasukkanPenjualanFragment());
-                }
                 return true;
-//                switch (item.getItemId())
-//                {
-//                    case R.id.nav_penjualan_pesanan:
-//                        bukaFragment(new PesananPenjualanFragment());
-//                        judulBarPenjualan.setTitle("Orders");
-//                        return true;
-//                    case R.id.nav_penjualan_pemesananSupplier:
-//                        bukaFragment(new RestockFragment());
-//                        judulBarPenjualan.setTitle("Supplier");
-//                        return true;
-//
-//                    case R.id.nav_penjualan_pemasukkan:
-//                        bukaFragment(new PemasukkanPenjualanFragment());
-//                        judulBarPenjualan.setTitle("Pemasukkan");
-//                        return true;
-//                }
-//                return false;
             }
         });
 

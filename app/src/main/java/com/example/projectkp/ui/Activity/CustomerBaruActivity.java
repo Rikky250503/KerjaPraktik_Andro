@@ -86,7 +86,6 @@ public class CustomerBaruActivity extends AppCompatActivity {
                     Toast.makeText(CustomerBaruActivity.this, "No Telp belum diisi", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 else {
                     tambahcustomer();
                 }
@@ -114,10 +113,7 @@ public class CustomerBaruActivity extends AppCompatActivity {
             public void onResponse(Call<TambahCustomerResponse> call, Response<TambahCustomerResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Intent intent = new Intent(CustomerBaruActivity.this, PenjualanActivity.class);
-//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
-//                    Log.d("Tanggal", tanggalNota);
-//                    Log.d("noInvoice", noInvoiceNota);
-//                    Log.d("ID", idCustomer_nota);
+
                     Toast.makeText(CustomerBaruActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
@@ -128,7 +124,6 @@ public class CustomerBaruActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<TambahCustomerResponse> call, Throwable t) {
-                Log.d("ResponRikky",t.getMessage());
                 Toast.makeText(CustomerBaruActivity.this, "Gagal Menghubungi Server" +t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

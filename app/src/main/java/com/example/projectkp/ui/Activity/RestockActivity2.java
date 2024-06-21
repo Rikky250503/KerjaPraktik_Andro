@@ -74,9 +74,6 @@ public class RestockActivity2 extends AppCompatActivity {
         namaBarang = intent.getStringExtra("nama_barang");
         etNamaBarang.setText(namaBarang);
 
-        Toast.makeText(RestockActivity2.this, "idbarangmasuk = " + idBarangMasuk, Toast.LENGTH_SHORT).show();
-        Toast.makeText(RestockActivity2.this, "idbarangmasukR = " + idBarangMasukR, Toast.LENGTH_SHORT).show();
-
         ivcariBarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,18 +158,8 @@ public class RestockActivity2 extends AppCompatActivity {
             @Override
             public void onResponse(Call<TambahDBMResponse> call, Response<TambahDBMResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-//                    Intent intent = new Intent(RestockActivity2.this,PenjualanActivity.class);
-//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
-//                    Log.d("Tanggal", tanggalNota);
-//                    Log.d("noInvoice", noInvoiceNota);
-//                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(RestockActivity2.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
-                    // Log the response code and any error message
-                    Log.e("RestockActivity2", "Response code: " + response.code());
-                    Log.e("RestockActivity2", "Error message: " + response.message());
-
-                    // Log the error body if available
                     try {
                         Log.e("RestockActivity2", "Error body: " + response.errorBody().string());
                     } catch (IOException e) {
@@ -181,7 +168,6 @@ public class RestockActivity2 extends AppCompatActivity {
                     Toast.makeText(RestockActivity2.this, "Gagal menambah nota restock ", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<TambahDBMResponse> call, Throwable t) {
                 Toast.makeText(RestockActivity2.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();

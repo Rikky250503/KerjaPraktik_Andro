@@ -52,14 +52,13 @@ public class TampilBarangActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
+
 
         source = getIntent().getStringExtra("source");
         idBarangMasuk = getIntent().getStringExtra("id_barang_masuk");
         idBarangMasukR = getIntent().getStringExtra("id_barang_masukr");
         idBarangKeluar = getIntent().getStringExtra("id_barang_keluar");
         idBarangKeluarR = getIntent().getStringExtra("id_barang_keluarR");
-        //Toast.makeText(TampilBarangActivity.this, idBarangMasuk, Toast.LENGTH_SHORT).show();
 
         rv_tampil_barangr= findViewById(R.id.rv_tampil_barang);
 
@@ -75,6 +74,8 @@ public class TampilBarangActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    public void onBackPressed() {
     }
 
     private void retrieveTampilBarang() {

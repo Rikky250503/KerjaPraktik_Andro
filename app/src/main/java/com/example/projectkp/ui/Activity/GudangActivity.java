@@ -44,37 +44,16 @@ public class GudangActivity extends AppCompatActivity {
         bnvGudang.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment FrJual;
+
                 if(item.getItemId()==R.id.navigation_stok){
                     bukaFragment(new StokGudangFragment());
                 }
                 else if (item.getItemId()==R.id.navigation_transaksi){
                     bukaFragment(new TransaksiGudangFragment());
                 }
-                else{
-                    bukaFragment(new PemberitahuanGudangFragment());
-                }
                 return true;
-//                switch (item.getItemId())
-//                {
-//                    case R.id.nav_penjualan_pesanan:
-//                        bukaFragment(new PesananPenjualanFragment());
-//                        judulBarPenjualan.setTitle("Orders");
-//                        return true;
-//                    case R.id.nav_penjualan_pemesananSupplier:
-//                        bukaFragment(new RestockFragment());
-//                        judulBarPenjualan.setTitle("Supplier");
-//                        return true;
-//
-//                    case R.id.nav_penjualan_pemasukkan:
-//                        bukaFragment(new PemasukkanPenjualanFragment());
-//                        judulBarPenjualan.setTitle("Pemasukkan");
-//                        return true;
-//                }
-//                return false;
             }
         });
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

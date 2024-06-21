@@ -55,7 +55,6 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
 
         rvdetailBMPenjualan = findViewById(R.id.rv_detail_bm_penjualan);
 
@@ -70,7 +69,6 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
         invoice = intent.getStringExtra("no_invoice_masuk");
         tanggal = intent.getStringExtra("tanggal_masuk");
         supplier = intent.getStringExtra("nama_supplier");
-        Log.d("API DATA","ID_barangMasuk:"+ id);
 
         tvInvoice.setText(invoice);
         tvTanggal.setText(tanggal);

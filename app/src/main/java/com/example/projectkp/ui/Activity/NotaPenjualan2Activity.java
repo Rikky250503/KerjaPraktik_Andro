@@ -56,7 +56,6 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
         SharedPreferences sharedPreferences =getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
 
         etNamaBarang_nota2 = findViewById(R.id.et_namaBarang_nota2);
         etBanyakBarang_nota2 = findViewById(R.id.et_banyakBarang);
@@ -72,8 +71,6 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
         idBarangKeluarR = intent.getStringExtra("id_barang_keluarR");
         etNamaBarang_nota2.setText(namaBarang_nota2);
 
-        Toast.makeText(NotaPenjualan2Activity.this, "idbarangKeluar = " + idBarangKeluar, Toast.LENGTH_SHORT).show();
-        Toast.makeText(NotaPenjualan2Activity.this, "idbarangKeluarR = " + idBarangKeluarR, Toast.LENGTH_SHORT).show();
         ivCariBarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,12 +106,7 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
                     hargaSatuan = Double.parseDouble(hargaSatuan_nota2);
                     new MaterialAlertDialogBuilder(NotaPenjualan2Activity.this)
                             .setTitle("Apakah Anda yakin ingin menyelesaikan tampilan ini?")
-//                              .setNeutralButton("Netral"), new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        // Respond to neutral button press
-//                                    }
-//                              })
+
                             .setNegativeButton("Tambah", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -158,23 +150,8 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
                  @Override
                  public void onResponse(Call<TambahDBKResponse> call, Response<TambahDBKResponse> response) {
                      if (response.isSuccessful() && response.body() != null) {
-//                    Intent intent = new Intent(RestockActivity2.this,PenjualanActivity.class);
-//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
-//                    Log.d("Tanggal", tanggalNota);
-//                    Log.d("noInvoice", noInvoiceNota);
-//                    Log.d("ID", idCustomer_nota);
                          Toast.makeText(NotaPenjualan2Activity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                      } else {
-                         // Log the response code and any error message
-                         Log.e("NotaPenjualan2Activity", "Response code: " + response.code());
-                         Log.e("NotaPenjualan2Activity", "Error message: " + response.message());
-
-                         // Log the error body if available
-                         try {
-                             Log.e("NotaPenjualan2Activity", "Error body: " + response.errorBody().string());
-                         } catch (IOException e) {
-                             e.printStackTrace();
-                         }
                          Toast.makeText(NotaPenjualan2Activity.this, "Gagal menambah daftar pembelian barang di nota ", Toast.LENGTH_SHORT).show();
                      }
                  }

@@ -116,12 +116,6 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
-                        else if(response.body().getJabatan().equals("P"))
-                        {
-                            Intent intent = new Intent(LoginActivity.this, PimpinanActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
                     }
                 }
                 else

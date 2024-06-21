@@ -65,7 +65,7 @@ public interface APIRequestData {
 
     @GET("api/api/barangkeluar/list/{tanggal}")
     Call<TampilKeluarResponse> ardKeluarGudang(
-            @Path("tanggal") String tanggal,
+            @Path("tanggal") String tanggal_hari_ini,
             @Header("Authorization") String token
     );
 

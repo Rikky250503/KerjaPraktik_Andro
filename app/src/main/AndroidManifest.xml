@@ -39,16 +39,10 @@
             android:name=".ui.Activity.PenjualanActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.PimpinanActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.Activity.RestockActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.RestockActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".ui.Activity.BarangKeluarBelumDikirimActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.CustomerBaruActivity"
@@ -60,16 +54,10 @@
             android:name=".ui.Activity.DetailBarangKeluarActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.PemasukkanPenjualanFragment"
-            android:exported="false" />
-        <activity
             android:name=".ui.Activity.PemesananSupplierFragment"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.StokGudangFragment"
-            android:exported="false" />
-        <activity
-            android:name=".ui.Activity.PilihanActivity"
             android:exported="false" />
         <activity
             android:name=".ui.TambahPenjualan"

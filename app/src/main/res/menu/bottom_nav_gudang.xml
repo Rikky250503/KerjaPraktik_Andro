@@ -10,9 +10,4 @@
             android:title="Transaksi"
             android:icon="@drawable/transaksi" />
 
-        <item
-            android:id="@+id/navigation_pemberitahuan"
-            android:title="Pemberitahuan"
-            android:icon="@drawable/pemberitahuan" />
-
 </menu>

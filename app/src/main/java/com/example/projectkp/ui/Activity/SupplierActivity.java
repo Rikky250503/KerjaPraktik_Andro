@@ -111,10 +111,6 @@ public class SupplierActivity extends AppCompatActivity {
             public void onResponse(Call<TambahSupplierResponse> call, Response<TambahSupplierResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Intent intent = new Intent(SupplierActivity.this, PenjualanActivity.class);
-//                    Log.d("Id barang keluar", response.body().getData().getId_barang_keluar());
-//                    Log.d("Tanggal", tanggalNota);
-//                    Log.d("noInvoice", noInvoiceNota);
-//                    Log.d("ID", idCustomer_nota);
                     Toast.makeText(SupplierActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
@@ -122,7 +118,6 @@ public class SupplierActivity extends AppCompatActivity {
                     Toast.makeText(SupplierActivity.this, "Gagal menambah customer baru ", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<TambahSupplierResponse> call, Throwable t) {
                 Toast.makeText(SupplierActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();

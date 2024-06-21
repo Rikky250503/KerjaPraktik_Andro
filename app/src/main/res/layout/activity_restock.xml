@@ -126,54 +126,19 @@
                     android:hint="Contoh: SGM-001 " />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/box_craetedBy_restock"
-                android:layout_width="match_parent"
-                android:layout_height="108dp"
-                android:layout_marginHorizontal="36dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/img_3"
-                app:layout_constraintTop_toBottomOf="@id/box_invoice_restock"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:elevation="12dp">
-
-                <TextView
-                    android:id="@+id/tv_createdBy_restock"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="24dp"
-                    android:text="Created by"
-                    android:textSize="20dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/et_createdBy_restock"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_createdBy_restock"
-                    android:layout_marginHorizontal="12dp"
-                    android:hint="Contoh:Ani" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_next_restock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="72dp"
-                app:layout_constraintTop_toBottomOf="@id/box_craetedBy_restock"
                 android:layout_marginTop="20dp"
                 app:cornerRadius="12dp"
                 android:textSize="24dp"
                 android:textColor="@color/black"
                 android:text="NEXT"
-                android:backgroundTint="#AEC8D7"/>
+                android:backgroundTint="#AEC8D7"
+                app:layout_constraintTop_toBottomOf="@id/box_invoice_restock"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

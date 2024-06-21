@@ -42,7 +42,7 @@ import retrofit2.Response;
 
 public class TransaksiGudangFragment extends Fragment {
     RecyclerView rv_transaksi_gudang;
-    String tanggal_hari_ini = null, token;
+    private String tanggal_hari_ini = null, token;
 
     private ProgressBar pbTransaksi;
     private ImageView ivLogoutTransaksiGudang;
@@ -71,7 +71,6 @@ public class TransaksiGudangFragment extends Fragment {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             tanggal_hari_ini = today.format(formatter);
         }
-                    Log.d("Tanggal_Hari ini", tanggal_hari_ini);
 
         rv_transaksi_gudang = view.findViewById(R.id.rv_transaksi_gudang);
 
@@ -85,12 +84,12 @@ public class TransaksiGudangFragment extends Fragment {
 
         ivLogoutTransaksiGudang = view.findViewById(R.id.iv_logout_transaksi_gudang);
 
-        retrieveBarangKeluarHrini();
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String userJson = sharedPreferences.getString("Jabatan", null);
         token = sharedPreferences.getString("Token", null).substring(1,52);
+
+
+        retrieveBarangKeluarHrini();
 
         ivLogoutTransaksiGudang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,50 +111,24 @@ public class TransaksiGudangFragment extends Fragment {
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilKeluarResponse> proses = ARD.ardKeluarGudang(tanggal_hari_ini, "Bearer " + token);
 
-        // Log URL lengkap yang digunakan oleh Retrofit
-
         proses.enqueue(new Callback<TampilKeluarResponse>() {
             @Override
             public void onResponse(Call<TampilKeluarResponse> call, Response<TampilKeluarResponse> response) {
-
-                // Log response code
-                Log.d("API_Response_Code", String.valueOf(response.code()));
 
                 if (response.isSuccessful() && response.body() != null)
                 {
                     ListTransaksi = response.body().getData();
                     adTransaksi.setData(ListTransaksi);
-
-                    // Log untuk memeriksa data yang diterima
-                    Log.d("Data_API", ListTransaksi.toString());
-                }else {
-                    // Log jika response tidak berhasil atau body null
-                    Log.d("API_Error", "Response tidak berhasil atau body null");
-
-                    if (response.body() == null) {
-                        Log.d("API_Error_Body", "Response body is null");
-                    } else {
-                        Log.d("API_Error_Body", response.body().toString());
-                    }
-
-                    // Log error message jika ada
-                    if (response.errorBody() != null) {
-                        try {
-                            Log.d("API_Error_Message", response.errorBody().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                }
+                else {
+                    Toast.makeText(requireContext(),"Tidak ada Transaksi pada tanggal hari ini", Toast.LENGTH_SHORT).show();
                 }
                 pbTransaksi.setVisibility(View.GONE);
             }
-
             @Override
             public void onFailure(Call<TampilKeluarResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
                 pbTransaksi.setVisibility(View.GONE);
-                //Log untuk kesalahan
-                Log.d("API_Failure", t.getMessage());
             }
         });
     }

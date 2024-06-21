@@ -40,7 +40,7 @@ public class PesananPenjualanFragment extends Fragment {
 //    ImageView ivLogoutPesananPenjualanFragment;
 
     RecyclerView rv_pesanan_penjualan;
-    String token;
+    private String token;
     private ProgressBar pbPesanan;
     private PemesananPenjualanAdapter adBarangKeluar;
     private RecyclerView.LayoutManager lmBarang;
@@ -54,7 +54,8 @@ public class PesananPenjualanFragment extends Fragment {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
+        Log.d("TES", "Pesanan Penjualan Fragment: "+token);
+
         rv_pesanan_penjualan= view.findViewById(R.id.rv_pesanan);
 
         pbPesanan = view.findViewById(R.id.pb_pesanan);
@@ -69,6 +70,7 @@ public class PesananPenjualanFragment extends Fragment {
 
     public void retrieveBarangKeluar(){
         pbPesanan.setVisibility(View.VISIBLE);
+
 
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilKeluarResponse> proses = ARD.ardKeluar("Bearer " + token);

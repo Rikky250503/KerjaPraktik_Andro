@@ -65,7 +65,6 @@ public class BarangPenjualanAdapter extends RecyclerView.Adapter<BarangPenjualan
                     intent = new Intent(context, RestockActivity2.class);
                     intent.putExtra("id_barang",MN.getId_barang());
                     intent.putExtra("id_barang_masukr", idBarangMasuk);
-                    Log.d("id_barang", MN.getId_barang());
                     intent.putExtra("nama_barang",MN.getNama_barang());
                     context.startActivity(intent);
 
@@ -78,7 +77,6 @@ public class BarangPenjualanAdapter extends RecyclerView.Adapter<BarangPenjualan
                     intent = new Intent(ctx, NotaPenjualan2Activity.class);
                     intent.putExtra("id_barang",MN.getId_barang());
                     intent.putExtra("id_barang_keluarR",idBarangKeluar);
-                    Log.d("id_barang", MN.getId_barang());
                     intent.putExtra("nama_barang",MN.getNama_barang());
                     context.startActivity(intent);
                 }

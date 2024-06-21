@@ -51,7 +51,6 @@ public class TampilCustomerActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
-        Log.d("TEs", "onViewCreated: " + token);
 
         rv_customer= findViewById(R.id.rv_customer);
 
@@ -61,7 +60,6 @@ public class TampilCustomerActivity extends AppCompatActivity {
         rv_customer.setAdapter(adCustomer);
 
         retrieveCustomer();
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
