@@ -36,7 +36,7 @@ public class RestockActivity extends AppCompatActivity {
     String noInvoiceMasuk,namaSupplier,createdBy,id_supplier_restock, token;
     Context ctx;
     ImageView ivCariSupplierRestock,ivBackRestock;
-    EditText etNoInvoiceMasuk,etNamaSupplier,etCreatedBy;
+    EditText etNoInvoiceMasuk,etNamaSupplier;
     MaterialButton btnNextRestock;
 
     @Override
@@ -91,17 +91,15 @@ public class RestockActivity extends AppCompatActivity {
                 noInvoiceMasuk = etNoInvoiceMasuk.getText().toString();
                 namaSupplier = etNamaSupplier.getText().toString();
 
+                if(namaSupplier.trim().isEmpty()){
+                    etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
+                }
                 if(noInvoiceMasuk.trim().isEmpty()){
                     etNoInvoiceMasuk.setError("Nomor Invoice Masuk tidak boleh kosong");
-                }
-
-                else if(namaSupplier.trim().isEmpty()){
-                    etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
                 }
               else{
                     tambahRestock();
                }
-
             }
         });
 

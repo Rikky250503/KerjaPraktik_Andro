@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +40,8 @@ import retrofit2.Response;
 public class DetailBarangKeluarActivity extends AppCompatActivity {
 
     private TextView tvInvoice, tvTanggal,tvCustomer;
-
-    String id, invoice,tanggal,customer, token;
+    private ImageView ivback;
+    private String id, invoice,tanggal,customer, token;
     RecyclerView rvdetailBKPenjualan;
     private DetailBarangKeluarAdapter adDetailBarangKeluar;
     private RecyclerView.LayoutManager lmDetailbarangKeluar;
@@ -62,6 +64,8 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
 
         rvdetailBKPenjualan = findViewById(R.id.rv_detail_bk_penjualan);
 
+        ivback = findViewById(R.id.iv_back_detail_barang_keluar);
+
         tvInvoice = findViewById(R.id.tv_isi_invoice_detail_penjualan);
         tvTanggal = findViewById(R.id.tv_isi_tanggal_detail_penjualan);
         tvCustomer = findViewById(R.id.tv_isi_customer_detail_penjualan);
@@ -76,6 +80,14 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
         tvInvoice.setText(invoice);
         tvTanggal.setText(tanggal);
         tvCustomer.setText(customer);
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailBarangKeluarActivity.this, PenjualanActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         lmDetailbarangKeluar = new LinearLayoutManager(this);
         rvdetailBKPenjualan.setLayoutManager(lmDetailbarangKeluar);
@@ -83,6 +95,7 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
         rvdetailBKPenjualan.setAdapter(adDetailBarangKeluar);
 
         RetrieveDetailBK();
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

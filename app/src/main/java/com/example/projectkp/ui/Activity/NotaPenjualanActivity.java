@@ -96,16 +96,15 @@ public class NotaPenjualanActivity extends AppCompatActivity {
                 noInvoiceNota = etNoInvoiceNota.getText().toString();
                 namaCustomer_nota = etNamaCustomer_nota.getText().toString();
 
+                if(namaCustomer_nota.trim().isEmpty()) {
+                    etNamaCustomer_nota.setError("Nama customer tidak boleh Kosong");
+                }
                 if(noInvoiceNota.trim().isEmpty()){
                     etNoInvoiceNota.setError("No invoice tidak boleh Kosong");
-                }
-                else if(namaCustomer_nota.trim().isEmpty()) {
-                    etNamaCustomer_nota.setError("Nama customer tidak boleh Kosong");
                 }
               else{
                     tambahNota();
                }
-
             }
         });
 

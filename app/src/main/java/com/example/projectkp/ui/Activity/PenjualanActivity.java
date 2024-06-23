@@ -16,8 +16,10 @@ import android.content.SharedPreferences;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +42,8 @@ public class PenjualanActivity extends AppCompatActivity {
     Boolean isAllFabsVisible;
     private BottomNavigationView bnvPenjualan;
     private ActionBar judulBarPenjualan;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +113,8 @@ public class PenjualanActivity extends AppCompatActivity {
                     mAddFab.extend();
 
                     isAllFabsVisible = true;
-                } else {
 
+                } else {
                     mAddNotaFab.hide();
                     mAddSupplierFab.hide();
                     mAddCustomerFab.hide();
@@ -170,6 +174,13 @@ public class PenjualanActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN){
+            isAllFabsVisible = false;
+        }
+        return super.onTouchEvent(event);
     }
 
     private void bukaFragment(Fragment FrJual)

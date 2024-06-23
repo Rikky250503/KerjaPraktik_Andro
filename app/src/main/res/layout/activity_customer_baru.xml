@@ -176,7 +176,7 @@
         app:cornerRadius="12dp"
         android:textSize="24dp"
         android:textColor="@color/black"
-        android:text="NEXT"
+        android:text="Tambah"
         android:backgroundTint="#AEC8D7"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

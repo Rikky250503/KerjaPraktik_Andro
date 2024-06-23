@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +35,9 @@ import retrofit2.Response;
 
 public class DetailBarangMasukActivity extends AppCompatActivity {
 
-    private TextView tvInvoice, tvTanggal,tvSupplier,tvNamaBarang, tvKuantitas, tvHarga;
-
-    String id, invoice,tanggal,supplier, token;
+    private TextView tvInvoice, tvTanggal,tvSupplier;
+    private ImageView ivback;
+    private String id, invoice,tanggal,supplier, token;
     RecyclerView rvdetailBMPenjualan;
     private DetailBarangMasukAdapter adDetailBarangMasuk;
     private RecyclerView.LayoutManager lmDetailbarangMasuk;
@@ -58,6 +60,8 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
 
         rvdetailBMPenjualan = findViewById(R.id.rv_detail_bm_penjualan);
 
+        ivback = findViewById(R.id.iv_back_detail_barang_masuk);
+
         tvInvoice = findViewById(R.id.tv_isi_invoice_detail_masuk_penjualan);
         tvTanggal = findViewById(R.id.tv_isi_tanggal_masuk_detail_penjualan);
         tvSupplier = findViewById(R.id.tv_isi_supplier_detail_penjualan);
@@ -73,6 +77,15 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
         tvInvoice.setText(invoice);
         tvTanggal.setText(tanggal);
         tvSupplier.setText(supplier);
+
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailBarangMasukActivity.this,PenjualanActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         lmDetailbarangMasuk = new LinearLayoutManager(this);
         rvdetailBMPenjualan.setLayoutManager(lmDetailbarangMasuk);
@@ -102,7 +115,6 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
                     adDetailBarangMasuk.setData(ListDetailBarangMasuk);
                 }
             }
-
             @Override
             public void onFailure(Call<TampilMasukResponse> call, Throwable t) {
                 Toast.makeText(DetailBarangMasukActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
