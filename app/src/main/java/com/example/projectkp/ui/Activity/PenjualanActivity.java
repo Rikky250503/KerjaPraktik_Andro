@@ -33,7 +33,7 @@ import com.google.gson.Gson;
 
 public class PenjualanActivity extends AppCompatActivity {
 
-    ImageView ivLogoutPesananPenjualanFragment;
+    ImageView ivLogoutPesananPenjualanFragment, ivRoundedNota, ivroundedSupplier, ivRoundedCustomer;
     FloatingActionButton mAddNotaFab,mAddSupplierFab,mAddCustomerFab;
     ExtendedFloatingActionButton mAddFab;
     TextView addNotaFabActionText,addSupplierFabActionText,addCustomerFabActionText;
@@ -88,12 +88,19 @@ public class PenjualanActivity extends AppCompatActivity {
 
         View overlay = findViewById(R.id.overlay);
 
+        ivRoundedNota = findViewById(R.id.iv_nota);
+        ivroundedSupplier= findViewById(R.id.iv_supplier);
+        ivRoundedCustomer= findViewById(R.id.iv_customer);
+
         mAddNotaFab.setVisibility(View.GONE);
         mAddSupplierFab.setVisibility(View.GONE);
         mAddCustomerFab.setVisibility(View.GONE);
         addNotaFabActionText.setVisibility(View.GONE);
         addSupplierFabActionText.setVisibility(View.GONE);
         addCustomerFabActionText.setVisibility(View.GONE);
+        ivRoundedNota.setVisibility(View.GONE);
+        ivroundedSupplier.setVisibility(View.GONE);
+        ivRoundedCustomer.setVisibility(View.GONE);
 
         mAddFab.shrink();
         mAddFab.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +114,9 @@ public class PenjualanActivity extends AppCompatActivity {
                     addNotaFabActionText.setVisibility(View.VISIBLE);
                     addSupplierFabActionText.setVisibility(View.VISIBLE);
                     addCustomerFabActionText.setVisibility(View.VISIBLE);
+                    ivRoundedNota.setVisibility(View.VISIBLE);
+                    ivroundedSupplier.setVisibility(View.VISIBLE);
+                    ivRoundedCustomer.setVisibility(View.VISIBLE);
 
                     overlay.setVisibility(View.VISIBLE);
 
@@ -121,6 +131,9 @@ public class PenjualanActivity extends AppCompatActivity {
                     addNotaFabActionText.setVisibility(View.GONE);
                     addSupplierFabActionText.setVisibility(View.GONE);
                     addCustomerFabActionText.setVisibility(View.GONE);
+                    ivRoundedNota.setVisibility(View.GONE);
+                    ivroundedSupplier.setVisibility(View.GONE);
+                    ivRoundedCustomer.setVisibility(View.GONE);
 
                     overlay.setVisibility(View.GONE);
 

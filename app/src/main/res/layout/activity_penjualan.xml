@@ -85,6 +85,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/supplier" />
 
+        <ImageView
+            android:id="@+id/iv_nota"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/rounded"
+            android:textColor="@color/black"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/logo_fab_pesanan"
+            app:layout_constraintEnd_toStartOf="@id/fab_add_notapenjualan"/>
+
+        <ImageView
+            android:id="@+id/iv_supplier"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/rounded"
+            android:textColor="@color/black"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@id/iv_nota"
+            app:layout_constraintEnd_toStartOf="@id/fab_add_supplier_baru"/>
+
+        <ImageView
+            android:id="@+id/iv_customer"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/rounded"
+            android:textColor="@color/black"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@id/iv_supplier"
+            app:layout_constraintEnd_toStartOf="@id/fab_add_customer_baru"/>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_customer_baru"
             android:layout_width="wrap_content"
@@ -101,10 +134,10 @@
             android:id="@+id/tv_fab_add_notapenjualan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:text="Nota Penjualan"
             android:textColor="@color/black"
             android:textStyle="bold"
+            android:layout_marginEnd="35dp"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toTopOf="@id/logo_fab_pesanan"
             app:layout_constraintEnd_toStartOf="@id/fab_add_notapenjualan"
@@ -114,11 +147,11 @@
             android:id="@+id/tv_fab_add_supplier_baru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:text="Supplier Baru"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginBottom="60dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="65dp"
             app:layout_constraintBottom_toTopOf="@id/tv_fab_add_notapenjualan"
             app:layout_constraintEnd_toStartOf="@+id/fab_add_supplier_baru" />
 
@@ -126,43 +159,12 @@
             android:id="@+id/tv_fab_add_customer_baru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:text="Customer Baru"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:layout_marginEnd="35dp"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toTopOf="@id/fab_add_supplier_baru"
             app:layout_constraintEnd_toStartOf="@+id/fab_add_customer_baru" />
-
-<!--        <ImageView-->
-<!--            android:id="@+id/tv_add_customer_baru"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginBottom="30dp"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/fab_add_customer_baru"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/tv_add_supplier_baru"-->
-<!--            android:src="@drawable/tv_customer_baru"-->
-<!--            />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/tv_add_supplier_baru"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/fab_add_supplier_baru"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/tv_add_nota_penjualan_baru"-->
-<!--            android:layout_marginBottom="30dp"-->
-<!--            android:src="@drawable/tv_supplier_baru"-->
-<!--            />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/tv_add_nota_penjualan_baru"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/fab_add_notapenjualan"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/logo_fab_pesanan"-->
-<!--            android:src="@drawable/tv_add_nota_penjualan_baru"-->
-<!--            />-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
