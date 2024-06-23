@@ -155,6 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
+                    android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/tv_nohp_customer_baru"
                     android:layout_marginHorizontal="12dp"
                     android:hint="Contoh: 081234567890" />

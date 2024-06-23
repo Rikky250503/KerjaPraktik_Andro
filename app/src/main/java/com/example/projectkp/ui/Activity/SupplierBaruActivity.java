@@ -20,7 +20,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.projectkp.R;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
-import com.example.projectkp.response.TambahCustomerResponse;
 import com.example.projectkp.response.TambahSupplierResponse;
 import com.google.gson.Gson;
 
@@ -28,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SupplierActivity extends AppCompatActivity {
+public class SupplierBaruActivity extends AppCompatActivity {
 
     String nama_supplier, no_hp, alamat,token;
     Context ctx;
@@ -44,7 +43,7 @@ public class SupplierActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_supplier);
+        setContentView(R.layout.activity_supplier_baru);
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -59,7 +58,7 @@ public class SupplierActivity extends AppCompatActivity {
         ivBackSupplier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SupplierActivity.this,PenjualanActivity.class);
+                Intent intent = new Intent(SupplierBaruActivity.this,PenjualanActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -85,10 +84,6 @@ public class SupplierActivity extends AppCompatActivity {
                 else{
                     tambahSupplier();
                 }
-
-                Toast.makeText(SupplierActivity.this, "Supplier baru telah disimpan", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SupplierActivity.this, PenjualanActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -110,17 +105,17 @@ public class SupplierActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TambahSupplierResponse> call, Response<TambahSupplierResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Intent intent = new Intent(SupplierActivity.this, PenjualanActivity.class);
-                    Toast.makeText(SupplierActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SupplierBaruActivity.this, PenjualanActivity.class);
+                    Toast.makeText(SupplierBaruActivity.this, "Supplier baru telah disimpan", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(SupplierActivity.this, "Gagal menambah customer baru ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SupplierBaruActivity.this, "Gagal menambah customer baru ", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<TambahSupplierResponse> call, Throwable t) {
-                Toast.makeText(SupplierActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(SupplierBaruActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -28,7 +28,7 @@
             android:id="@+id/tv_judul_supplier_baru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SUPPLIER"
+            android:text="Supplier Baru "
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="80dp"
@@ -147,6 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
+                    android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/tv_nohp_supplier_baru"
                     android:layout_marginHorizontal="12dp"
                     android:hint="Contoh:081234567890" />

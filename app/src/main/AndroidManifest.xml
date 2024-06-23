@@ -48,7 +48,7 @@
             android:name=".ui.Activity.CustomerBaruActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.Activity.SupplierActivity"
+            android:name=".ui.Activity.SupplierBaruActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Activity.DetailBarangKeluarActivity"

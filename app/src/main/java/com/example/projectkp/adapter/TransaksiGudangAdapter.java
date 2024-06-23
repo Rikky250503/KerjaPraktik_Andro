@@ -38,6 +38,7 @@ public class TransaksiGudangAdapter extends RecyclerView.Adapter<TransaksiGudang
         holder.tvIdBarangKeluar.setText(M.getId_barang_keluar());
         holder.tvNamaCustomer.setText(M.getNamaPemesan());
         holder.tvNamaBarang.setText(M.getNamaBarang());
+        holder.tvJumlahBarang.setText(M.getKuantitas().toString());
     }
     @Override
     public int getItemCount() {
@@ -54,12 +55,13 @@ public class TransaksiGudangAdapter extends RecyclerView.Adapter<TransaksiGudang
 
     public static class VHbarangKeluarhrini extends RecyclerView.ViewHolder{
 
-        TextView tvNamaCustomer, tvNamaBarang,tvIdBarangKeluar;
+        TextView tvNamaCustomer, tvNamaBarang,tvIdBarangKeluar,tvJumlahBarang;
         public VHbarangKeluarhrini(@NonNull View itemView) {
             super(itemView);
             tvIdBarangKeluar = itemView.findViewById(R.id.tv_id_stok_gudang);
             tvNamaBarang = itemView.findViewById(R.id.tv_nama_barang_gudang);
             tvNamaCustomer = itemView.findViewById(R.id.tv_nama_customer_gudang);
+            tvJumlahBarang = itemView.findViewById(R.id.tv_jumlah_transaksi_gudang);
         }
     }
 }

@@ -16,14 +16,11 @@ import android.content.SharedPreferences;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -140,7 +137,7 @@ public class PenjualanActivity extends AppCompatActivity {
         mAddSupplierFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(PenjualanActivity.this,SupplierActivity.class));
+                startActivity(new Intent(PenjualanActivity.this, SupplierBaruActivity.class));
                 finish();
             }
         });

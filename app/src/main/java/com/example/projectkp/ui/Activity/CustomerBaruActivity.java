@@ -113,7 +113,6 @@ public class CustomerBaruActivity extends AppCompatActivity {
             public void onResponse(Call<TambahCustomerResponse> call, Response<TambahCustomerResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Intent intent = new Intent(CustomerBaruActivity.this, PenjualanActivity.class);
-
                     Toast.makeText(CustomerBaruActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
