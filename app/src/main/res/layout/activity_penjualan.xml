@@ -15,6 +15,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/linear_navigation_penjualan"/>
 
+        <View
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:id="@+id/linear_navigation_penjualan"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +57,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="30dp"
             android:backgroundTint="#AEC8D7"
-            android:text="Actions"
+            android:text="Add"
             app:icon="@drawable/add_24"
             app:layout_constraintBottom_toBottomOf="@id/fl_penjualan"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -66,19 +73,6 @@
             app:layout_constraintEnd_toEndOf="@+id/logo_fab_pesanan"
             app:srcCompat="@drawable/kardus" />
 
-        <TextView
-            android:id="@+id/tv_fab_add_notapenjualan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Nota Penjualan"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toTopOf="@id/logo_fab_pesanan"
-            app:layout_constraintEnd_toStartOf="@id/fab_add_notapenjualan"
-            />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_supplier_baru"
             android:layout_width="wrap_content"
@@ -90,18 +84,6 @@
             app:layout_constraintBottom_toTopOf="@id/fab_add_notapenjualan"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/supplier" />
-
-        <TextView
-            android:id="@+id/tv_fab_add_supplier_baru"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Supplier Baru"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintBottom_toTopOf="@id/tv_fab_add_notapenjualan"
-            app:layout_constraintEnd_toStartOf="@+id/fab_add_supplier_baru" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_customer_baru"
@@ -116,6 +98,31 @@
             app:srcCompat="@drawable/customer" />
 
         <TextView
+            android:id="@+id/tv_fab_add_notapenjualan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Nota Penjualan"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toTopOf="@id/logo_fab_pesanan"
+            app:layout_constraintEnd_toStartOf="@id/fab_add_notapenjualan"
+            />
+
+        <TextView
+            android:id="@+id/tv_fab_add_supplier_baru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Supplier Baru"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_fab_add_notapenjualan"
+            app:layout_constraintEnd_toStartOf="@+id/fab_add_supplier_baru" />
+
+        <TextView
             android:id="@+id/tv_fab_add_customer_baru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,9 +130,39 @@
             android:text="Customer Baru"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintBottom_toTopOf="@id/tv_fab_add_supplier_baru"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toTopOf="@id/fab_add_supplier_baru"
             app:layout_constraintEnd_toStartOf="@+id/fab_add_customer_baru" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/tv_add_customer_baru"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/fab_add_customer_baru"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/tv_add_supplier_baru"-->
+<!--            android:src="@drawable/tv_customer_baru"-->
+<!--            />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/tv_add_supplier_baru"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/fab_add_supplier_baru"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/tv_add_nota_penjualan_baru"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            android:src="@drawable/tv_supplier_baru"-->
+<!--            />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/tv_add_nota_penjualan_baru"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/fab_add_notapenjualan"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/logo_fab_pesanan"-->
+<!--            android:src="@drawable/tv_add_nota_penjualan_baru"-->
+<!--            />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

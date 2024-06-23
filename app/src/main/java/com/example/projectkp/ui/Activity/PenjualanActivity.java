@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,8 +40,6 @@ public class PenjualanActivity extends AppCompatActivity {
     Boolean isAllFabsVisible;
     private BottomNavigationView bnvPenjualan;
     private ActionBar judulBarPenjualan;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +86,8 @@ public class PenjualanActivity extends AppCompatActivity {
         addSupplierFabActionText = findViewById(R.id.tv_fab_add_supplier_baru);
         addCustomerFabActionText = findViewById(R.id.tv_fab_add_customer_baru);
 
+        View overlay = findViewById(R.id.overlay);
+
         mAddNotaFab.setVisibility(View.GONE);
         mAddSupplierFab.setVisibility(View.GONE);
         mAddCustomerFab.setVisibility(View.GONE);
@@ -107,6 +108,8 @@ public class PenjualanActivity extends AppCompatActivity {
                     addSupplierFabActionText.setVisibility(View.VISIBLE);
                     addCustomerFabActionText.setVisibility(View.VISIBLE);
 
+                    overlay.setVisibility(View.VISIBLE);
+
                     mAddFab.extend();
 
                     isAllFabsVisible = true;
@@ -118,6 +121,8 @@ public class PenjualanActivity extends AppCompatActivity {
                     addNotaFabActionText.setVisibility(View.GONE);
                     addSupplierFabActionText.setVisibility(View.GONE);
                     addCustomerFabActionText.setVisibility(View.GONE);
+
+                    overlay.setVisibility(View.GONE);
 
                     mAddFab.shrink();
 
@@ -179,6 +184,7 @@ public class PenjualanActivity extends AppCompatActivity {
         }
         return super.onTouchEvent(event);
     }
+
 
     private void bukaFragment(Fragment FrJual)
     {
