@@ -37,9 +37,7 @@ import retrofit2.Response;
 
 public class PesananPenjualanFragment extends Fragment {
 
-//    ImageView ivLogoutPesananPenjualanFragment;
-
-    RecyclerView rv_pesanan_penjualan;
+    private  RecyclerView rv_pesanan_penjualan;
     private String token;
     private ProgressBar pbPesanan;
     private PemesananPenjualanAdapter adBarangKeluar;

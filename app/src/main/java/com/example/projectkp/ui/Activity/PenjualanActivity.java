@@ -16,13 +16,20 @@ import android.content.SharedPreferences;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.projectkp.api.APIRequestData;
+import com.example.projectkp.api.RetroServer;
+import com.example.projectkp.response.TampilKeluarResponse;
+import com.example.projectkp.response.UpdateDataTGResponse;
+import com.example.projectkp.response.UpdateResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,13 +38,20 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.example.projectkp.R;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PenjualanActivity extends AppCompatActivity {
 
-    ImageView ivLogoutPesananPenjualanFragment, ivRoundedNota, ivroundedSupplier, ivRoundedCustomer;
-    FloatingActionButton mAddNotaFab,mAddSupplierFab,mAddCustomerFab;
-    ExtendedFloatingActionButton mAddFab;
-    TextView addNotaFabActionText,addSupplierFabActionText,addCustomerFabActionText;
-    Boolean isAllFabsVisible;
+    private ImageView ivLogoutPesananPenjualanFragment, ivRoundedNota, ivroundedSupplier, ivRoundedCustomer,ivDeleteAcc;
+    private FloatingActionButton mAddNotaFab,mAddSupplierFab,mAddCustomerFab;
+    private ExtendedFloatingActionButton mAddFab;
+    private TextView addNotaFabActionText,addSupplierFabActionText,addCustomerFabActionText;
+    private Boolean isAllFabsVisible;
+    private String token, id_user,status;
     private BottomNavigationView bnvPenjualan;
     private ActionBar judulBarPenjualan;
 
@@ -56,11 +70,15 @@ public class PenjualanActivity extends AppCompatActivity {
 
 
         ivLogoutPesananPenjualanFragment = findViewById(R.id.iv_logout_pesanan_penjualan_fragment);
+        ivDeleteAcc = findViewById(R.id.iv_delete_acc_pesanan_penjualan_fragment);
         bnvPenjualan = findViewById(R.id.bnv_penjualan);
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String TokenJson = sharedPreferences.getString("Token", null);
+         token = sharedPreferences.getString("Token", null).substring(1, 53);
+         id_user = sharedPreferences.getString("id_user",null).substring(1,37);
+
+
 
         ivLogoutPesananPenjualanFragment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +86,7 @@ public class PenjualanActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("Token");
                 editor.remove("Jabatan");
+                editor.remove("id_user");
                 editor.apply();
                 Intent intent = new Intent(PenjualanActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -75,6 +94,26 @@ public class PenjualanActivity extends AppCompatActivity {
             }
         });
 
+        ivDeleteAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                status = "nonaktif";
+                Log.d("Rikky", "Status " + status);
+
+                UpdateAcc();
+
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.remove("Token");
+//                editor.remove("Jabatan");
+//                editor.apply();
+
+                Intent intent = new Intent(PenjualanActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         mAddFab = findViewById(R.id.logo_fab_pesanan);
 
@@ -205,5 +244,40 @@ public class PenjualanActivity extends AppCompatActivity {
         FragmentTransaction Ft = Fm.beginTransaction();
         Ft.replace(R.id.fl_penjualan, FrJual);
         Ft.commit();
+    }
+
+    private void UpdateAcc(){
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+        Call<UpdateResponse> proses = ARD.ardUpdate(id_user,status,"Bearer "+ token);
+
+        proses.enqueue(new Callback<UpdateResponse>() {
+            @Override
+            public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
+                if(response.isSuccessful() && response.body()!= null){
+                    Toast.makeText(PenjualanActivity.this,"Berhasil Logout",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // Handle unsuccessful response
+                    String errorMessage = "Error: ";
+                    if (response.errorBody() != null) {
+                        try {
+                            errorMessage += response.errorBody().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        errorMessage += "Response body kosong";
+                    }
+                    Toast.makeText(PenjualanActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateResponse> call, Throwable t) {
+                Toast.makeText(PenjualanActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+                //Log.d("DetailTransaksiGudangActivity", "onFailure: " + t.getMessage());
+
+            }
+        });
     }
 }

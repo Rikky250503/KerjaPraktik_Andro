@@ -97,10 +97,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         Gson gson = new Gson();
+                        String Data = gson.toJson(response.body().getData());
                         String Token = gson.toJson(response.body().getToken());
                         String Jabatan = gson.toJson(response.body().getJabatan());
                         editor.putString("Token", Token);
                         editor.putString("Jabatan", Jabatan);
+                        editor.putString("id_user",Data);
+
                         editor.apply();
 
                         if(response.body().getJabatan().equals("J"))

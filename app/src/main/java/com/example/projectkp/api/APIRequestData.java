@@ -6,6 +6,7 @@ import com.example.projectkp.response.TambahBMResponse;
 import com.example.projectkp.response.TambahDBKResponse;
 import com.example.projectkp.response.TambahDBMResponse;
 import com.example.projectkp.response.TambahSupplierResponse;
+import com.example.projectkp.response.TampilAdminResponse;
 import com.example.projectkp.response.TampilBarangResponse;
 import com.example.projectkp.response.TambahCustomerResponse;
 import com.example.projectkp.response.TambahBKResponse;
@@ -14,6 +15,7 @@ import com.example.projectkp.response.TampilKeluarResponse;
 import com.example.projectkp.response.TampilMasukResponse;
 import com.example.projectkp.response.TampilSupplierResponse;
 import com.example.projectkp.response.UpdateDataTGResponse;
+import com.example.projectkp.response.UpdateResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -146,6 +148,17 @@ public interface APIRequestData {
             @Field("password_user") String passBaru,
             @Field("nama_user") String namaBaru,
             @Field("jabatan_user") String jabatanBaru
+    );
+    @FormUrlEncoded
+    @PUT("api/api/useradmin/update/{id}")
+    Call<UpdateResponse> ardUpdate(
+            @Path("id") String id,
+            @Field("status") String status,
+            @Header("Authorization") String token
+    );
+    @GET("api/api/useradmin/")
+    Call<TampilAdminResponse> ardAdmin(
+            @Header("Authorization") String token
     );
 
 }

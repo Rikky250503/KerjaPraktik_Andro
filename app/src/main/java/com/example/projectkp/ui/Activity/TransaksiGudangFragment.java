@@ -33,6 +33,7 @@ import com.example.projectkp.api.RetroServer;
 
 import com.example.projectkp.response.DataTampilKeluar;
 import com.example.projectkp.response.TampilKeluarResponse;
+import com.example.projectkp.response.UpdateResponse;
 import com.google.gson.Gson;
 
 
@@ -42,10 +43,10 @@ import retrofit2.Response;
 
 public class TransaksiGudangFragment extends Fragment {
     RecyclerView rv_transaksi_gudang;
-    private String tanggal_hari_ini = null, token;
+    private String tanggal_hari_ini = null, token,id_user,status;
 
     private ProgressBar pbTransaksi;
-    private ImageView ivLogoutTransaksiGudang;
+    private ImageView ivLogoutTransaksiGudang,ivDeleteAcc;
     private TransaksiGudangAdapter adTransaksi;
     private RecyclerView.LayoutManager lmTransaksi;
     private List<DataTampilKeluar> ListTransaksi = new ArrayList<>();
@@ -81,12 +82,13 @@ public class TransaksiGudangFragment extends Fragment {
         adTransaksi = new TransaksiGudangAdapter(requireContext(),ListTransaksi);
         rv_transaksi_gudang.setAdapter(adTransaksi);
 
-
+        ivDeleteAcc = view.findViewById(R.id.iv_delete_acc_tg_fragment);
         ivLogoutTransaksiGudang = view.findViewById(R.id.iv_logout_transaksi_gudang);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,53);
+        id_user = sharedPreferences.getString("id_user",null).substring(1,37);
 
 
         retrieveBarangKeluarHrini();
@@ -103,8 +105,56 @@ public class TransaksiGudangFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        ivDeleteAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                status = "nonaktif";
 
+                UpdateAcc();
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("Token");
+                editor.remove("Jabatan");
+                editor.remove("id_user");
+                editor.apply();
+
+                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
+
+    private void UpdateAcc() {
+        APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+        Call<UpdateResponse> proses = ARD.ardUpdate(id_user, status, "Bearer " + token);
+
+        proses.enqueue(new Callback<UpdateResponse>() {
+            @Override
+            public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (isAdded()) {
+                        Context context = requireContext();
+                        Toast.makeText(context, "Berhasil Logout", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Handle the case when the fragment is not attached
+                        Log.w("StokGudangFragment", "Fragment not attached to context");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateResponse> call, Throwable t) {
+                if (isAdded()) {
+                    Toast.makeText(requireContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle the case when the fragment is not attached
+                    Log.w("StokGudangFragment", "Fragment not attached to context");
+                }
+            }
+        });
+    }
+
     public void retrieveBarangKeluarHrini(){
         pbTransaksi.setVisibility(View.VISIBLE);
 

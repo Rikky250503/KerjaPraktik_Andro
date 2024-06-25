@@ -62,43 +62,22 @@ public class RegisterActivity extends AppCompatActivity {
                 namaBaru = etNamaBaru.getText().toString();
                 jabatanBaru = etJabatanBaru.getText().toString();
 
-                if (userBaru != null && passBaru != null && namaBaru != null && jabatanBaru != null) {
-                    userBaru = passBaru.trim();
-                    passBaru = passBaru.trim();
-                    namaBaru = namaBaru.trim();
-                    jabatanBaru = jabatanBaru.trim();
-                } else {
-                    if (userBaru == null) {
-                        userBaru = "";
-                    }
-                    if (passBaru == null) {
-                        passBaru = "";
-                    }
-                    if (namaBaru == null) {
-                        namaBaru = "";
-                    }
-                    if (jabatanBaru == null) {
-                        jabatanBaru = "";
-                    }
-                }
-
-                if(userBaru.trim().equals(""))
+                if(userBaru.trim().isEmpty())
                 {
-                    etUserBaru.setError("username harus diisi");
+                    etUserBaru.setError("usename harus di isi");
                 }
-                if(passBaru.trim().equals(""))
+                if(passBaru.trim().isEmpty())
                 {
-                    etPassBaru.setError("password harus diisi");
+                    etPassBaru.setError("Password harus di isi");
                 }
-                if(namaBaru.trim().equals(""))
+                if(namaBaru.trim().isEmpty())
                 {
-                    etNamaBaru.setError("nama harus diisi");
+                    etNamaBaru.setError("Nama harus di isi");
                 }
-                if(jabatanBaru.trim().equals(""))
+                if(jabatanBaru.trim().isEmpty())
                 {
-                    etJabatanBaru.setError("Jabatan harus diisi");
+                    etJabatanBaru.setError("Jabatan  harus di isi");
                 }
-
                 else {
                     register();
                 }
@@ -130,6 +109,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RegisterActivity.this,  response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this,MainAdminActivity.class);
+                    startActivity(intent);
+                    finish();
 
                 } else {
                     Toast.makeText(RegisterActivity.this, "Gagal menambah user baru ", Toast.LENGTH_SHORT).show();
