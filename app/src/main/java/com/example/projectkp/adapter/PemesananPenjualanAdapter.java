@@ -40,6 +40,7 @@ public class PemesananPenjualanAdapter extends RecyclerView.Adapter<PemesananPen
         holder.tvNamaPT.setText(String.valueOf(MN.getNamaPemesan()));
         holder.tvTanggal.setText(String.valueOf(MN.getTanggalKeluar()));
         holder.tvStatus.setText(MN.getNamaStatus());
+        holder.tvjam.setText(MN.getJam());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +73,7 @@ public class PemesananPenjualanAdapter extends RecyclerView.Adapter<PemesananPen
     }
     public static class VHbarang extends RecyclerView.ViewHolder{
 
-        TextView tvIdPemesan, tvNoInvoice, tvNamaPT, tvTanggal, tvStatus;
+        TextView tvIdPemesan, tvNoInvoice, tvNamaPT, tvTanggal, tvStatus, tvjam;
         public VHbarang(@NonNull View itemView) {
             super(itemView);
             tvIdPemesan = itemView.findViewById(R.id.tv_id_pemesanan);
@@ -80,6 +81,7 @@ public class PemesananPenjualanAdapter extends RecyclerView.Adapter<PemesananPen
             tvNamaPT = itemView.findViewById(R.id.tv_nama_pt);
             tvTanggal = itemView.findViewById(R.id.tv_tanggal);
             tvStatus = itemView.findViewById(R.id.tv_status);
+            tvjam = itemView.findViewById(R.id.tv_jam);
         }
     }
 }

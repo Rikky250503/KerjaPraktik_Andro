@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ProjectKP"
         tools:targetApi="31">
         <activity
+            android:name=".ui.Activity.DetailTransaksiGudangActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Activity.DetailBarangMasukActivity"
             android:exported="false" />
         <activity

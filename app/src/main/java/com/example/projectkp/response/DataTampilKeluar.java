@@ -14,6 +14,9 @@ public class DataTampilKeluar {
 	@SerializedName("tanggal_keluar")
 	private String tanggalKeluar;
 
+	@SerializedName("jam")
+	private String jam;
+
 	@SerializedName("nama_pemesan")
 	private String namaPemesan;
 	@SerializedName("alamat_pemesan")
@@ -27,6 +30,8 @@ public class DataTampilKeluar {
 	private String namaBarang;
 	@SerializedName("id_barang_keluar")
 	private String id_barang_keluar;
+
+	public String getJam() {return jam;}
 
 	public String getNomorInvoiceKeluar() {
 		return nomorInvoiceKeluar;

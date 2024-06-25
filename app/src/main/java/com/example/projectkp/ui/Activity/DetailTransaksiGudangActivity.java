@@ -19,14 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkp.R;
-import com.example.projectkp.adapter.CustomerAdapter;
 import com.example.projectkp.adapter.DetailBarangKeluarAdapter;
+import com.example.projectkp.adapter.DetailTransaksiGudangAdapter;
 import com.example.projectkp.api.APIRequestData;
 import com.example.projectkp.api.RetroServer;
-import com.example.projectkp.response.DataCustomer;
 import com.example.projectkp.response.DataTampilKeluar;
-import com.example.projectkp.response.TambahBMResponse;
-import com.example.projectkp.response.TampilBarangResponse;
 import com.example.projectkp.response.TampilKeluarResponse;
 import com.google.gson.Gson;
 
@@ -37,72 +34,76 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailBarangKeluarActivity extends AppCompatActivity {
+public class DetailTransaksiGudangActivity extends AppCompatActivity {
 
     private TextView tvInvoice, tvTanggal,tvCustomer;
     private ImageView ivback;
     private String id, invoice,tanggal,customer, token;
-    RecyclerView rvdetailBKPenjualan;
-    private DetailBarangKeluarAdapter adDetailBarangKeluar;
-    private RecyclerView.LayoutManager lmDetailbarangKeluar;
-    private List<DataTampilKeluar> ListDetailBarangKeluar = new ArrayList<>();
+    private RecyclerView rvdetailTransaksiGudang;
+    private DetailTransaksiGudangAdapter adDetailTransaksiGudang;
+    private RecyclerView.LayoutManager lmDetailTransaksiGudang;
+    private List<DataTampilKeluar> ListDetailTransaksiGudang = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
 //        try{
 //            this.getSupportActionBar().hide();
 //        }
 //        catch (NullPointerException e){}
+        super.onCreate(savedInstanceState);
 
         try {
             this.getSupportActionBar().hide();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        EdgeToEdge.enable(this);
 
-        setContentView(R.layout.activity_detail_barang_keluar);
+        setContentView(R.layout.activity_detail_transaksi_gudang);
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         token = sharedPreferences.getString("Token", null).substring(1,52);
 
-        rvdetailBKPenjualan = findViewById(R.id.rv_detail_bk_penjualan);
+        rvdetailTransaksiGudang = findViewById(R.id.rv_detail_transaksi_gudang);
 
-        ivback = findViewById(R.id.iv_back_detail_barang_keluar);
+        ivback = findViewById(R.id.iv_back_detail_transaksi_gudang);
 
-        tvInvoice = findViewById(R.id.tv_isi_invoice_detail_penjualan);
-        tvTanggal = findViewById(R.id.tv_isi_tanggal_detail_penjualan);
-        tvCustomer = findViewById(R.id.tv_isi_customer_detail_penjualan);
+        tvInvoice = findViewById(R.id.tv_isi_invoice_detail_transaksi_gudang);
+        tvTanggal = findViewById(R.id.tv_isi_tanggal_detail_transaksi_gudang);
+        tvCustomer = findViewById(R.id.tv_isi_customer_detail_transaksi_gudang);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("id_barang_keluar");
+        id = intent.getStringExtra("id_barang_keluar_transaksi");
+        Log.d("idBarangkeluar","idbarangkleuar = " +id);
+        Log.d("token","token = " +token);
 
-        invoice = intent.getStringExtra("no_invoice_keluar");
-        tanggal = intent.getStringExtra("tanggal_keluar");
-        customer = intent.getStringExtra("nama_pemesan");
+
+        invoice = intent.getStringExtra("no_invoice_keluar_transaksi");
+        tanggal = intent.getStringExtra("tanggal_keluar_transaksi");
+        customer = intent.getStringExtra("nama_pemesan_transaksi");
+
+        Log.d("DetailTransaksiGudangActivity", "id: " + id + ", invoice: " + invoice + ", tanggal: " + tanggal + ", customer: " + customer);
 
 
         tvInvoice.setText(invoice);
         tvTanggal.setText(tanggal);
         tvCustomer.setText(customer);
+
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetailBarangKeluarActivity.this, PenjualanActivity.class);
+                Intent intent = new Intent(DetailTransaksiGudangActivity.this, GudangActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
+        lmDetailTransaksiGudang = new LinearLayoutManager(this);
+        rvdetailTransaksiGudang.setLayoutManager(lmDetailTransaksiGudang);
+        adDetailTransaksiGudang = new DetailTransaksiGudangAdapter(this, ListDetailTransaksiGudang);
+        rvdetailTransaksiGudang.setAdapter(adDetailTransaksiGudang);
 
-        lmDetailbarangKeluar = new LinearLayoutManager(this);
-        rvdetailBKPenjualan.setLayoutManager(lmDetailbarangKeluar);
-        adDetailBarangKeluar = new DetailBarangKeluarAdapter(this, ListDetailBarangKeluar);
-        rvdetailBKPenjualan.setAdapter(adDetailBarangKeluar);
-
-        RetrieveDetailBK();
-
+        RetrieveDetailTG();
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -112,7 +113,7 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
         });
     }
 
-    private void RetrieveDetailBK(){
+    private void RetrieveDetailTG(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilKeluarResponse> proses = ARD.ardTampilDBK(id,"Bearer "+ token);
 
@@ -121,14 +122,20 @@ public class DetailBarangKeluarActivity extends AppCompatActivity {
             public void onResponse(Call<TampilKeluarResponse> call, Response<TampilKeluarResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
 
-                    ListDetailBarangKeluar = response.body().getData();
-                    adDetailBarangKeluar.setData(ListDetailBarangKeluar);
+                    ListDetailTransaksiGudang = response.body().getData();
+                    adDetailTransaksiGudang.setData(ListDetailTransaksiGudang);
+                    Log.d("DetailTransaksiGudangActivity", "Data received: " + ListDetailTransaksiGudang.size());
+                } else {
+                    Log.d("DetailTransaksiGudangActivity", "Response unsuccessful or body is null");
+
                 }
             }
 
             @Override
             public void onFailure(Call<TampilKeluarResponse> call, Throwable t) {
-                Toast.makeText(DetailBarangKeluarActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailTransaksiGudangActivity.this, "Gagal Menghubungi Server" , Toast.LENGTH_SHORT).show();
+                Log.d("DetailTransaksiGudangActivity", "onFailure: " + t.getMessage());
+
             }
         });
     }

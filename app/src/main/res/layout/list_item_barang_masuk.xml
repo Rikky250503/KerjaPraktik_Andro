@@ -11,7 +11,7 @@
     >
 
     <TextView
-        android:id="@+id/tv_id_stok_gudang"
+        android:id="@+id/tv_id_barang_masuk_penjualan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="id"
