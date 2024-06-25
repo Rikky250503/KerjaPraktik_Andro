@@ -59,6 +59,12 @@ public class Welcome extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+                else if(JabatanJson.substring(1,2).equals("P"))
+                {
+                    Intent intent = new Intent(Welcome.this, MainAdminActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 

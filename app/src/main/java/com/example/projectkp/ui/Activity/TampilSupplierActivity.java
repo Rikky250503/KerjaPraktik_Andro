@@ -49,7 +49,7 @@ public class TampilSupplierActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        token = sharedPreferences.getString("Token", null).substring(1,52);
+        token = sharedPreferences.getString("Token", null).substring(1,53);
 
         rv_supplier= findViewById(R.id.rv_supplier);
 

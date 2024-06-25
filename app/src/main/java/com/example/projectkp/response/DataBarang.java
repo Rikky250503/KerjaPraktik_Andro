@@ -5,7 +5,7 @@ public class DataBarang {
     private String  id_barang;
     private int id_kategori;
     private int kuantitas;
-    private  int harga;
+    private  Double harga;
     private Object updated_at;
     private Object created_at;
 
@@ -25,7 +25,7 @@ public class DataBarang {
         return kuantitas;
     }
 
-    public int getHarga() {
+    public Double getHarga() {
         return harga;
     }
 

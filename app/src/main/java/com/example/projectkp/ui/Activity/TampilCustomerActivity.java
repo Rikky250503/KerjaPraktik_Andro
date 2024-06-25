@@ -50,7 +50,7 @@ public class TampilCustomerActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        token = sharedPreferences.getString("Token", null).substring(1,52);
+        token = sharedPreferences.getString("Token", null).substring(1,53);
 
         rv_customer= findViewById(R.id.rv_customer);
 

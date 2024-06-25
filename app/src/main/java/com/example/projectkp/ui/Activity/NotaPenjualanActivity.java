@@ -59,7 +59,7 @@ public class NotaPenjualanActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        token = sharedPreferences.getString("Token", null).substring(1,52);
+        token = sharedPreferences.getString("Token", null).substring(1,53);
 
         etNoInvoiceNota = findViewById(R.id.et_invoice_nota);
         etNamaCustomer_nota = findViewById(R.id.et_customer_nota);

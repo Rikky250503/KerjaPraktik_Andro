@@ -78,6 +78,7 @@ public class BarangPenjualanAdapter extends RecyclerView.Adapter<BarangPenjualan
                     intent.putExtra("id_barang",MN.getId_barang());
                     intent.putExtra("id_barang_keluarR",idBarangKeluar);
                     intent.putExtra("nama_barang",MN.getNama_barang());
+                    intent.putExtra("harga_jual",MN.getHarga());
                     context.startActivity(intent);
                 }
             }

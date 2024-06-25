@@ -56,7 +56,7 @@ public class DetailBarangMasukActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        token = sharedPreferences.getString("Token", null).substring(1,52);
+        token = sharedPreferences.getString("Token", null).substring(1,53);
 
         rvdetailBMPenjualan = findViewById(R.id.rv_detail_bm_penjualan);
 

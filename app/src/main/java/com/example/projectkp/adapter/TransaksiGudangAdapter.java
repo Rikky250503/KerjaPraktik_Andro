@@ -57,6 +57,7 @@ public class TransaksiGudangAdapter extends RecyclerView.Adapter<TransaksiGudang
                 intent.putExtra("nama_pemesan_transaksi",M.getNamaPemesan());
                 intent.putExtra("tanggal_keluar_transaksi",M.getTanggalKeluar());
                 intent.putExtra("no_invoice_keluar_transaksi",M.getNomorInvoiceKeluar());
+                intent.putExtra("nama_status_transaksi",M.getNamaStatus());
                 context.startActivity(intent);
             }
         });

@@ -53,7 +53,7 @@ public class RestockActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        token = sharedPreferences.getString("Token", null).substring(1,52);
+        token = sharedPreferences.getString("Token", null).substring(1,53);
 
         etNoInvoiceMasuk = findViewById(R.id.et_invoice_restock);
         etNamaSupplier = findViewById(R.id.et_namaSupplier_restock);

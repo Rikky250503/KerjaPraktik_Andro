@@ -145,7 +145,7 @@
         </TableLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_next_restock"
+            android:id="@+id/btn_terima_detail_transaksi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="72dp"
@@ -168,7 +168,7 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginTop="5dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_next_restock"
+            app:layout_constraintTop_toBottomOf="@id/btn_terima_detail_transaksi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />

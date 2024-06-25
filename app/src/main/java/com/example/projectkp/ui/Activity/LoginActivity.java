@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -113,6 +112,12 @@ public class LoginActivity extends AppCompatActivity {
                         else if(response.body().getJabatan().equals("G"))
                         {
                             Intent intent = new Intent(LoginActivity.this, GudangActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(response.body().getJabatan().equals("P"))
+                        {
+                            Intent intent = new Intent(LoginActivity.this, MainAdminActivity.class);
                             startActivity(intent);
                             finish();
                         }

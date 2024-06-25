@@ -35,13 +35,13 @@ import retrofit2.Response;
 
 public class NotaPenjualan2Activity extends AppCompatActivity {
 
-    String idBarang,namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2,idBarangKeluar,idBarangKeluarR, token;
+     private String idBarang,namaBarang_nota2,banyakBarang_nota2,hargaSatuan_nota2,idBarangKeluar,idBarangKeluarR, token;
 
-    EditText etNamaBarang_nota2,etBanyakBarang_nota2,etHargaSatuan_nota2;
-    Button btnSelesai;
-    ImageView ivCariBarang;
-    Integer kuantitas;
-    Double hargaSatuan;
+    private EditText etNamaBarang_nota2,etBanyakBarang_nota2,etHargaSatuan_nota2;
+    private Button btnSelesai;
+    private ImageView ivCariBarang;
+    private Integer kuantitas;
+    private Double hargaSatuan,hargaModal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences =getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        token = sharedPreferences.getString("Token", null).substring(1,52);
+        token = sharedPreferences.getString("Token", null).substring(1,53);
 
         etNamaBarang_nota2 = findViewById(R.id.et_namaBarang_nota2);
         etBanyakBarang_nota2 = findViewById(R.id.et_banyakBarang);
@@ -66,6 +66,12 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
         Intent intent = getIntent();
         idBarang = intent.getStringExtra("id_barang");
         namaBarang_nota2 = intent.getStringExtra("nama_barang");
+
+        if (getIntent().hasExtra("harga_jual")) {
+               hargaModal = getIntent().getDoubleExtra("harga_jual", 0); // Mengambil nilai default jika tidak ditemukan
+            // Lakukan sesuatu dengan nilai hargaJual
+            Log.d("DetailActivity", "Harga Modal: " + hargaModal);
+        }
 
         idBarangKeluar = intent.getStringExtra("id_barang_keluar");
         idBarangKeluarR = intent.getStringExtra("id_barang_keluarR");
@@ -104,32 +110,36 @@ public class NotaPenjualan2Activity extends AppCompatActivity {
                 else{
                     kuantitas = Integer.parseInt(banyakBarang_nota2);
                     hargaSatuan = Double.parseDouble(hargaSatuan_nota2);
-                    new MaterialAlertDialogBuilder(NotaPenjualan2Activity.this)
-                            .setTitle("Apakah Anda yakin ingin menyelesaikan tampilan ini?")
+                    if (hargaSatuan < hargaModal){
+                        etHargaSatuan_nota2.setError("Harga Satuan Jual tidak boleh kurang dari modal");
+                    }
+                    else {
+                        new MaterialAlertDialogBuilder(NotaPenjualan2Activity.this)
+                                .setTitle("Apakah Anda yakin ingin menyelesaikan tampilan ini?")
 
-                            .setNegativeButton("Tambah", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    etNamaBarang_nota2.setText(null);
-                                    etBanyakBarang_nota2.setText(null);
-                                    etHargaSatuan_nota2.setText(null);
-                                    TambahNota1();
-                                }
-                            })
-                            .setPositiveButton("Selesai", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    TambahNota1();
-                                    Intent intent = new Intent(NotaPenjualan2Activity.this,PenjualanActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            })
-                            .show();
+                                .setNegativeButton("Tambah", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        etNamaBarang_nota2.setText(null);
+                                        etBanyakBarang_nota2.setText(null);
+                                        etHargaSatuan_nota2.setText(null);
+                                        TambahNota1();
+                                    }
+                                })
+                                .setPositiveButton("Selesai", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        TambahNota1();
+                                        Intent intent = new Intent(NotaPenjualan2Activity.this,PenjualanActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                })
+                                .show();
+                    }
                 }
             }
         });
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

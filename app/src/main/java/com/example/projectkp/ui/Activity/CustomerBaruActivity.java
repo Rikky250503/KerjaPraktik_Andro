@@ -49,7 +49,7 @@ public class CustomerBaruActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        token = sharedPreferences.getString("Token", null).substring(1,52);
+        token = sharedPreferences.getString("Token", null).substring(1,53);
         Log.d("TEs", "onViewCreated: " + token);
 
         etNamaCustomer= findViewById(R.id.et_nama_customer_baru);
