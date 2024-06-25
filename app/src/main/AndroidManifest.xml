@@ -69,9 +69,6 @@
             android:name=".ui.Activity.StokGudangFragment"
             android:exported="false" />
         <activity
-            android:name=".ui.TambahPenjualan"
-            android:exported="false" />
-        <activity
             android:name=".ui.Activity.PesananPenjualanFragment"
             android:exported="false" />
         <activity
