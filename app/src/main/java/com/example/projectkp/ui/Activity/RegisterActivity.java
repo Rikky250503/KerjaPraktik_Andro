@@ -99,6 +99,8 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
     }
+    public void onBackPressed() {
+    }
 
     private void register(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);

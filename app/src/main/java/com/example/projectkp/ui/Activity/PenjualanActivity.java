@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
 import android.content.Intent;
@@ -31,6 +32,7 @@ import com.example.projectkp.response.TampilKeluarResponse;
 import com.example.projectkp.response.UpdateDataTGResponse;
 import com.example.projectkp.response.UpdateResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
@@ -79,18 +81,34 @@ public class PenjualanActivity extends AppCompatActivity {
          id_user = sharedPreferences.getString("id_user",null).substring(1,37);
 
 
-
         ivLogoutPesananPenjualanFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("Token");
-                editor.remove("Jabatan");
-                editor.remove("id_user");
-                editor.apply();
-                Intent intent = new Intent(PenjualanActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                new MaterialAlertDialogBuilder(PenjualanActivity.this)
+                        .setTitle("Apakah Anda yakin ingin Logout?")
+
+                        .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Keluar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.remove("Token");
+                                editor.remove("Jabatan");
+                                editor.remove("id_user");
+                                editor.apply();
+                                Intent intent = new Intent(PenjualanActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -99,19 +117,33 @@ public class PenjualanActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 status = "nonaktif";
-                Log.d("Rikky", "Status " + status);
+                new MaterialAlertDialogBuilder(PenjualanActivity.this)
+                        .setTitle("Apakah Anda yakin ingin Menghapus Account ini?")
 
-                UpdateAcc();
+                        .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.remove("Token");
-//                editor.remove("Jabatan");
-//                editor.apply();
+                                UpdateAcc();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.remove("Token");
+                                editor.remove("Jabatan");
+                                editor.remove("id_user");
+                                editor.apply();
 
-                Intent intent = new Intent(PenjualanActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+                                Intent intent = new Intent(PenjualanActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -237,7 +269,6 @@ public class PenjualanActivity extends AppCompatActivity {
         return super.onTouchEvent(event);
     }
 
-
     private void bukaFragment(Fragment FrJual)
     {
         FragmentManager Fm = getSupportFragmentManager();
@@ -254,7 +285,7 @@ public class PenjualanActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
                 if(response.isSuccessful() && response.body()!= null){
-                    Toast.makeText(PenjualanActivity.this,"Berhasil Logout",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PenjualanActivity.this,"Berhasil menghapus akun",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     // Handle unsuccessful response

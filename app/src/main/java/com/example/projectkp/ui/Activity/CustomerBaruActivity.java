@@ -74,17 +74,14 @@ public class CustomerBaruActivity extends AppCompatActivity {
                  alamat_pemesan = etAlamatCustomer.getText().toString().trim();
                  no_hp_pemesan = etNoHpCustomer.getText().toString().trim();
 
-                if (nama_pemesan.isEmpty()) {
-                    Toast.makeText(CustomerBaruActivity.this, "Nama Customer belum diisi", Toast.LENGTH_SHORT).show();
-                    return;
+                if (nama_pemesan.trim().isEmpty()) {
+                    etNamaCustomer.setError("Nama Customer harus diisi");
                 }
-                if (alamat_pemesan.isEmpty()) {
-                    Toast.makeText(CustomerBaruActivity.this, "Alamat belum diisi", Toast.LENGTH_SHORT).show();
-                    return;
+                if (alamat_pemesan.trim().isEmpty()) {
+                    etAlamatCustomer.setError("Alamat Customer harud diisi");
                 }
-                if (no_hp_pemesan.isEmpty()) {
-                    Toast.makeText(CustomerBaruActivity.this, "No Telp belum diisi", Toast.LENGTH_SHORT).show();
-                    return;
+                if (no_hp_pemesan.trim().isEmpty()) {
+                    etNoHpCustomer.setError("No Telp Customer harus diisi");
                 }
                 else {
                     tambahcustomer();

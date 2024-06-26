@@ -1,6 +1,7 @@
 package com.example.projectkp.ui.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.example.projectkp.response.DataBarang;
 import com.example.projectkp.response.DataUsername;
 import com.example.projectkp.response.TampilAdminResponse;
 import com.example.projectkp.response.TampilBarangResponse;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -71,9 +73,30 @@ public class MainAdminActivity extends AppCompatActivity {
         ivLogoutAdm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainAdminActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                new MaterialAlertDialogBuilder(MainAdminActivity.this)
+                        .setTitle("Apakah Anda yakin ingin Logout?")
+
+                        .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Keluar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.remove("Token");
+                                editor.remove("Jabatan");
+
+                                Intent intent = new Intent(MainAdminActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -95,6 +118,12 @@ public class MainAdminActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void retrieveTampilAdmin() {
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
         Call<TampilAdminResponse> proses = ARD.ardAdmin("Bearer " + token);

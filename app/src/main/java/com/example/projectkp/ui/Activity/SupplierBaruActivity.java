@@ -75,11 +75,11 @@ public class SupplierBaruActivity extends AppCompatActivity {
                 if(nama_supplier.trim().isEmpty()){
                     etNamaSupplier.setError("Nama Supplier tidak boleh Kosong");
                 }
-                else if(no_hp.trim().isEmpty()){
-                    etNoHP_supplier.setError("No Handphone tidak boleh Kosong");
-                }
-                else if(alamat.trim().isEmpty()){
+                 if(alamat.trim().isEmpty()){
                     etAlamat_supplier.setError("Alamat tidak boleh Kosong");
+                }
+                 if(no_hp.trim().isEmpty()){
+                    etNoHP_supplier.setError("No Handphone tidak boleh Kosong");
                 }
                 else{
                     tambahSupplier();

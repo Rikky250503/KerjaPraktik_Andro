@@ -1,6 +1,7 @@
 package com.example.projectkp.ui.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.example.projectkp.response.DataBarang;
 
 import com.example.projectkp.response.TampilBarangResponse;
 import com.example.projectkp.response.UpdateResponse;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -83,32 +85,62 @@ public class StokGudangFragment extends Fragment {
         ivLogoutGudang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("Token");
-                editor.remove("Jabatan");
-                editor.apply();
-                Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                new MaterialAlertDialogBuilder(getActivity())
+                        .setTitle("Apakah Anda yakin ingin Logout")
+                        .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Keluar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.remove("Token");
+                                editor.remove("Jabatan");
+                                editor.remove("id_user");
+                                editor.apply();
+                                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
             }
         });
         ivDeleteAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 status = "nonaktif";
-                Log.d("Rikky", "status " + status);
 
-                UpdateAcc();
+                new MaterialAlertDialogBuilder(getActivity())
+                        .setTitle("Apakah Anda yakin ingin menghapus Account?")
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("Token");
-                editor.remove("Jabatan");
-                editor.remove("id_user");
-                editor.apply();
+                        .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                                UpdateAcc();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.remove("Token");
+                                editor.remove("Jabatan");
+                                editor.remove("id_user");
+                                editor.apply();
+
+                                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
             }
         });
     }
@@ -123,7 +155,7 @@ public class StokGudangFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     if (isAdded()) {
                         Context context = requireContext();
-                        Toast.makeText(context, "Berhasil Logout", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Berhasil Menghapus Account", Toast.LENGTH_SHORT).show();
                     } else {
                         // Handle the case when the fragment is not attached
                         Log.w("StokGudangFragment", "Fragment not attached to context");
