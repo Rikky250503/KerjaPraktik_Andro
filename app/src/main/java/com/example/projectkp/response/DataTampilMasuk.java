@@ -12,7 +12,7 @@ public class DataTampilMasuk {
     @SerializedName("kuantitas")
     private String kuantitas;
     @SerializedName("harga_satuan")
-    private String harga_satuan;
+    private Double harga_satuan;
 
     @SerializedName("id_barang_masuk")
      private String id_barang_masuk;
@@ -39,7 +39,7 @@ public class DataTampilMasuk {
         return kuantitas;
     }
 
-    public String getHarga_satuan() {
+    public Double getHarga_satuan() {
         return harga_satuan;
     }
 

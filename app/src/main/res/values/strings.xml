@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Sinar Matahari Prima</string>
+    <string-array name="select_jabatan">
+        <item>Penjualan</item>
+        <item>Gudang</item>
+        <item>Pimpinan</item>
+    </string-array>
     <string name="title_pesanan">Pesanan</string>
     <string name="title_pemesananSupplier">Pemesanan Supplier</string>
     <string name="title_pemasukkan">Pemasukkan</string>

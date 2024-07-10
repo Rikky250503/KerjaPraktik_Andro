@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectkp.NumberFormatter;
 import com.example.projectkp.R;
 import com.example.projectkp.response.DataTampilKeluar;
 import com.example.projectkp.response.DataTampilMasuk;
@@ -36,9 +37,11 @@ public class DetailBarangMasukAdapter extends RecyclerView.Adapter<DetailBarangM
     @Override
     public void onBindViewHolder(@NonNull DetailBarangMasukAdapter.VHDetailBarangMasuk holder, int position) {
         DataTampilMasuk MN = ListDetailBM.get(position);
+        Double hargasatuan = MN.getHarga_satuan();
+        String HargaSatuan = NumberFormatter.formatNumber(hargasatuan);
         holder.tvNamaBarang.setText(MN.getNama_barang());
         holder.tvKuantitas.setText(String.valueOf(MN.getKuantitas()));
-        holder.tvHargaSatuan.setText(String.valueOf(MN.getHarga_satuan()));
+        holder.tvHargaSatuan.setText(HargaSatuan);
     }
 
     @Override

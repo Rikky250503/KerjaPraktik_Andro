@@ -13,15 +13,18 @@ import com.example.projectkp.R;
 import com.example.projectkp.response.DataBarang;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BarangGudangAdapter extends RecyclerView.Adapter<BarangGudangAdapter.VHbarang> {
     private Context ctx;
-    private List<DataBarang> ListBarang;
+    private List<DataBarang> ListBarang; // Daftar asli
+    private List<DataBarang> ListBarangFilter; // Daftar yang difilter
 
     public BarangGudangAdapter(Context ctx, List<DataBarang> listBarang){
         this.ctx = ctx;
         this.ListBarang = listBarang;
+        ListBarangFilter = new ArrayList<>(listBarang);
     }
 
     @NonNull
@@ -33,7 +36,7 @@ public class BarangGudangAdapter extends RecyclerView.Adapter<BarangGudangAdapte
 
     @Override
     public void onBindViewHolder(@NonNull BarangGudangAdapter.VHbarang holder, int position) {
-        DataBarang MN = ListBarang.get(position);
+        DataBarang MN = ListBarangFilter.get(position);
         holder.tvidBarang.setText(MN.getId_barang());
         holder.tvNamaBarang.setText(MN.getNama_barang());
         holder.tvJumlah.setText(String.valueOf(MN.getKuantitas()));
@@ -41,16 +44,34 @@ public class BarangGudangAdapter extends RecyclerView.Adapter<BarangGudangAdapte
 
     @Override
     public int getItemCount() {
-        return ListBarang.size();
+        return ListBarangFilter.size();
     }
 
     public void setData(List<DataBarang> newData){
         ListBarang.clear();
+        ListBarangFilter.clear();
         if (newData != null){
             ListBarang.addAll(newData);
+            ListBarangFilter.addAll(newData);
         }
         notifyDataSetChanged();
     }
+    public void filter(String text) {
+        ListBarangFilter.clear();
+        if (text.isEmpty()) {
+            ListBarangFilter.addAll(ListBarang);
+        } else {
+            text = text.toLowerCase();
+            for (DataBarang item : ListBarang) {
+                // Cek apakah nama barang dimulai dengan teks yang dimasukkan
+                if (item.getNama_barang().toLowerCase().startsWith(text)) {
+                    ListBarangFilter.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public static class VHbarang extends RecyclerView.ViewHolder{
 
         TextView tvidBarang,tvNamaBarang ,tvJumlah;
@@ -60,8 +81,5 @@ public class BarangGudangAdapter extends RecyclerView.Adapter<BarangGudangAdapte
             tvNamaBarang = itemView.findViewById(R.id.tv_nama_barang_gudang);
             tvJumlah = itemView.findViewById(R.id.jumlah_stok_gudang);
         }
-    }
-
-    public class ViewHolder {
     }
 }

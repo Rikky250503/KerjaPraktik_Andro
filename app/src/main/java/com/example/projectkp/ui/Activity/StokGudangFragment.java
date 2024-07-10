@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,20 +43,15 @@ import retrofit2.Response;
 
 public class StokGudangFragment extends Fragment {
 
-    RecyclerView rv_stok_gudang;
+    private RecyclerView rv_stok_gudang;
 
     private String token,id_user,status;
     private ProgressBar pb_stokGudang;
     private ImageView ivLogoutGudang,ivDeleteAcc ;
+    private SearchView searchView;
     private BarangGudangAdapter adBarang;
     private RecyclerView.LayoutManager lmBarang;
     private List<DataBarang> ListBarang = new ArrayList<>();
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -65,6 +61,7 @@ public class StokGudangFragment extends Fragment {
         ivLogoutGudang = view.findViewById(R.id.iv_logout_stok_barang);
         ivDeleteAcc = view.findViewById(R.id.iv_delete_sg);
         pb_stokGudang = view.findViewById(R.id.pb_stok_gudang);
+        searchView = view.findViewById(R.id.search_barang_gudang);
 
         lmBarang = new LinearLayoutManager(requireContext());
         rv_stok_gudang.setLayoutManager(lmBarang);
@@ -81,6 +78,19 @@ public class StokGudangFragment extends Fragment {
 
 
         retrieveBarang();
+        // Setup SearchView listener
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adBarang.filter(newText); // Filter adapter based on search text
+                return true;
+            }
+        });
 
         ivLogoutGudang.setOnClickListener(new View.OnClickListener() {
             @Override

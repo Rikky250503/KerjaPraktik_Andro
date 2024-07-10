@@ -6,9 +6,13 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,10 +34,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private EditText etUserBaru,etPassBaru, etJabatanBaru, etNamaBaru;
+    private EditText etUserBaru,etPassBaru , etNamaBaru;
     private  String userBaru,passBaru,namaBaru, jabatanBaru;
+
     Button btn_register;
     ImageView iv_back;
 
@@ -50,7 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
         etUserBaru =findViewById(R.id.et_user_baru);
         etPassBaru = findViewById(R.id.et_pass_baru);
         etNamaBaru = findViewById(R.id.et_nama_baru);
-        etJabatanBaru = findViewById(R.id.et_jabatan_baru);
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_select_jabatan);
+        spinner.setOnItemSelectedListener(this);
+
+        //etJabatanBaru = findViewById(R.id.et_jabatan_baru);
+
         iv_back = findViewById(R.id.iv_back_register);
 
         btn_register = findViewById(R.id.btn_register);
@@ -60,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                 userBaru = etUserBaru.getText().toString();
                 passBaru = etPassBaru.getText().toString();
                 namaBaru = etNamaBaru.getText().toString();
-                jabatanBaru = etJabatanBaru.getText().toString();
+                //jabatanBaru = etJabatanBaru.getText().toString();
 
                 if(userBaru.trim().isEmpty())
                 {
@@ -73,10 +83,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if(namaBaru.trim().isEmpty())
                 {
                     etNamaBaru.setError("Nama harus di isi");
-                }
-                if(jabatanBaru.trim().isEmpty())
-                {
-                    etJabatanBaru.setError("Jabatan  harus di isi");
                 }
                 else {
                     register();
@@ -93,6 +99,14 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.select_jabatan,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -102,8 +116,27 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        jabatanBaru = parent.getItemAtPosition(pos).toString();
+        if (jabatanBaru.equalsIgnoreCase("Penjualan"))
+        {
+            jabatanBaru = "J";
+        } else if (jabatanBaru.equalsIgnoreCase("Gudang")) {
+            jabatanBaru = "G";
+        } else if (jabatanBaru.equalsIgnoreCase("Pimpinan")) {
+            jabatanBaru = "P";
+        }
+        Log.d("RegisterActivity", "jabatanBaru selected: " + jabatanBaru);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback.
+    }
+
     private void register(){
         APIRequestData ARD = RetroServer.konekRetrofit().create(APIRequestData.class);
+
         Call<RegisterResponse> proses = ARD.ardRegister(userBaru, passBaru, namaBaru, jabatanBaru);
 
         proses.enqueue(new Callback<RegisterResponse>() {

@@ -82,6 +82,7 @@ public interface APIRequestData {
             @Field("id_customer") String id_customer,
             @Header("Authorization") String token
     );
+
     @FormUrlEncoded
     @PUT("api/api/barangkeluar/update/{id}")
     Call<UpdateDataTGResponse>ardUpdateBK(
@@ -89,6 +90,7 @@ public interface APIRequestData {
             @Field("id_status") String id_status,
             @Header("Authorization") String token
     );
+
     //API DETAIL BARANG KELUAR
     @FormUrlEncoded
     @POST("api/api/detailbarangkeluar/daftar")
@@ -105,7 +107,6 @@ public interface APIRequestData {
             @Header("Authorization") String token
     );
 
-
     // API Barang Masuk
     @GET("api/api/barangmasuk/list")
     Call<TampilMasukResponse> ardMasuk(
@@ -118,6 +119,8 @@ public interface APIRequestData {
             @Field("id_supplier") String id_supplier,
             @Header("Authorization") String token
     );
+
+    //API DETAIL BARANG MASUK
     @FormUrlEncoded
     @POST("api/api/detailbarangmasuk/daftar")
     Call<TambahDBMResponse> ardTambahBMDetail(
