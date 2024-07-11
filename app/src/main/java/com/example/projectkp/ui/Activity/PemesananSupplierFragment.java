@@ -36,9 +36,9 @@ import retrofit2.Response;
 
 public class PemesananSupplierFragment extends Fragment {
 
-    ImageView ivTambahPemesananSupplier;
-    RecyclerView rv_PemesananSupplier;
-    String token;
+    private ImageView ivTambahPemesananSupplier;
+    private RecyclerView rv_PemesananSupplier;
+    private String token;
     private ProgressBar pbRestock;
     private PemesananSupplierAdapter adPemesananSupplier;
     private RecyclerView.LayoutManager lmPemesananSupplier;

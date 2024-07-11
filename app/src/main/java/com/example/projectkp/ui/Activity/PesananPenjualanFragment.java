@@ -1,6 +1,7 @@
 package com.example.projectkp.ui.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class PesananPenjualanFragment extends Fragment {
     private  RecyclerView rv_pesanan_penjualan;
     private String token;
     private ProgressBar pbPesanan;
+    private ImageView ivlaporan;
     private PemesananPenjualanAdapter adBarangKeluar;
     private RecyclerView.LayoutManager lmBarang;
     private List<DataTampilKeluar> ListBarangKeluar = new ArrayList<>();
@@ -57,6 +60,8 @@ public class PesananPenjualanFragment extends Fragment {
         rv_pesanan_penjualan= view.findViewById(R.id.rv_pesanan);
 
         pbPesanan = view.findViewById(R.id.pb_pesanan);
+        ivlaporan = view.findViewById(R.id.iv_laporan);
+
 
         lmBarang = new LinearLayoutManager(requireContext());
         rv_pesanan_penjualan.setLayoutManager(lmBarang);
@@ -64,6 +69,14 @@ public class PesananPenjualanFragment extends Fragment {
         rv_pesanan_penjualan.setAdapter(adBarangKeluar);
 
         retrieveBarangKeluar();
+
+        ivlaporan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(),LaporanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void retrieveBarangKeluar(){

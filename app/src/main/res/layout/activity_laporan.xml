@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Activity.LaporanActivity">
+
+    <ImageView
+        android:id="@+id/iv_gmbr"
+        android:layout_width="190dp"
+        android:layout_height="80dp"
+        android:src="@drawable/img_4"
+        android:layout_marginTop="80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_back_laporan"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_judul_laporan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Laporan Stok Barang"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_gmbr"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_bln_laporan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Periode : "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="125dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_judul_laporan"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_isi_bln_laporan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Juni 2024"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_judul_laporan"
+        app:layout_constraintStart_toEndOf="@id/tv_bln_laporan"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/box_laporan"
+        android:layout_width="match_parent"
+        android:layout_height="900dp"
+        android:background="@drawable/rounded_corners"
+        android:elevation="500dp"
+        android:backgroundTint="#AEC8D7"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_bln_laporan"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_jdl_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ITEM"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="80dp"
+            app:layout_constraintTop_toTopOf="@id/box_laporan"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_jdl_jumlah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JUMLAH"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="80dp"
+            app:layout_constraintTop_toTopOf="@id/box_laporan"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_garis_laporan"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/garis"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_jdl_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_laporan"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:listitem="@layout/list_item_laporan"
+            tools:itemCount="10"
+            app:layout_constraintTop_toTopOf="@id/iv_garis_laporan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/pb_pesanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_garis_laporan"
+            app:layout_constraintBottom_toBottomOf="@id/box_laporan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
