@@ -59,7 +59,7 @@ import retrofit2.Response;
 public class LaporanActivity extends AppCompatActivity {
 
     final static int REQUEST_CODE = 1232;
-    private String currentMonthYear;
+    private String currentMonthYear,fileName;
     private ProgressBar pbLaporan;
     private RecyclerView rvLaporan;
     private LaporanAdapter adLaporan;
@@ -162,8 +162,9 @@ public class LaporanActivity extends AppCompatActivity {
             return;
         }
 
+        fileName = "Laporan Stok Barang " + currentMonthYear + ".pdf";
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File file = new File(path, "LaporanStokBarang.pdf");
+        File file = new File(path,fileName);
 
         try {
             // Initialize PDF writer
