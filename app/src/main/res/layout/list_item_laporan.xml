@@ -13,8 +13,7 @@
         android:textStyle="bold"
         android:textSize="21sp"
         android:textColor="@color/black"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_margin="25dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -28,9 +27,11 @@
         android:textColor="@color/black"
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toStartOf="@id/tv_space5"
         app:layout_constraintStart_toStartOf="@id/tv_space4"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
     <TextView
