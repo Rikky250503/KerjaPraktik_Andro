@@ -59,7 +59,8 @@ import retrofit2.Response;
 public class LaporanActivity extends AppCompatActivity {
 
     final static int REQUEST_CODE = 1232;
-    private String currentMonthYear,fileName;
+    private String currentMonthYear,fileName,baseFileName;
+    private int index = 1;
     private ProgressBar pbLaporan;
     private RecyclerView rvLaporan;
     private LaporanAdapter adLaporan;
@@ -70,6 +71,7 @@ public class LaporanActivity extends AppCompatActivity {
     private String token;
     private Button btnPrint;
     private Context context;
+
 
 
 
@@ -162,9 +164,18 @@ public class LaporanActivity extends AppCompatActivity {
             return;
         }
 
-        fileName = "Laporan Stok Barang " + currentMonthYear + ".pdf";
+        baseFileName = "Laporan Stok Barang " + currentMonthYear;
+        fileName = baseFileName + ".pdf";
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File file = new File(path,fileName);
+
+        // Check if file with the same name already exists
+
+        while (file.exists()) {
+            fileName = baseFileName + " (" + index + ").pdf";
+            file = new File(path, fileName);
+            index++;
+        }
 
         try {
             // Initialize PDF writer
